@@ -3,7 +3,7 @@ services:
  vite_docker:
    image: node:lts-alpine
    container_name: bora_pagar_front
-   entrypoint: /bin/sh -c "corepack enable && yarn set version stable && sh"
+   entrypoint: /bin/sh -c "corepack enable && yarn set version stable && yarn install && yarn dev"
    ports:
      - 8000:8000
    working_dir: /srv/app
