@@ -3,25 +3,26 @@
 Front-end do sistema "Bora Pagar".
 
 # Rodando o projeto no modo de desenvolvimento
-- Instale o Node.js na versão 20 LTS.
-- Na pasta do projeto frontend, configure o yarn e instale as dependências usando os comandos
+
+Construa a imagem docker do sistema utilizando o comando:
 
 ```bash
-corepack enable
-yarn set version stable
-yarn install
+docker compose up --build --no-recreate -d
 ```
-- Inicie o servidor com `yarn dev`
 
-# Rodando em um container Docker
-Construindo a imagem docker:
+Este comando só precisa ser executado ao criar a imagem pela primeira vez ou ao fazer mudanças no `docker-compose.yml`.
+
+Para subir o container nas próximas vezes, só usar o comando:
+
 ```bash
-docker build . -t bora-pagar-front
+docker compose up -d
 ```
 
-Rodando o container:
+O nome do container é `bora_pagar_front`. Acesse o terminal do container com o comando:
+
 ```bash
-docker run -d -p 8080:80 bora-pagar-front
+docker exec -it bora_pagar_front sh
 ```
 
-A aplicação estará rodando em `http://localhost:8080`
+Dentro do container, instale as dependências com o comando `yarn install` e rode o servidor de desenvolvimento com o comando `yarn dev`.
+A aplicação estará rodando em `http://localhost:8000`.
