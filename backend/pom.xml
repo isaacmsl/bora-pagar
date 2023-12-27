@@ -12,7 +12,7 @@
 	<artifactId>boraPagar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>boraPagar</name>
-	<description>A Web tool to support UFRN students in their matriculation process</description>
+	<description>A web tool to support UFRN students in their matriculation process</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>

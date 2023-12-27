@@ -1,4 +1,10 @@
-FROM openjdk:21
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM eclipse-temurin:21
+
+WORKDIR /app
+
+COPY .mvn .mvn
+COPY mvnw .
+COPY pom.xml .
+COPY src src
+
+CMD ["./mvnw", "spring-boot:run"]

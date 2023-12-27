@@ -1,2 +1,11 @@
 server:
   port: 8080
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  data:
+      mongodb:
+        user: root
+        password: password
+        uri: mongodb://mongodb:27017/
+        database: bora-pagar
