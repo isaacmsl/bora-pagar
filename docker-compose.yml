@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    expose:
+      - 27017
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    volumes:
+     - type: bind
+       source: ./backend
+       target: /app
+    depends_on:
+      - mongodb
