@@ -1,0 +1,5 @@
+spring:
+    data:
+        mongodb:
+            uri: mongodb+srv://bravo:9TZchMenuoTphDkm@cluster0.r3uzzvx.mongodb.net/
+            database: development
