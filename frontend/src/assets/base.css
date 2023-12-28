@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --app-strong-blue: #2591D7;
+  --app-strong-blue: #2591d7;
   --app-strong-blue-hover: #1a6ca2;
-  --app-dark-blue: #1D2030;
-  --app-blue-soft: #282C42;
+  --app-dark-blue: #1d2030;
+  --app-blue-soft: #282c42;
   --app-white: #ffffff;
 
   --default-background: var(--app-dark-blue);
@@ -14,7 +14,6 @@
 
   font-size: 10px;
 }
-
 
 *,
 *::before,
