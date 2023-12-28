@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { VList } from 'vuetify/components/VList'
-import { VPagination } from 'vuetify/components/VPagination'
-import SubjectListItem from '@/components/SubjectListItem.vue'
-import { ref } from 'vue'
-const page = ref(1)
-const qntSubjectsOnPage = 4
-const qntVisiblePages = 7
+import { VList } from 'vuetify/components/VList';
+import { VPagination } from 'vuetify/components/VPagination';
+import SubjectListItem from '@/components/SubjectListItem.vue';
+import { ref } from 'vue';
+const page = ref(1);
+const qntSubjectsOnPage = 4;
+const qntVisiblePages = 7;
 
 const subjects = [
   {
@@ -53,9 +53,9 @@ const subjects = [
     name: 'Introdução a Lógica',
     department: 'Departamento de Informática e Matemática Aplicada'
   }
-]
+];
 
-const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage)
+const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
 </script>
 
 <template>

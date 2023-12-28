@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { VListItem } from 'vuetify/components/VList'
+import { VListItem } from 'vuetify/components/VList';
 defineProps<{
-  code: string
-  name: string
-  department: string
-}>()
+  code: string;
+  name: string;
+  department: string;
+}>();
 </script>
 
 <template>
