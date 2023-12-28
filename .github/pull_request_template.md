@@ -1,11 +1,10 @@
 **Por favor, informe se a PR segue os requisitos obrigatórios:**
 <!--- Exemplo checkbox marcado: - [x] -->
 
-
 - [ ] Mesmo padrão de código do projeto
 - [ ] Arquivos alterados/adicionados seguem o padrão _Camel Case_
 - [ ] A PR está relacionada a uma ou mais issue
-- [ ] Relacionei todas as issues na seção de "Issues" da PR 
+- [ ] Relacionei todas as issues na seção de "Development" da PR
 - [ ] O código foi revisado uma vez ou mais
 
 **Motivação para a criação da PR**
