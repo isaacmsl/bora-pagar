@@ -86,7 +86,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
 <template>
   <main class="container">
     <header>
-      <h1>Listar disciplinas {{ page }}</h1>
+      <h1>Listar disciplinas</h1>
       <div>
         <GoogleLogin
           class="googleLogin"
@@ -112,12 +112,14 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
         :department="subject.department"
         :name="subject.name"
       />
+      <div v-if="!loggedIn" class="hiddenList"/>
     </v-list>
     <v-pagination
       :length="qntPages"
       v-model="page"
       color="primary"
       :total-visible="qntVisiblePages"
+      :disabled="!loggedIn"
     ></v-pagination>
   </main>
 </template>
@@ -160,7 +162,6 @@ header {
   color: white;
 }
 
-
 .userProfile img {
   border: .5rem solid white;
   border-radius: 50%;
@@ -188,8 +189,15 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  padding: 2.4rem 1.2rem;
   overflow-y: auto;
+  position: relative;
+}
+
+.list .hiddenList {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to top, rgb(0, 0, 0), transparent);
 }
 
 .pagination .v-btn {
