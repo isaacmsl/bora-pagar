@@ -7,6 +7,7 @@ const page = ref(1);
 const qntSubjectsOnPage = 4;
 const qntVisiblePages = 7;
 
+
 const subjects = [
   {
     code: 'DIM0004',
@@ -56,6 +57,7 @@ const subjects = [
 ];
 
 const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
+
 </script>
 
 <template>
