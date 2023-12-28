@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import SubjectList from '../views/SubjectList.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import SubjectList from '../views/SubjectList.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +10,6 @@ const router = createRouter({
       component: SubjectList
     }
   ]
-})
+});
 
-export default router
+export default router;
