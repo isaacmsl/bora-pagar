@@ -1,7 +1,5 @@
 package ufrn.imd.boraPagar.subject;
 
-import java.time.LocalDate;
-
 import org.junit.After;
 import org.junit.Assert;
 
@@ -18,36 +16,18 @@ public class SubjectTests {
 
     @Autowired
     SubjectRepository repository;
-    SubjectModel subject;
-    SubjectModel subject2;
-    SubjectModel subject3;
+    SubjectModel subjectA, subjectB;
 
-    @BeforeClass
+    @Before
     public void setUp() throws Exception {        
-        subject = repository.save(
+        subjectA = repository.save(
             new SubjectModel(
                 1,
-                "tipo do componente",
+                "Disciplina",
                 "DIM1234",
                 "Gradução",
-                "FMC 1",          //
-                "Dimap",         //
-                60,             //
-                null,          //equivalence
-                null,         //requirements
-                null,        //corequirements
-                null
-            )
-        );
-
-        subject2 = repository.save(
-            new SubjectModel(
-                2,
-                "tipo do componente",
-                "DIM1235",
-                "Gradução",
-                "FMC 2",
-                "Dimap",
+                "FMC 1",
+                "DIMAp",
                 60,
                 null,
                 null,
@@ -56,81 +36,85 @@ public class SubjectTests {
             )
         );
 
+        subjectB = repository.save(
+            new SubjectModel(
+                2,
+                "Disciplina",
+                "DIM1235",
+                "Gradução",
+                "FMC 2",
+                "DIMAp",
+                90,
+                null,
+                null,
+                null,
+                null
+            )
+        );
+
+
+        subjectA.getEquivalences().add(subjectB);
+        subjectA.getCoRequirements().add(subjectB);
+        subjectA.getRequirements().add(subjectB);
+        repository.save(subjectA);
     }
 
-    @AfterClass
+    @After
     public void deleteAll() throws Exception {
         repository.deleteAll();
     }
 
     @Test
     public void shouldFindById() {
-        Assert.assertEquals(true, repository.findById(subject.getId()).isPresent());
+        Assert.assertEquals(true, repository.findById(subjectA.getId()).isPresent());
+    }
+
+    @Test
+    public void shouldFindByComponentID() {
+        Assert.assertNotNull(repository.findByComponentID(subjectA.getComponentID()));
     }
 
     @Test
     public void shouldFindByName() {
-        Assert.assertNotNull(repository.findByName(subject.getName()));
+        Assert.assertNotNull(repository.findByName(subjectA.getName()));
     }
 
     @Test
     public void shouldFindByCode() {
-        Assert.assertNotNull(repository.findByCode(subject.getCode()));
+        Assert.assertNotNull(repository.findByCode(subjectA.getCode()));
     }
 
-    //does not make sense find one by hour or by department
     @Test
     public void shouldFindAllByHour() {
-        Assert.assertNotNull(repository.findAllByHour(subject.getHour()));
+        Assert.assertNotNull(repository.findAllByTotalHours(subjectA.getTotalHours()));
     }
     
     @Test
     public void shouldFindAllByDepartment() {
-        Assert.assertNotNull(repository.findAllByDepartment(subject.getDepartment()));
-    }
-
-    @After
-    public void insertSubjects() {
-        subject.getRequirements().add(subject2);
-        subject.getCorequirements().add(subject2);
-        subject.getEquivalence().add(subject2);
+        Assert.assertNotNull(repository.findAllByDepartment(subjectA.getDepartment()));
     }
 
     @Test
-    public void shouldFindAllByRequeriments() {
-        Assert.assertNotNull(repository.findAllByRequeriments(subject2.getName()));
+    public void shouldFindAllByRequirements() {
+        Assert.assertEquals(true, repository.findAllByRequirement(subjectB).contains(subjectA));
     }
 
     @Test
     public void shouldFindAllByCorequeriments() {
-        Assert.assertNotNull(repository.findAllByCorequeriments(subject2.getName()));
+        Assert.assertEquals(true, repository.findAllByCoRequirement(subjectB).contains(subjectA));
     }
 
     @Test
     public void shouldFindAllByEquivalence() {
-        Assert.assertNotNull(repository.findAllByEquivalence(subject2.getName()));
-    }
-
-    @After
-    public void deleteOneSubject() {
-        repository.deleteById(1);
+        Assert.assertEquals(true, repository.findAllByEquivalence(subjectB).contains(subjectA));
     }
 
     @Test
-    public void shouldBeEmptyFindById() {
-        Assert.assertNull(repository.findById(subject.getId()));
+    public void deleteById() {
+        repository.deleteById(subjectA.getId());
+        Assert.assertNull(repository.findById(subjectA.getId()));
     }
 
-    @Test
-    public void shouldBeEmptyFindByName() {
-        Assert.assertNull(repository.findByName(subject.getName()));
-    }
-
-    @Test
-    public void shouldBeEmptyFindByCode() {
-        Assert.assertNull(repository.findByCode(subject.getCode()));
-    }
-    
     @Test
     public void shouldBeEmpty() {
         repository.deleteAll();
