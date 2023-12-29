@@ -1,5 +1,7 @@
 package ufrn.imd.boraPagar.subject;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Assert;
 
@@ -19,7 +21,7 @@ public class SubjectTests {
     SubjectModel subjectA, subjectB;
 
     @Before
-    public void setUp() throws Exception {        
+    public void setUp() throws Exception {
         subjectA = repository.save(
             new SubjectModel(
                 1,
@@ -29,10 +31,10 @@ public class SubjectTests {
                 "FMC 1",
                 "DIMAp",
                 60,
-                null,
-                null,
-                null,
-                null
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
             )
         );
 
@@ -45,10 +47,10 @@ public class SubjectTests {
                 "FMC 2",
                 "DIMAp",
                 90,
-                null,
-                null,
-                null,
-                null
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
             )
         );
 
@@ -96,23 +98,23 @@ public class SubjectTests {
 
     @Test
     public void shouldFindAllByRequirements() {
-        Assert.assertEquals(true, repository.findAllByRequirement(subjectB).contains(subjectA));
+        Assert.assertEquals(true, repository.findAllByRequirements(subjectB).contains(subjectA));
     }
 
     @Test
     public void shouldFindAllByCorequeriments() {
-        Assert.assertEquals(true, repository.findAllByCoRequirement(subjectB).contains(subjectA));
+        Assert.assertEquals(true, repository.findAllByCoRequirements(subjectB).contains(subjectA));
     }
 
     @Test
     public void shouldFindAllByEquivalence() {
-        Assert.assertEquals(true, repository.findAllByEquivalence(subjectB).contains(subjectA));
+        Assert.assertEquals(true, repository.findAllByEquivalences(subjectB).contains(subjectA));
     }
 
     @Test
     public void deleteById() {
         repository.deleteById(subjectA.getId());
-        Assert.assertNull(repository.findById(subjectA.getId()));
+        Assert.assertFalse(repository.findById(subjectA.getId()).isPresent());
     }
 
     @Test
