@@ -29,4 +29,8 @@ public class SubjectModel extends AbstractModel {
     @OneToMany
     @JoinColumn(name="subject_id")
     List<SubjectModel> equivalences, requirements, coRequirements;
+
+    @OneToMany
+    @JoinColumn(name="subject_id")
+    List<String> courses;
 }
