@@ -88,12 +88,12 @@ public class SubjectTests {
 
     @Test
     public void shouldFindAllByHour() {
-        Assert.assertNotNull(repository.findAllByTotalHours(subjectA.getTotalHours()));
+        Assert.assertEquals(1, repository.findAllByTotalHours(subjectA.getTotalHours()).size());
     }
     
     @Test
     public void shouldFindAllByDepartment() {
-        Assert.assertNotNull(repository.findAllByDepartment(subjectA.getDepartment()));
+        Assert.assertEquals(2, repository.findAllByDepartment(subjectA.getDepartment()).size());
     }
 
     @Test
