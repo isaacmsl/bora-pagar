@@ -14,11 +14,13 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     // private LogRepository log;
 
     public List<M> findAll() {
-        return repository.findAll();
+        return repository.findAllActive();
     }
     
     public Optional<M> findById(String id) {
-        return repository.findById(id);
+        Optional<M> obj = repository.findById(id);
+
+        return obj.filter(M::getIsActive);
     }
 
     public synchronized M save(M model) throws Exception {
@@ -28,7 +30,8 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     }
 
     public void delete(M model) {
-        repository.delete(model);
+        model.setIsActive(false);
+        repository.save(model);
         // log.save(new LogModel("System", "has deleted a " + model.getClass().getSimpleName(), model.getId(), null, LocalDateTime.now()));
     }
 
