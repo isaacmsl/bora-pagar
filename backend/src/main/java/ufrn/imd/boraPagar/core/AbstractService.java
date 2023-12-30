@@ -18,9 +18,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     }
     
     public Optional<M> findById(String id) {
-        Optional<M> obj = repository.findById(id);
-
-        return obj.filter(M::getIsActive);
+        return repository.findById(id);
     }
 
     public synchronized M save(M model) throws Exception {
