@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
     RequestMethod.POST,
     RequestMethod.DELETE
 })
-public class AbstractController <M extends AbstractModel, S extends AbstractService> {
+public class AbstractController <M extends AbstractModel, S extends AbstractService<M, ?>> {
     @Autowired
     protected S service;
 
