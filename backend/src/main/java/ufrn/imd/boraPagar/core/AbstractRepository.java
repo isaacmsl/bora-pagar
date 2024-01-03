@@ -8,6 +8,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface AbstractRepository <M extends AbstractModel> extends MongoRepository<M, String> {
-    @Query("{ 'isActivity' : true }")
+    @Query("{ 'isActive' : true }")
     List<M> findAllActive();
 }
