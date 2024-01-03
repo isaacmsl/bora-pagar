@@ -3,10 +3,10 @@ const { parse } = require("csv-parse");
 const { MongoClient } = require("mongodb");
 
 const uri = "mongodb+srv://bravo:9TZchMenuoTphDkm@cluster0.r3uzzvx.mongodb.net/";
-const dbName = "development";
+const dbName = "production";
 const filesToInsert = [
     "./inPersonSubjects.csv",
-    "./semiInPersonSubjects.csv",
+    "./hibridSubjects.csv",
     "./onlineSubjects.csv"
 ]
 
@@ -44,7 +44,7 @@ const getSubjectFieldFrom = {
 
 const getModalityTypeFrom = {
     "Presencial": "IN_PERSON",
-    "Semi-Presencial": "SEMI_IN_PERSON",
+    "Semi-Presencial": "HIBRID",
     "A Distância": "ONLINE"
 };
 
