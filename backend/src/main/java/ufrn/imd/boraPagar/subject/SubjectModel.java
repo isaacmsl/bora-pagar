@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
@@ -26,10 +27,14 @@ public class SubjectModel extends AbstractModel {
     private String componentType, code, level, name, department;
     private int totalHours;
 
+    private String equivalencesTxt, requirementsTxt, coRequirementsTxt, coursesTxt;
+
+    @Column(nullable = true)
     @OneToMany
     @JoinColumn(name="subject_id")
     List<SubjectModel> equivalences, requirements, coRequirements;
 
+    @Column(nullable = true)
     @OneToMany
     @JoinColumn(name="subject_id")
     List<String> courses;
