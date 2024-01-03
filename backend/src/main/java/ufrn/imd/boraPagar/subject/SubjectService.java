@@ -26,6 +26,10 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     public SubjectModel findByCode(String code) {
         return subjectRepository.findByCode(code);
     }
+    
+    public List<SubjectModel> findAllByModality(SubjectModalityType modality) {
+        return subjectRepository.findAllByModality(modality);
+    }
 
     public List<SubjectModel> findAllByTotalHours(int totalHours) {
         return subjectRepository.findAllByTotalHours(totalHours);
