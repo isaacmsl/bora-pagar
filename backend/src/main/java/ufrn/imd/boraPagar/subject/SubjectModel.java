@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -31,10 +32,14 @@ public class SubjectModel extends AbstractModel {
     @Enumerated(EnumType.STRING)
     private SubjectModalityType modality;
 
+    private String equivalencesTxt, requirementsTxt, coRequirementsTxt, coursesTxt;
+
+    @Column(nullable = true)
     @OneToMany
     @JoinColumn(name="subject_id")
     List<SubjectModel> equivalences, requirements, coRequirements;
 
+    @Column(nullable = true)
     @OneToMany
     @JoinColumn(name="subject_id")
     List<String> courses;
