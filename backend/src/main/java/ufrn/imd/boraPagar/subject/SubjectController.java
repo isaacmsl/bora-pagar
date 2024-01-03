@@ -28,6 +28,11 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return ResponseEntity.ok().body(service.findByCode(code));
     }
 
+    @RequestMapping(method = RequestMethod.GET, params = {"modality"})
+    public ResponseEntity<List<SubjectModel>> findAllByModality(@RequestParam SubjectModalityType modality) {
+        return ResponseEntity.ok().body(service.findAllByModality(modality));
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = {"totalHours"})
     public ResponseEntity<List<SubjectModel>> findAllByTotalHours(@RequestParam int totalHours) {
         return ResponseEntity.ok().body(service.findAllByTotalHours(totalHours));

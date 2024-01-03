@@ -31,6 +31,7 @@ public class SubjectTests {
                 "FMC 1",
                 "DIMAp",
                 60,
+                SubjectModalityType.IN_PERSON,
                 "( DIM0001 )",
                 "( DIM0001 ) OU ( DIM0002 )",
                 "( DIM0001 ) OU ( DIM0002 )",
@@ -51,6 +52,7 @@ public class SubjectTests {
                 "FMC 2",
                 "DIMAp",
                 90,
+                SubjectModalityType.IN_PERSON,
                 "( DIM0001 )",
                 "( DIM0001 ) OU ( DIM0002 )",
                 "( DIM0001 ) OU ( DIM0002 )",
@@ -72,6 +74,11 @@ public class SubjectTests {
     @After
     public void deleteAll() throws Exception {
         repository.deleteAll();
+    }
+
+    @Test
+    public void shouldFindAllByModality() {
+        Assert.assertEquals(2, repository.findAllByModality(subjectA.getModality()).size());
     }
 
     @Test
