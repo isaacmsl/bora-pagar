@@ -31,6 +31,7 @@ public class SubjectTests {
                 "FMC 1",
                 "DIMAp",
                 60,
+                SubjectModalityType.IN_PERSON,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -47,6 +48,7 @@ public class SubjectTests {
                 "FMC 2",
                 "DIMAp",
                 90,
+                SubjectModalityType.IN_PERSON,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -64,6 +66,11 @@ public class SubjectTests {
     @After
     public void deleteAll() throws Exception {
         repository.deleteAll();
+    }
+
+    @Test
+    public void shouldFindAllByModality() {
+        Assert.assertEquals(2, repository.findAllByModality(subjectA.getModality()).size());
     }
 
     @Test
