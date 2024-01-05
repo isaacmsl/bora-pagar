@@ -34,10 +34,8 @@ const users : AppUser[] = [
       <div class="pageInfo">
         <h1>Buscar amigo</h1>
         <v-text-field bg-color="#202333" density="comfortable" variant="solo-filled">
-          <template v-slot:append>
-            <button class="searchButton">
-              <v-icon icon="mdi-magnify" size="30"/>
-            </button>
+          <template v-slot:append-inner>
+            <v-icon icon="mdi-magnify" size="30"/>
           </template>
         </v-text-field>
       </div>
@@ -53,7 +51,9 @@ const users : AppUser[] = [
 
 <style scoped>
 .container {
-  padding: 1rem 4rem;
+  padding: 1rem 0;
+  width: 80%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -76,10 +76,12 @@ const users : AppUser[] = [
   list-style-type: none;
   min-height: 70vh;
   background-color: #202333;
+  /*background-color: #151721;*/
+
   border: 1px solid #363C40;
   border-radius: 0.5rem;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-auto-rows: 10rem;
   padding: 3rem;
   gap: 3rem;
