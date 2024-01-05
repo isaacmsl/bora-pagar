@@ -26,4 +26,8 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public UserModel findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public List<UserModel> findAllByUsername(String partialUsername) {
+        return userRepository.findAllByUsername(partialUsername);
+    }
 }
