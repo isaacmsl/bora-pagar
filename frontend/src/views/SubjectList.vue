@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { VIcon } from 'vuetify/components';
 import { VList } from 'vuetify/components/VList';
 import { VPagination } from 'vuetify/components/VPagination';
 import SubjectListItem from '@/components/SubjectListItem.vue';
 import { ref } from 'vue';
 import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login';
 import type { GoogleUserInfo } from '../types/GoogleUserInfo';
-import type { Ref } from 'vue';
+import UserProfile from '@/components/UserProfile.vue';
 
 const page = ref(1);
 const qntSubjectsOnPage = 4;
 const qntVisiblePages = 7;
 
 const loggedIn = ref(false);
-const user : Ref<GoogleUserInfo | undefined> = ref();
+const user = ref<GoogleUserInfo>();
 
 function normalizeGivenName(name : String) {
   return name.charAt(0) + name.slice(1).toLowerCase();
@@ -93,15 +92,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
           v-if="!loggedIn"
           :callback="googleLoginCallback"
         />
-        <nav class="userProfile" v-if="loggedIn">
-          <section>
-            <h2>{{ user?.given_name }}</h2>
-            <button @click="logout">
-              <v-icon icon="mdi-logout"/> Sair
-            </button>
-          </section>
-          <img :src="user?.picture" width="80px"/>
-        </nav>
+        <UserProfile v-if="loggedIn" :user="user" @onLogoutClick="logout"/>
       </div>
     </header>
     <v-list class="list">
@@ -130,41 +121,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.userProfile {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.userProfile h2 {
-  font-size: 3rem;
-}
-
-.userProfile section {
-  display: grid;
-  place-items: end;
-  gap: .4rem;
-}
-
-.userProfile button {
-  font-weight: bold;
-  color: var(--app-strong-blue);
-  background-color: var(--app-blue-soft);
-  padding: 1rem;
-  font-size: 1.6rem;
-  border-radius: 1rem;
-}
-
-.userProfile button:hover {
-  background-color: var(--app-strong-blue);
-  color: white;
-}
-
-.userProfile img {
-  border: .5rem solid white;
-  border-radius: 50%;
 }
 
 .container {
