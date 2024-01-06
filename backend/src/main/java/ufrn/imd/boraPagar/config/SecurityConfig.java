@@ -3,6 +3,7 @@ package ufrn.imd.boraPagar.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -25,6 +26,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
+                    .requestMatchers(HttpMethod.GET, "/subjects").anonymous()
+                    .requestMatchers(HttpMethod.GET, "/subjects/*").anonymous()
                     .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
