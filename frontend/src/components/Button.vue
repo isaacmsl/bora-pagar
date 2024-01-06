@@ -1,16 +1,11 @@
 <script setup lang="ts">
-
-function foo(){
-    alert("bar");
-}
-
 defineProps<{
   name: string;
 }>();
 </script>
 
 <template>
-  <button @click="foo">{{ name }}</button>
+  <button>{{ name }}</button>
 </template>
 
 <style scoped>
