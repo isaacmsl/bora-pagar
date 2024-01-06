@@ -56,7 +56,7 @@ public class UserTests {
 
     @Test
     public void shouldFindAllByUsername() {
-        Assert.assertFalse(repository.findAllByUsername("isaac").isEmpty());
+        Assert.assertFalse(repository.findAllByUsername("IsAaC").isEmpty());
     }
 
     @Test
