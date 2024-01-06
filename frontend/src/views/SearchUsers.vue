@@ -84,7 +84,7 @@ const users : AppUser[] = [
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-auto-rows: 10rem;
   padding: 3rem;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .searchButton {

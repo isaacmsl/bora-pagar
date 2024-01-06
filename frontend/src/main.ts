@@ -8,7 +8,7 @@ import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import vue3GoogleLogin from 'vue3-google-login';
 
-const GOOGLE_LOGIN_CLIENT_ID = '384114633752-bdes1tkaej8ah8mlps8ungf18k1976ls.apps.googleusercontent.com';
+const GOOGLE_LOGIN_CLIENT_ID = '384114633752-8jn7olobqn2e44sj7mdlahib0r70s5cv.apps.googleusercontent.com';
 
 const app = createApp(App);
 const vuetify = createVuetify({

@@ -55,7 +55,7 @@ defineProps<{
   margin-left: auto;
   border: 2px solid #2591D7;
   border-radius: 0.5rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
   color: #2591D7;
@@ -64,7 +64,7 @@ defineProps<{
 
 .ghostButton:hover {
   background-color: #2591D7;
-  color: #1D2030;
+  color: white;
 }
 
 </style>
