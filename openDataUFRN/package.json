@@ -1,0 +1,17 @@
+{
+  "name": "dadosabertos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.3",
+    "csv": "^6.3.6",
+    "mongodb": "^6.3.0"
+  }
+}
