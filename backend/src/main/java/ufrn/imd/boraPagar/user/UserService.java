@@ -1,5 +1,6 @@
 package ufrn.imd.boraPagar.user;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,9 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
     public UserModel findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<UserModel> findAllByUsername(String partialUsername) {
+        return userRepository.findAllByUsername(partialUsername);
     }
 }

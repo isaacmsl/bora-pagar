@@ -24,7 +24,7 @@ public class UserTests {
         user.setEmail("isaac.lourenco.704@ufrn.edu.br");
         user.setGoogleId("123");
         user.setPictureUri("https://bonitao.com");
-        user.setUsername("isàaçV1d4L0uk4");
+        user.setUsername("V1d4isaacL0uk4");
 
         user = repository.save(user);
     }
@@ -52,5 +52,15 @@ public class UserTests {
     @Test
     public void shouldFindById() {
         Assert.assertNotNull(repository.findById(user.getId()));
+    }
+
+    @Test
+    public void shouldFindAllByUsername() {
+        Assert.assertFalse(repository.findAllByUsername("IsAaC").isEmpty());
+    }
+
+    @Test
+    public void shouldNotFindAllByUsername() {
+        Assert.assertTrue(repository.findAllByUsername("joao").isEmpty());
     }
 }
