@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VListItem } from 'vuetify/components/VList';
+import Button from '@/components/Button.vue';
 defineProps<{
   code: string;
   name: string;
@@ -18,7 +19,7 @@ defineProps<{
         </div>
       </div>
 
-      <button class="cta-button">Quero Pagar</button>
+      <Button name="Quero Pagar"/>
     </div>
   </v-list-item>
 </template>
@@ -51,22 +52,5 @@ defineProps<{
 
 .subject-departament {
   font-size: 1.4rem;
-}
-
-.cta-button {
-  background-color: var(--app-strong-blue);
-  color: var(--app-white);
-  border-radius: 0.8rem;
-  font-weight: bold;
-  font-family: 'Inter', sans-serif;
-  font-size: 1.6rem;
-  border: none;
-  padding: 1.2rem 2.4rem;
-  cursor: pointer;
-  transition: background-color ease 200ms;
-}
-
-.cta-button:hover {
-  background-color: var(--app-strong-blue-hover);
 }
 </style>
