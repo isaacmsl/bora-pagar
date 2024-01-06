@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { AppUser } from '@/types/AppUser';
+import Button from '@/components/Button.vue';
 
 defineProps<{
   user: AppUser
@@ -13,9 +14,7 @@ defineProps<{
       <h2>{{ user.name }}</h2>
       <p>@{{ user.username }}</p>
     </div>
-    <button class="ghostButton">
-      Conectar
-    </button>
+    <Button name="Conectar"/>
   </li>
 </template>
 
@@ -49,22 +48,6 @@ defineProps<{
 .userItemInfo h2 {
   font-size: 2.5rem;
   font-weight: bold;
-}
-
-.ghostButton {
-  margin-left: auto;
-  border: 2px solid #2591D7;
-  border-radius: 0.5rem;
-  font-size: 1.8rem;
-  font-weight: bold;
-  padding: 0.5rem 1rem;
-  color: #2591D7;
-  transition: all 200ms;
-}
-
-.ghostButton:hover {
-  background-color: #2591D7;
-  color: white;
 }
 
 </style>
