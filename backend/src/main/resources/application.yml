@@ -3,5 +3,3 @@ spring:
         mongodb:
             uri: ${DATABASE_URI}
             database: ${DATABASE_NAME}
-    config:
-        import: optional:secrets.yml
