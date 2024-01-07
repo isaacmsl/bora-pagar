@@ -27,7 +27,7 @@ function getCredentialFromLocalStorage() {
       loggedIn.value = true;
       user.value.given_name = normalizeGivenName(user.value.given_name);
     } catch (error) {
-      loggedIn.value = false;
+      logout();
     }
   }
 }
