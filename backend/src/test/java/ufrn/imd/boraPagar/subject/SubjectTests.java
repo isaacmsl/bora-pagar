@@ -92,7 +92,7 @@ public class SubjectTests {
     }
 
     @Test void shouldFindAllByName() {
-        Assert.assertNotNull(repository.findAllByName(subjectA.getName()));
+        Assert.assertEquals(1, repository.findAllByName(subjectA.getName()).size());
     }
 
     @Test
