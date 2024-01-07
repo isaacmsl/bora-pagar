@@ -31,10 +31,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return subjectRepository.findByComponentID(id);
     }
 
-    public SubjectModel findByName(String name) {
-        return subjectRepository.findByName(name);
-    }
-
     public SubjectModel findByCode(String code) {
         return subjectRepository.findByCode(code);
     }
