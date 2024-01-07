@@ -3,6 +3,7 @@ package ufrn.imd.boraPagar.subject;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,12 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
 
     @Autowired
     SubjectRepository subjectRepository;
+    
+
+    @Cacheable("subjects")
+    public List<SubjectModel> findAll() {
+        return subjectRepository.findAllActive();
+    }
 
     @Override
     public List<SubjectModel> findAll(String credential) {
