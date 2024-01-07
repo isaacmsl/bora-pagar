@@ -28,11 +28,13 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     @Autowired
     private GoogleUserWrapper googleUserWrapper;
 
+    private final String GOOGLE_CLIENT_ID = "384114633752-8jn7olobqn2e44sj7mdlahib0r70s5cv.apps.googleusercontent.com";
+
     protected UserModel getExistingOrNewUserFromCredential(String credential) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
                 GsonFactory.getDefaultInstance())
                 .setAudience(Collections
-                        .singletonList("384114633752-8jn7olobqn2e44sj7mdlahib0r70s5cv.apps.googleusercontent.com"))
+                        .singletonList(GOOGLE_CLIENT_ID))
                 .build();
 
         GoogleIdToken idToken;
