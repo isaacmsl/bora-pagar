@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import type { GoogleUserInfo } from '@/types/GoogleUserInfo';
+import { useAuthStore } from '@/stores/auth';
+import { onMounted } from 'vue';
+import { computed } from 'vue';
 import { VIcon } from 'vuetify/components';
 
-defineProps<{
-  user?: GoogleUserInfo 
-}>()
+const auth = useAuthStore();
+const user = computed(() => auth.user);
+
+onMounted(() => {
+  auth.getCredentialFromLocalStorage();
+});
 </script>
 
 <template>
   <nav class="userProfile">
     <section>
       <h2>{{ user?.given_name }}</h2>
-      <button @click="$emit('onLogoutClick')">
+      <button @click="auth.logout">
         <v-icon icon="mdi-logout"/> Sair
       </button>
     </section>
