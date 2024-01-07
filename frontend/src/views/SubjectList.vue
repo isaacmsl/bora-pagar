@@ -15,7 +15,6 @@ const qntVisiblePages = 7;
 
 const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
-const user = computed(() => auth.user);
 
 onMounted(() => {
   auth.getCredentialFromLocalStorage();
@@ -83,7 +82,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
           v-if="!loggedIn"
           :callback="auth.googleLoginCallback"
         />
-        <UserProfile v-if="loggedIn" :user="user" @onLogoutClick="auth.logout"/>
+        <UserProfile v-if="loggedIn"/>
       </div>
     </header>
     <v-list class="list">
