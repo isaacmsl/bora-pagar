@@ -15,6 +15,11 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Override
+    public List<SubjectModel> findAll(String credential) {
+        return subjectRepository.findAllActive();
+    }
+
     public SubjectModel findByComponentID(int id) {
         return subjectRepository.findByComponentID(id);
     }

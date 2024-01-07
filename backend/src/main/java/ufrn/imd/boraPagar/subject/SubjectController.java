@@ -19,7 +19,7 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     @Override
     @GetMapping("/findAll")
     public ResponseEntity<List<SubjectModel>> findAll(@RequestHeader(value = "credential", required = false) String credential) {
-        List<SubjectModel> listResult = (List<SubjectModel>) service.findAll();
+        List<SubjectModel> listResult = (List<SubjectModel>) service.findAll(credential);
         return ResponseEntity.ok().body(listResult);
     }
 
