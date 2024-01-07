@@ -42,6 +42,7 @@ function googleLoginCallback(response : any) {
 }
 
 function logout() {
+  localStorage.removeItem(credentialKeyName);
   loggedIn.value = false;
   googleLogout();
 }
