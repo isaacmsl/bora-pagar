@@ -10,6 +10,7 @@ import UserProfile from '@/components/UserProfile.vue';
 const page = ref(1);
 const qntSubjectsOnPage = 4;
 const qntVisiblePages = 7;
+const credentialKeyName = 'credential';
 
 const loggedIn = ref(false);
 const user = ref<GoogleUserInfo>();
@@ -18,14 +19,30 @@ function normalizeGivenName(name : String) {
   return name.charAt(0) + name.slice(1).toLowerCase();
 }
 
+function getCredentialFromLocalStorage() {
+  const credential = localStorage.getItem(credentialKeyName);
+  if (credential) {
+    try {
+      user.value = decodeCredential(credential) as GoogleUserInfo;
+      loggedIn.value = true;
+      user.value.given_name = normalizeGivenName(user.value.given_name);
+    } catch (error) {
+      logout();
+    }
+  }
+}
+
+getCredentialFromLocalStorage();
+
 function googleLoginCallback(response : any) {
-  console.log(decodeCredential(response.credential));
+  localStorage.setItem(credentialKeyName, response.credential)
   loggedIn.value = true;
   user.value = decodeCredential(response.credential) as GoogleUserInfo;
   user.value.given_name = normalizeGivenName(user.value.given_name);
 }
 
 function logout() {
+  localStorage.removeItem(credentialKeyName);
   loggedIn.value = false;
   googleLogout();
 }
