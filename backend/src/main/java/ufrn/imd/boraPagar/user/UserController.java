@@ -14,17 +14,17 @@ import ufrn.imd.boraPagar.core.AbstractController;
 @RequestMapping("users")
 public class UserController extends AbstractController<UserModel, UserService>{
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
-    public ResponseEntity<UserModel> findByUsername(@RequestHeader("credential") String credential, @RequestParam String username) {
+    public ResponseEntity<UserModel> findByUsername(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String username) {
         return ResponseEntity.ok().body(service.findByUsername(credential, username));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"email"})
-    public ResponseEntity<UserModel> findByEmail(@RequestHeader("credential") String credential, @RequestParam String email) {
+    public ResponseEntity<UserModel> findByEmail(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String email) {
         return ResponseEntity.ok().body(service.findByEmail(credential, email));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
-    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader("credential") String credential, @RequestParam String googleId) {
+    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
         return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
     }
 

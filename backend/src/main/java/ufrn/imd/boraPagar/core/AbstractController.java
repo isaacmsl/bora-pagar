@@ -23,15 +23,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AbstractController <M extends AbstractModel, S extends AbstractService<M, ?>> {
     @Autowired
     protected S service;
+    
+    protected final String USER_HEADER_TOKEN_NAME = "credential";
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<M>> findAll(@RequestHeader("credential") String credential) {
+    public ResponseEntity<List<M>> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
         List<M> listResult = (List<M>) service.findAll(credential);
         return ResponseEntity.ok().body(listResult);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<M> findById(@RequestHeader("credential") String credential, @PathVariable String id) {
+    public ResponseEntity<M> findById(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @PathVariable String id) {
         Optional<M> opModel = service.findById(credential, id);
         if (!opModel.isPresent()) {
             return ResponseEntity.notFound().build();
@@ -40,7 +42,7 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<M> deleteById(@RequestHeader("credential") String credential, @PathVariable String id) {
+    public ResponseEntity<M> deleteById(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @PathVariable String id) {
         Optional<M> opModel = service.findById(credential, id);
         if (!opModel.isPresent()) {
             return ResponseEntity.notFound().build();
@@ -51,7 +53,7 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
     }
 
     @PostMapping
-    public ResponseEntity<M> post(@RequestHeader("credential") String credential, @RequestBody M saveModel) {
+    public ResponseEntity<M> post(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestBody M saveModel) {
         M result = null;
 
         try {
