@@ -3,49 +3,20 @@ import { VList } from 'vuetify/components/VList';
 import { VPagination } from 'vuetify/components/VPagination';
 import SubjectListItem from '@/components/SubjectListItem.vue';
 import { ref } from 'vue';
-import { GoogleLogin, decodeCredential, googleLogout } from 'vue3-google-login';
+import { GoogleLogin } from 'vue3-google-login';
 import type { GoogleUserInfo } from '../types/GoogleUserInfo';
 import UserProfile from '@/components/UserProfile.vue';
+import { useAuthStore } from '@/stores/auth';
+
 
 const page = ref(1);
 const qntSubjectsOnPage = 4;
 const qntVisiblePages = 7;
-const credentialKeyName = 'credential';
 
-const loggedIn = ref(false);
-const user = ref<GoogleUserInfo>();
-
-function normalizeGivenName(name : String) {
-  return name.charAt(0) + name.slice(1).toLowerCase();
-}
-
-function getCredentialFromLocalStorage() {
-  const credential = localStorage.getItem(credentialKeyName);
-  if (credential) {
-    try {
-      user.value = decodeCredential(credential) as GoogleUserInfo;
-      loggedIn.value = true;
-      user.value.given_name = normalizeGivenName(user.value.given_name);
-    } catch (error) {
-      logout();
-    }
-  }
-}
-
-getCredentialFromLocalStorage();
-
-function googleLoginCallback(response : any) {
-  localStorage.setItem(credentialKeyName, response.credential)
-  loggedIn.value = true;
-  user.value = decodeCredential(response.credential) as GoogleUserInfo;
-  user.value.given_name = normalizeGivenName(user.value.given_name);
-}
-
-function logout() {
-  localStorage.removeItem(credentialKeyName);
-  loggedIn.value = false;
-  googleLogout();
-}
+const auth = useAuthStore();
+auth.getCredentialFromLocalStorage();
+const loggedIn = ref<Boolean>(auth.loggedIn());
+const user = ref<GoogleUserInfo | undefined>(auth.user);
 
 const subjects = [
   {
@@ -107,9 +78,9 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
         <GoogleLogin
           class="googleLogin"
           v-if="!loggedIn"
-          :callback="googleLoginCallback"
+          :callback="auth.googleLoginCallback"
         />
-        <UserProfile v-if="loggedIn" :user="user" @onLogoutClick="logout"/>
+        <UserProfile v-if="loggedIn" :user="user" @onLogoutClick="auth.logout"/>
       </div>
     </header>
     <v-list class="list">
