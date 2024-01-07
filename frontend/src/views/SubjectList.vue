@@ -4,19 +4,22 @@ import { VPagination } from 'vuetify/components/VPagination';
 import SubjectListItem from '@/components/SubjectListItem.vue';
 import { ref } from 'vue';
 import { GoogleLogin } from 'vue3-google-login';
-import type { GoogleUserInfo } from '../types/GoogleUserInfo';
 import UserProfile from '@/components/UserProfile.vue';
 import { useAuthStore } from '@/stores/auth';
-
+import { onMounted } from 'vue';
+import { computed } from 'vue';
 
 const page = ref(1);
 const qntSubjectsOnPage = 4;
 const qntVisiblePages = 7;
 
 const auth = useAuthStore();
-auth.getCredentialFromLocalStorage();
-const loggedIn = ref<Boolean>(auth.loggedIn());
-const user = ref<GoogleUserInfo | undefined>(auth.user);
+const loggedIn = computed(() => auth.loggedIn());
+const user = computed(() => auth.user);
+
+onMounted(() => {
+  auth.getCredentialFromLocalStorage();
+});
 
 const subjects = [
   {
