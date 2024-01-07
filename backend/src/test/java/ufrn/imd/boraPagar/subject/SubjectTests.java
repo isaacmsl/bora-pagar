@@ -91,9 +91,8 @@ public class SubjectTests {
         Assert.assertNotNull(repository.findByComponentID(subjectA.getComponentID()));
     }
 
-    @Test
-    public void shouldFindByName() {
-        Assert.assertNotNull(repository.findByName(subjectA.getName()));
+    @Test void shouldFindAllByName() {
+        Assert.assertNotNull(repository.findAllByName(subjectA.getName()));
     }
 
     @Test
