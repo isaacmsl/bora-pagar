@@ -3,20 +3,21 @@ package ufrn.imd.boraPagar.user;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+
 @Component
-public class CustomUserDetailsService {
+public class GoogleUserWrapper {
 
     @Autowired
     private UserRepository userRepository;
 
-    public void processUserDetails(OidcUser oidcUser) {
-        String userId = oidcUser.getName();
-        String username = oidcUser.getGivenName().toLowerCase() + "_" + oidcUser.getFamilyName().toLowerCase();
-        String email = oidcUser.getEmail();
-        String pictureUri = oidcUser.getPicture();
+    public UserModel persistNewUserOrUpdateExisting(Payload payload) {
+        String userId = payload.getSubject();
+        String username = payload.get("given_name").toString().toLowerCase() + "_" + payload.get("family_name").toString().toLowerCase();
+        String email = payload.getEmail();
+        String pictureUri = payload.get("picture").toString();
         UserModel existingModel = userRepository.findByGoogleId(userId);
 
         if (existingModel == null) {
@@ -26,10 +27,10 @@ public class CustomUserDetailsService {
             newUser.setEmail(email);
             newUser.setPictureUri(pictureUri);
 
-            userRepository.save(newUser);
+            return userRepository.save(newUser);
         } else {
             existingModel.setLastLoginTime(LocalDateTime.now());
-            userRepository.save(existingModel);
+            return userRepository.save(existingModel);
         }
     }
 }

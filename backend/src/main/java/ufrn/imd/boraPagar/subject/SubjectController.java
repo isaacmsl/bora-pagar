@@ -3,6 +3,8 @@ package ufrn.imd.boraPagar.subject;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +15,14 @@ import ufrn.imd.boraPagar.core.AbstractController;
 @RestController
 @RequestMapping("subjects")
 public class SubjectController extends AbstractController<SubjectModel, SubjectService>{
+
+    @Override
+    @GetMapping("/findAll")
+    public ResponseEntity<List<SubjectModel>> findAll(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential) {
+        List<SubjectModel> listResult = (List<SubjectModel>) service.findAll(credential);
+        return ResponseEntity.ok().body(listResult);
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
     public ResponseEntity<SubjectModel> findByComponentID(@RequestParam int componentID) {
         return ResponseEntity.ok().body(service.findByComponentID(componentID));
