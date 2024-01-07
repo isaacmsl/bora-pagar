@@ -2,6 +2,7 @@ package ufrn.imd.boraPagar.user;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,18 +14,18 @@ import ufrn.imd.boraPagar.core.AbstractController;
 @RequestMapping("users")
 public class UserController extends AbstractController<UserModel, UserService>{
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
-    public ResponseEntity<UserModel> findByUsername(@RequestParam String username) {
-        return ResponseEntity.ok().body(service.findByUsername(username));
+    public ResponseEntity<UserModel> findByUsername(@RequestHeader("credential") String credential, @RequestParam String username) {
+        return ResponseEntity.ok().body(service.findByUsername(credential, username));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"email"})
-    public ResponseEntity<UserModel> findByEmail(@RequestParam String email) {
-        return ResponseEntity.ok().body(service.findByEmail(email));
+    public ResponseEntity<UserModel> findByEmail(@RequestHeader("credential") String credential, @RequestParam String email) {
+        return ResponseEntity.ok().body(service.findByEmail(credential, email));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
-    public ResponseEntity<UserModel> findByGoogleId(@RequestParam String googleId) {
-        return ResponseEntity.ok().body(service.findByGoogleId(googleId));
+    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader("credential") String credential, @RequestParam String googleId) {
+        return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"partialUsername"})
