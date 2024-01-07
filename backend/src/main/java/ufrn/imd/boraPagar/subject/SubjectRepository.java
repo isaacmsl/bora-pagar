@@ -11,6 +11,7 @@ public interface SubjectRepository extends AbstractRepository<SubjectModel> {
     SubjectModel findByComponentID(int componentID);
     SubjectModel findByName(String name);
     SubjectModel findByCode(String code);
+    List<SubjectModel> findAllByName(String name);
     List<SubjectModel> findAllByModality(SubjectModalityType modality);
     List<SubjectModel> findAllByTotalHours(int totalHours);
     List<SubjectModel> findAllByDepartment(String department);

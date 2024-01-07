@@ -29,8 +29,8 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"name"})
-    public ResponseEntity<SubjectModel> findByName(@RequestParam String name) {
-        return ResponseEntity.ok().body(service.findByName(name));
+    public ResponseEntity<List<SubjectModel>> findAllByName(@RequestParam String name) {
+        return ResponseEntity.ok().body(service.findAllByName(name));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
