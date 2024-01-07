@@ -3,10 +3,3 @@ spring:
         mongodb:
             uri: mongodb+srv://bravo:9TZchMenuoTphDkm@cluster0.r3uzzvx.mongodb.net/
             database: development
-    security:
-        oauth2:
-            client:
-                registration:
-                    google:
-                        client-id: 384114633752-bdes1tkaej8ah8mlps8ungf18k1976ls.apps.googleusercontent.com
-                        client-secret: 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
