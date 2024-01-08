@@ -91,6 +91,7 @@ public class SubjectTests {
     public void shouldFindUser() {
         UserModel user = new UserModel();
         user.setEmail("isaac.lourenco.704@ufrn.edu.br");
+        user.setName("Isaac Lourenço");
         user.setGoogleId("123");
         user.setPictureUri("https://bonitao.com");
         user.setUsername("V1d4isaacL0uk4");
