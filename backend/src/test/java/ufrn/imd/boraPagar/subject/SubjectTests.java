@@ -10,6 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -126,6 +129,31 @@ public class SubjectTests {
     }
 
     @Test
+    public void shouldPageZeroHasLengthTwo() {
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<SubjectModel> subPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(2, subPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageOneHasLengthZero() {
+        Pageable pageable = PageRequest.of(1, 2);
+        Page<SubjectModel> subPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(0, subPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageReturnTheCorrectElements() {
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<SubjectModel> subPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(subjectA, subPage.getContent().get(0));
+        Assert.assertEquals(subjectB, subPage.getContent().get(1));
+    }
+
+    @Test
     public void deleteById() {
         repository.deleteById(subjectA.getId());
         Assert.assertFalse(repository.findById(subjectA.getId()).isPresent());
@@ -136,5 +164,4 @@ public class SubjectTests {
         repository.deleteAll();
         Assert.assertEquals(0, repository.count());
     }
-
 }

@@ -2,6 +2,8 @@ package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -18,9 +20,9 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
 
     @Override
     @GetMapping("/findAll")
-    public ResponseEntity<List<SubjectModel>> findAll(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential) {
-        List<SubjectModel> listResult = (List<SubjectModel>) service.findAll(credential);
-        return ResponseEntity.ok().body(listResult);
+    public Page<SubjectModel> findAll(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential, Pageable pageable) {
+        Page<SubjectModel> listResult = service.findAllByPage(credential, pageable);
+        return listResult;
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})

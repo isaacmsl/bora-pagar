@@ -1,42 +1,24 @@
 <script setup lang="ts">
 import UserListItem from '@/components/UserListItem.vue';
-import UserProfile from '@/components/UserProfile.vue';
-import { useAuthStore } from '@/stores/auth';
+import UserMenu from '@/components/UserMenu.vue';
 import type { AppUser } from '@/types/AppUser';
-import { onMounted } from 'vue';
-import { computed } from 'vue';
+import { onMounted, type Ref } from 'vue';
 import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
+import { ref } from 'vue';
+import { UserService } from '@/services/UserService';
 
-const auth = useAuthStore();
-const loggedIn = computed(() => auth.loggedIn());
+const api = new UserService();
+const users : Ref<AppUser[]> = ref([]);
+const inputUsername : Ref<string> = ref('');
 
-onMounted(() => {
-  auth.getCredentialFromLocalStorage();
+async function handleUsernameInput() {
+  users.value = await api.searchUsersByUsername(inputUsername.value);
+}
+
+onMounted(async () => {
+  users.value = await api.searchUsersByUsername();
 });
-
-const users : AppUser[] = [
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  }
-]
 </script>
 
 <template>
@@ -44,21 +26,20 @@ const users : AppUser[] = [
     <header class="pageHeader">
       <div class="pageInfo">
         <h1>Buscar amigo</h1>
-        <v-text-field bg-color="#202333" density="comfortable" variant="solo-filled">
+        <v-text-field
+          bg-color="#202333"
+          density="comfortable"
+          variant="solo-filled"
+          v-model="inputUsername"
+          @keyup="handleUsernameInput"
+        >
           <template v-slot:append-inner>
             <v-icon icon="mdi-magnify" size="30"/>
           </template>
         </v-text-field>
       </div>
 
-      <div>
-        <GoogleLogin
-          class="googleLogin"
-          v-if="!loggedIn"
-          :callback="auth.googleLoginCallback"
-        />
-        <UserProfile v-if="loggedIn"/>
-      </div>
+      <UserMenu />
     </header>
 
     <ul class="userList">

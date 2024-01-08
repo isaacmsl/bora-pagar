@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <li class="userItemContainer">
-    <img :src="user.imageUrl" :alt="`Foto de perfil do usuário ${user.name}`">
+    <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
     <div class="userItemInfo">
       <h2>{{ user.name }}</h2>
       <p>@{{ user.username }}</p>
