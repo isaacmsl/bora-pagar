@@ -1,6 +1,8 @@
 package ufrn.imd.boraPagar.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
@@ -57,6 +59,16 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
         
         if (user != null) {
             return repository.findAllActive();
+        }
+
+        return null;
+    }
+
+    public Page<M> findAllByPage(String credential, Pageable pageable) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+        
+        if (user != null) {
+            return repository.findAllActiveByPage(pageable);
         }
 
         return null;
