@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -21,6 +24,7 @@ public class UserTests {
     @Before
     public void setUp() throws Exception {
         user = new UserModel();
+        user.setName("Isaac Lourenço");
         user.setEmail("isaac.lourenco.704@ufrn.edu.br");
         user.setGoogleId("123");
         user.setPictureUri("https://bonitao.com");
@@ -45,6 +49,11 @@ public class UserTests {
     }
 
     @Test
+    public void shouldFindByName() {
+        Assert.assertNotNull(repository.findByName(user.getName()));
+    }
+
+    @Test
     public void shoudFindByUsername() {
         Assert.assertNotNull(repository.findByUsername(user.getUsername()));
     }
@@ -55,6 +64,16 @@ public class UserTests {
     }
 
     @Test
+    public void shouldFindAllByName() {
+        Assert.assertTrue(repository.findAllByName("IsAaC").contains(user));
+    }
+
+    @Test
+    public void shouldNotFindAllByName() {
+        Assert.assertTrue(repository.findAllByName("joao").isEmpty());
+    }
+
+    @Test
     public void shouldFindAllByUsername() {
         Assert.assertFalse(repository.findAllByUsername("IsAaC").isEmpty());
     }
@@ -62,5 +81,21 @@ public class UserTests {
     @Test
     public void shouldNotFindAllByUsername() {
         Assert.assertTrue(repository.findAllByUsername("joao").isEmpty());
+    }
+
+    @Test
+    public void shouldPageZeroHasLengthOne() {
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(1, userPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageOneHasLengthZero() {
+        Pageable pageable = PageRequest.of(1, 2);
+        Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(0, userPage.getContent().size());
     }
 }

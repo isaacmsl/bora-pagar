@@ -5,19 +5,19 @@ import type { AppUser } from '@/types/AppUser';
 import { onMounted, type Ref } from 'vue';
 import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
-import axios from 'axios';
 import { ref } from 'vue';
+import { UserService } from '@/services/UserService';
 
+const api = new UserService();
 const users : Ref<AppUser[]> = ref([]);
 const inputUsername : Ref<string> = ref('');
 
-async function searchByUsername(){
-  const response = await axios.get(`http://localhost:8080/users?partialUsername=${inputUsername.value}`);
-  users.value = response.data;
+async function handleUsernameInput() {
+  users.value = await api.searchUsersByUsername(inputUsername.value);
 }
 
 onMounted(async () => {
-  searchByUsername();
+  users.value = await api.searchUsersByUsername();
 });
 </script>
 
@@ -31,7 +31,7 @@ onMounted(async () => {
           density="comfortable"
           variant="solo-filled"
           v-model="inputUsername"
-          @keyup="searchByUsername"
+          @keyup="handleUsernameInput"
         >
           <template v-slot:append-inner>
             <v-icon icon="mdi-magnify" size="30"/>
