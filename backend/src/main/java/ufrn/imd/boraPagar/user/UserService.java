@@ -36,6 +36,16 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return null;
     }
 
+    public UserModel findByName(String credential, String name) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+        
+        if (user != null) {
+            return userRepository.findByName(name);
+        }
+
+        return null;
+    }
+
     public UserModel findByUsername(String credential, String username) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
@@ -54,6 +64,16 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         }
 
         return null;
+    }
+
+    public List<UserModel> findAllByName(String partialName) {
+        List<UserModel> users = userRepository.findAllByName(partialName);
+        
+        for (UserModel user : users) {
+            user = getUserWithoutSensitiveInfo(user);
+        }
+        
+        return users;
     }
 
     public List<UserModel> findAllByUsername(String partialUsername) {

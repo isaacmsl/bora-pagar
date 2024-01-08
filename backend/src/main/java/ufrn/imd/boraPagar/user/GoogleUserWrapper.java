@@ -15,6 +15,7 @@ public class GoogleUserWrapper {
 
     public UserModel persistNewUserOrUpdateExisting(Payload payload) {
         String userId = payload.getSubject();
+        String name = setAllToLowerCaseExceptFirstLetter(payload.get("given_name").toString()) + " " + setAllToLowerCaseExceptFirstLetter(payload.get("family_name").toString());
         String username = payload.get("given_name").toString().toLowerCase() + "_" + payload.get("family_name").toString().toLowerCase();
         String email = payload.getEmail();
         String pictureUri = payload.get("picture").toString();
@@ -22,6 +23,7 @@ public class GoogleUserWrapper {
 
         if (existingModel == null) {
             UserModel newUser = new UserModel();
+            newUser.setName(name);
             newUser.setGoogleId(userId);
             newUser.setUsername(username);
             newUser.setEmail(email);
@@ -32,5 +34,15 @@ public class GoogleUserWrapper {
             existingModel.setLastLoginTime(LocalDateTime.now());
             return userRepository.save(existingModel);
         }
+    }
+
+    private String setAllToLowerCaseExceptFirstLetter(String inputString) {
+        if (inputString == null || inputString.isEmpty()) {
+            return inputString;
+        }
+
+        char firstLetter = inputString.charAt(0);
+
+        return firstLetter + inputString.substring(1).toLowerCase();
     }
 }
