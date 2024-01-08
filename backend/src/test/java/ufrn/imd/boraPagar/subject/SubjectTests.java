@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import ufrn.imd.boraPagar.user.UserModel;
+import ufrn.imd.boraPagar.user.UserRepository;
+
 @RunWith(SpringRunner.class)
 @DataMongoTest
 public class SubjectTests {
@@ -19,6 +22,9 @@ public class SubjectTests {
     @Autowired
     SubjectRepository repository;
     SubjectModel subjectA, subjectB;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -36,6 +42,7 @@ public class SubjectTests {
                 "( DIM0001 ) OU ( DIM0002 )",
                 "( DIM0001 ) OU ( DIM0002 )",
                 "( DIM0001 ) OU ( DIM0002 ) OU ( DIM0003 )",
+                new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -60,6 +67,7 @@ public class SubjectTests {
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
+                new ArrayList<>(),
                 new ArrayList<>()
             )
         );
@@ -77,6 +85,21 @@ public class SubjectTests {
     }
 
     @Test
+    public void shouldFindUser() {
+        UserModel user = new UserModel();
+        user.setEmail("isaac.lourenco.704@ufrn.edu.br");
+        user.setGoogleId("123");
+        user.setPictureUri("https://bonitao.com");
+        user.setUsername("V1d4isaacL0uk4");
+
+        user = userRepository.save(user);
+        subjectA.getInterestedUsers().add(user);
+        subjectA = repository.save(subjectA);
+        Assert.assertTrue(subjectA.getInterestedUsers().contains(user));
+        userRepository.delete(user);
+    }
+    
+    @Test
     public void shouldFindAllByModality() {
         Assert.assertEquals(2, repository.findAllByModality(subjectA.getModality()).size());
     }
@@ -91,7 +114,8 @@ public class SubjectTests {
         Assert.assertNotNull(repository.findByComponentID(subjectA.getComponentID()));
     }
 
-    @Test void shouldFindAllByName() {
+    @Test
+    public void shouldFindAllByName() {
         Assert.assertEquals(1, repository.findAllByName(subjectA.getName()).size());
     }
 
