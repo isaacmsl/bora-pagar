@@ -8,6 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -63,4 +66,28 @@ public class UserTests {
     public void shouldNotFindAllByUsername() {
         Assert.assertTrue(repository.findAllByUsername("joao").isEmpty());
     }
+
+    @Test
+    public void shouldPageZeroHasLengthOne() {
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(1, userPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageOneHasLengthZero() {
+        Pageable pageable = PageRequest.of(1, 2);
+        Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
+
+        Assert.assertEquals(0, userPage.getContent().size());
+    }
+
+    // @Test
+    // public void shouldPageReturnTheCorrectElements() {
+    //     Pageable pageable = PageRequest.of(0, 2);
+    //     Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
+
+    //     Assert.assertEquals(user, userPage.getContent().get(0));
+    // }
 }
