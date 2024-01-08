@@ -21,6 +21,7 @@ public class UserTests {
     @Before
     public void setUp() throws Exception {
         user = new UserModel();
+        user.setName("Isaac Lourenço");
         user.setEmail("isaac.lourenco.704@ufrn.edu.br");
         user.setGoogleId("123");
         user.setPictureUri("https://bonitao.com");
@@ -45,6 +46,11 @@ public class UserTests {
     }
 
     @Test
+    public void shouldFindByName() {
+        Assert.assertNotNull(repository.findByName(user.getName()));
+    }
+
+    @Test
     public void shoudFindByUsername() {
         Assert.assertNotNull(repository.findByUsername(user.getUsername()));
     }
@@ -52,6 +58,16 @@ public class UserTests {
     @Test
     public void shouldFindById() {
         Assert.assertNotNull(repository.findById(user.getId()));
+    }
+
+    @Test
+    public void shouldFindAllByName() {
+        Assert.assertFalse(repository.findAllByName("IsAaC").isEmpty());
+    }
+
+    @Test
+    public void shouldNotFindAllByName() {
+        Assert.assertTrue(repository.findAllByName("joao").isEmpty());
     }
 
     @Test
