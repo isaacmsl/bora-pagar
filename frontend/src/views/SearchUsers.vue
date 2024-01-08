@@ -2,31 +2,23 @@
 import UserListItem from '@/components/UserListItem.vue';
 import UserMenu from '@/components/UserMenu.vue';
 import type { AppUser } from '@/types/AppUser';
+import { onMounted, type Ref } from 'vue';
 import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
+import axios from 'axios';
+import { ref } from 'vue';
 
-const users : AppUser[] = [
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  },
-  {
-    name: 'Ian Gabriel',
-    username: 'ianguis',
-    imageUrl: 'https://i.ibb.co/KD3w5Qd/4z-N0lm9-M-400x400.jpg'
-  }
-]
+const users : Ref<AppUser[]> = ref([]);
+const inputUsername : Ref<string> = ref('');
+
+async function searchByUsername(){
+  const response = await axios.get(`http://localhost:8080/users?partialUsername=${inputUsername.value}`);
+  users.value = response.data;
+}
+
+onMounted(async () => {
+  searchByUsername();
+});
 </script>
 
 <template>
@@ -34,7 +26,13 @@ const users : AppUser[] = [
     <header class="pageHeader">
       <div class="pageInfo">
         <h1>Buscar amigo</h1>
-        <v-text-field bg-color="#202333" density="comfortable" variant="solo-filled">
+        <v-text-field
+          bg-color="#202333"
+          density="comfortable"
+          variant="solo-filled"
+          v-model="inputUsername"
+          @keyup="searchByUsername"
+        >
           <template v-slot:append-inner>
             <v-icon icon="mdi-magnify" size="30"/>
           </template>

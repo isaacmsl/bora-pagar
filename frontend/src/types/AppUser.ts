@@ -1,5 +1,6 @@
 export type AppUser = {
   name: string
   username: string
-  imageUrl: string
+  pictureUri: string
+  email: string
 }
