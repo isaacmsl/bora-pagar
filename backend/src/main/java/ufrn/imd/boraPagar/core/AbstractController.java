@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @CrossOrigin(origins = "*", methods = {
         RequestMethod.GET,
         RequestMethod.POST,
@@ -28,18 +30,21 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
     
     protected final String USER_HEADER_TOKEN_NAME = "credential";
 
+    @JsonView(Views.Admin.class)
     @GetMapping("/forceFindAll")
     public ResponseEntity<List<M>> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
         List<M> listResult = (List<M>) service.findAll(credential);
         return ResponseEntity.ok().body(listResult);
     }
 
+    @JsonView(Views.Public.class)
     @GetMapping("/findAll")
     public Page<M> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, Pageable pageable) {
         Page<M> listResult = service.findAllByPage(credential, pageable);
         return listResult;
     }
 
+    @JsonView(Views.Admin.class)
     @GetMapping("/{id}")
     public ResponseEntity<M> findById(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @PathVariable String id) {
         Optional<M> opModel = service.findById(credential, id);
@@ -49,6 +54,7 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
         return ResponseEntity.ok().body(opModel.get());
     }
 
+    @JsonView(Views.Admin.class)
     @DeleteMapping("/{id}")
     public ResponseEntity<M> deleteById(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @PathVariable String id) {
         Optional<M> opModel = service.findById(credential, id);
@@ -60,6 +66,7 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
         return ResponseEntity.ok().body(model);
     }
 
+    @JsonView(Views.Admin.class)
     @PostMapping
     public ResponseEntity<M> post(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestBody M saveModel) {
         M result = null;

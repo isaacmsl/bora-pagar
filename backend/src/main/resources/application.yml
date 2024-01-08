@@ -5,3 +5,6 @@ spring:
             database: ${DATABASE_NAME}
     config:
         import: optional:secrets.yml
+    jackson:
+        mapper:
+            default-view-inclusion: true
