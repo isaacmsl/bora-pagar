@@ -14,7 +14,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     @Autowired
     UserRepository userRepository;
 
-    private UserModel getUserWithoutSensitiveInfo(UserModel user) {
+    public static UserModel getUserWithoutSensitiveInfo(UserModel user) {
         if (user == null) {
             return null;
         }

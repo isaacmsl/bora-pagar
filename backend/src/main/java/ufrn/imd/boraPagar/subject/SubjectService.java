@@ -10,6 +10,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
 import ufrn.imd.boraPagar.core.AbstractService;
+import ufrn.imd.boraPagar.user.UserModel;
+import ufrn.imd.boraPagar.user.UserService;
 
 @Service
 @NoRepositoryBean
@@ -17,11 +19,18 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
 
     @Autowired
     SubjectRepository subjectRepository;
-    
+
+    // O(n²) but amortized with cache
     @Cacheable("subjects")
     @Override
     public Page<SubjectModel> findAllByPage(String credential, Pageable pageable) {
-        return subjectRepository.findAllActiveByPage(pageable);
+        Page<SubjectModel> page = subjectRepository.findAllActiveByPage(pageable);
+        for (SubjectModel subject : page.getContent()) {
+            for (UserModel user : subject.getInterestedUsers()) {
+                user = UserService.getUserWithoutSensitiveInfo(user);
+            }
+        }
+        return page;
     }
 
     public SubjectModel findByComponentID(int id) {
