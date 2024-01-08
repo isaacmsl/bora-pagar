@@ -26,6 +26,7 @@ public class UserModel extends AbstractModel  {
     private String pictureUri;
     private String googleId;
 
+    @EqualsAndHashCode.Exclude
     @Builder.Default
     private LocalDateTime lastLoginTime = LocalDateTime.now(), registrationTime = LocalDateTime.now();
 }
