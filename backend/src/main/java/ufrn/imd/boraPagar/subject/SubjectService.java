@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
 import ufrn.imd.boraPagar.core.AbstractService;
+import ufrn.imd.boraPagar.user.UserModel;
 
 @Service
 @NoRepositoryBean
@@ -25,6 +28,11 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     @Override
     public List<SubjectModel> findAll(String credential) {
         return subjectRepository.findAllActive();
+    }
+
+    @Override
+    public Page<SubjectModel> findAllByPage(String credential, Pageable pageable) {
+        return subjectRepository.findAllActiveByPage(pageable);
     }
 
     public SubjectModel findByComponentID(int id) {
