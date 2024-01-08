@@ -13,6 +13,11 @@ import ufrn.imd.boraPagar.core.AbstractController;
 @RestController
 @RequestMapping("users")
 public class UserController extends AbstractController<UserModel, UserService>{
+    @RequestMapping(method = RequestMethod.GET, params = {"name"})
+    public ResponseEntity<UserModel> findByName(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String name) {
+        return ResponseEntity.ok().body(service.findByName(credential, name));
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
     public ResponseEntity<UserModel> findByUsername(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String username) {
         return ResponseEntity.ok().body(service.findByUsername(credential, username));
@@ -26,6 +31,11 @@ public class UserController extends AbstractController<UserModel, UserService>{
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
     public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
         return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"partialName"})
+    public ResponseEntity<List<UserModel>> findAllByName(@RequestParam String partialName) {
+        return ResponseEntity.ok().body(service.findAllByName(partialName));
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"partialUsername"})
