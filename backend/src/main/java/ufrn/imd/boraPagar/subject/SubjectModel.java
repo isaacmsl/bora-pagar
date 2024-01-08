@@ -46,6 +46,6 @@ public class SubjectModel extends AbstractModel {
     @JoinColumn(name="subject_id")
     List<String> courses;
 
-    @DBRef
+    @DBRef(lazy = true)
     private List<UserModel> interestedUsers;
 }
