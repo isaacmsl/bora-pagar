@@ -3,11 +3,10 @@ import { VList } from 'vuetify/components/VList';
 import { VPagination } from 'vuetify/components/VPagination';
 import SubjectListItem from '@/components/SubjectListItem.vue';
 import { ref } from 'vue';
-import { GoogleLogin } from 'vue3-google-login';
-import UserProfile from '@/components/UserProfile.vue';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
+import UserMenu from '@/components/UserMenu.vue';
 
 const page = ref(1);
 const qntSubjectsOnPage = 4;
@@ -76,14 +75,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
   <main class="container">
     <header>
       <h1>Listar disciplinas</h1>
-      <div>
-        <GoogleLogin
-          class="googleLogin"
-          v-if="!loggedIn"
-          :callback="auth.googleLoginCallback"
-        />
-        <UserProfile v-if="loggedIn"/>
-      </div>
+      <UserMenu />
     </header>
     <v-list class="list">
       <SubjectListItem

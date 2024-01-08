@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import UserListItem from '@/components/UserListItem.vue';
-import UserProfile from '@/components/UserProfile.vue';
-import { useAuthStore } from '@/stores/auth';
+import UserMenu from '@/components/UserMenu.vue';
 import type { AppUser } from '@/types/AppUser';
 import { onMounted, type Ref } from 'vue';
-import { computed } from 'vue';
 import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
 import axios from 'axios';
 import { ref } from 'vue';
 
-const auth = useAuthStore();
-const loggedIn = computed(() => auth.loggedIn());
 const users : Ref<AppUser[]> = ref([]);
 const inputUsername : Ref<string> = ref('');
 
@@ -21,21 +17,18 @@ async function searchByUsername(){
 }
 
 onMounted(async () => {
-  auth.getCredentialFromLocalStorage();
   searchByUsername();
 });
-
-
 </script>
 
 <template>
   <div class="container">
     <header class="pageHeader">
       <div class="pageInfo">
-        <h1>Buscar amigo </h1>
-        <v-text-field 
-          bg-color="#202333" 
-          density="comfortable" 
+        <h1>Buscar amigo</h1>
+        <v-text-field
+          bg-color="#202333"
+          density="comfortable"
           variant="solo-filled"
           v-model="inputUsername"
           @keyup="searchByUsername"
@@ -46,14 +39,7 @@ onMounted(async () => {
         </v-text-field>
       </div>
 
-      <div>
-        <GoogleLogin
-          class="googleLogin"
-          v-if="!loggedIn"
-          :callback="auth.googleLoginCallback"
-        />
-        <UserProfile v-if="loggedIn"/>
-      </div>
+      <UserMenu />
     </header>
 
     <ul class="userList">
