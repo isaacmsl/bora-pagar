@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +24,13 @@ import ufrn.imd.boraPagar.core.AbstractModel;
 public class UserModel extends AbstractModel  {
     private String name;
     private String username;
+    @JsonIgnore
     private String email;
     private String pictureUri;
+    @JsonIgnore
     private String googleId;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @Builder.Default
     private LocalDateTime lastLoginTime = LocalDateTime.now(), registrationTime = LocalDateTime.now();
