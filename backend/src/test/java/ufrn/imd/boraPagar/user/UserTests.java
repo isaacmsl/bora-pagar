@@ -82,12 +82,4 @@ public class UserTests {
 
         Assert.assertEquals(0, userPage.getContent().size());
     }
-
-    // @Test
-    // public void shouldPageReturnTheCorrectElements() {
-    //     Pageable pageable = PageRequest.of(0, 2);
-    //     Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
-
-    //     Assert.assertEquals(user, userPage.getContent().get(0));
-    // }
 }
