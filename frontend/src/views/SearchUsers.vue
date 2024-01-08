@@ -1,19 +1,9 @@
 <script setup lang="ts">
 import UserListItem from '@/components/UserListItem.vue';
-import UserProfile from '@/components/UserProfile.vue';
-import { useAuthStore } from '@/stores/auth';
+import UserMenu from '@/components/UserMenu.vue';
 import type { AppUser } from '@/types/AppUser';
-import { onMounted } from 'vue';
-import { computed } from 'vue';
 import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
-
-const auth = useAuthStore();
-const loggedIn = computed(() => auth.loggedIn());
-
-onMounted(() => {
-  auth.getCredentialFromLocalStorage();
-});
 
 const users : AppUser[] = [
   {
@@ -51,14 +41,7 @@ const users : AppUser[] = [
         </v-text-field>
       </div>
 
-      <div>
-        <GoogleLogin
-          class="googleLogin"
-          v-if="!loggedIn"
-          :callback="auth.googleLoginCallback"
-        />
-        <UserProfile v-if="loggedIn"/>
-      </div>
+      <UserMenu />
     </header>
 
     <ul class="userList">
