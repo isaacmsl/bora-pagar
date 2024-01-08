@@ -2,7 +2,6 @@ package ufrn.imd.boraPagar.user;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
