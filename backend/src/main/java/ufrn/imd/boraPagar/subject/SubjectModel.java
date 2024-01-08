@@ -2,6 +2,7 @@ package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Column;
@@ -15,7 +16,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ufrn.imd.boraPagar.core.AbstractModel; 
+import ufrn.imd.boraPagar.core.AbstractModel;
+import ufrn.imd.boraPagar.user.UserModel; 
 
 @Document("Subject")
 @Entity
@@ -43,4 +45,7 @@ public class SubjectModel extends AbstractModel {
     @OneToMany
     @JoinColumn(name="subject_id")
     List<String> courses;
+
+    @DBRef
+    private List<UserModel> interestedUsers;
 }
