@@ -1,6 +1,6 @@
 package ufrn.imd.boraPagar.core;
 
-// import java.util.List;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,11 @@ public class AbstractController <M extends AbstractModel, S extends AbstractServ
     
     protected final String USER_HEADER_TOKEN_NAME = "credential";
 
-    // @GetMapping("/findAll")
-    // public ResponseEntity<List<M>> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
-    //     List<M> listResult = (List<M>) service.findAll(credential);
-    //     return ResponseEntity.ok().body(listResult);
-    // }
+    @GetMapping("/forceFindAll")
+    public ResponseEntity<List<M>> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
+        List<M> listResult = (List<M>) service.findAll(credential);
+        return ResponseEntity.ok().body(listResult);
+    }
 
     @GetMapping("/findAll")
     public Page<M> findAll(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, Pageable pageable) {
