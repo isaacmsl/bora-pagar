@@ -1,11 +1,47 @@
 <script setup lang="ts">
 import { VListItem } from 'vuetify/components/VList';
 import Button from '@/components/Button.vue';
-defineProps<{
+import type { AppUser } from '@/types/AppUser';
+import { useAuthStore } from '@/stores/auth';
+import { SubjectService } from '@/services/SubjectService';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
+import type { Subject } from '@/types/Subject';
+
+const props = defineProps<{
   code: string;
   name: string;
   department: string;
+  interestedUsers: AppUser[]
 }>();
+
+const subjectService = new SubjectService();
+const auth = useAuthStore();
+const isUserInterested = ref(false);
+const isHandlingInterestedUser = ref(false);
+
+async function handleInterestedUser(isAdd : boolean) {
+  isHandlingInterestedUser.value = true;
+  const credential = auth.getCredentialFromLocalStorage();
+  let subject : Subject;
+
+  if (isAdd) {
+    subject = await subjectService.addInterestedUserByCode(credential, props.code);
+  } else {
+    subject = await subjectService.removeInterestedUserByCode(credential, props.code);
+  }
+
+  isUserInterested.value = subjectContainsInterestedUser(subject.interestedUsers);
+  isHandlingInterestedUser.value = false;
+}
+
+function subjectContainsInterestedUser(interestedUsers : AppUser[]) {
+  return interestedUsers.find(user => user.googleId == auth.user?.sub) != undefined;
+}
+
+onMounted(() => {
+  isUserInterested.value = subjectContainsInterestedUser(props.interestedUsers);
+});
 </script>
 
 <template>
@@ -19,7 +55,18 @@ defineProps<{
         </div>
       </div>
 
-      <Button name="Quero Pagar"/>
+      <Button
+        @click="handleInterestedUser(true)"
+        v-if="!isUserInterested"
+        :disabled="isHandlingInterestedUser"
+        name="Pagarei"
+      />
+      <Button
+        @click="handleInterestedUser(false)"
+        v-if="isUserInterested"
+        :disabled="isHandlingInterestedUser"
+        name="Não pagarei"
+      />
     </div>
   </v-list-item>
 </template>
