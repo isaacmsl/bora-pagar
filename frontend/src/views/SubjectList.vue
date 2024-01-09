@@ -71,7 +71,7 @@ onMounted(async () => {
       <UserMenu />
     </header>
 
-    <v-expansion-panels class="filterPanel" v-model="panel">
+    <v-expansion-panels class="filterPanel" v-model="panel" v-if="auth.loggedIn()">
       <v-expansion-panel>
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
