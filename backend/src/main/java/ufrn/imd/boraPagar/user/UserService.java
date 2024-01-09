@@ -85,4 +85,20 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         
         return users;
     }
+
+    public List<UserModel> findAllByRole(String credential, RoleEnum role) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+
+        if(user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
+            List<UserModel> users = userRepository.findAllByRole(role);
+
+            for (UserModel obj : users) {
+                obj = getUserWithoutSensitiveInfo(obj);
+            }
+            
+            return users;
+        }
+
+        return null;
+    }
 }
