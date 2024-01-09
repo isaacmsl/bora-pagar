@@ -27,6 +27,10 @@ async function fetchPage() {
   qntPages.value = pageSubject.totalPages;
 }
 
+function getScrollClass() {
+  return auth.loggedIn() ? '':'overflow-hidden'
+}
+
 onMounted(async () => {
   auth.getCredentialFromLocalStorage();
   fetchPage();
@@ -39,7 +43,7 @@ onMounted(async () => {
       <h1>Listar disciplinas</h1>
       <UserMenu />
     </header>
-    <v-list class="list">
+    <v-list :class="' list ' + getScrollClass()">
       <SubjectListItem
         v-for="subject in subjects"
         :key="subject.code"
