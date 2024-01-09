@@ -1,6 +1,9 @@
+import { UserService } from '@/services/UserService';
 import type { GoogleUserInfo } from '@/types/GoogleUserInfo';
 import { defineStore } from 'pinia';
 import { decodeCredential, googleLogout } from 'vue3-google-login';
+
+const userService = new UserService();
 
 const credentialKeyName = 'credential';
 
@@ -20,6 +23,7 @@ export const useAuthStore = defineStore('auth', {
     googleLoginCallback(response : any) {
       localStorage.setItem(credentialKeyName, response.credential);
       this.setUserFromCredential(response.credential);
+      userService.welcomeUser(response.credential);
     },
     getCredentialFromLocalStorage() {
       const credential = localStorage.getItem(credentialKeyName);
