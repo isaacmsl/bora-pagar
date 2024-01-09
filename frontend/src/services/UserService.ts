@@ -1,4 +1,4 @@
-import type { AppUser } from '@/types/AppUser';
+import type { PageUser } from '@/types/PageUser';
 import axios, { Axios, type AxiosResponse } from 'axios'
 export class UserService {
   private axiosInstance : Axios;
@@ -8,11 +8,22 @@ export class UserService {
       baseURL: import.meta.env.VITE_API_URL + '/users',
     });
   }
+  
+  public async welcomeUser(credential : string) : Promise<string> {
+    const response = await this.axiosInstance.post<any, AxiosResponse<string>>('/welcome', {}, {
+      headers: {
+        credential
+      }
+    });
+    
+    return response.data;
+  }
 
-  public async searchUsersByUsername(username? : string) : Promise<AppUser[]>{
-    const response = await this.axiosInstance.get<any, AxiosResponse<AppUser[]>>('', {
+  public async searchUsersByUsername(page : number, username? : string) : Promise<PageUser>{
+    const response = await this.axiosInstance.get<any, AxiosResponse<PageUser>>('', {
       params: {
-        partialUsername: username || ''
+        partialUsername: username || '',
+        page
       }
     });
     

@@ -65,22 +65,42 @@ public class UserTests {
 
     @Test
     public void shouldFindAllByName() {
-        Assert.assertTrue(repository.findAllByName("IsAaC").contains(user));
+        String partialName = "IsAaC";
+        
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllByName(pageable, partialName);
+        
+        Assert.assertTrue(userPage.getContent().contains(user));
     }
 
     @Test
     public void shouldNotFindAllByName() {
-        Assert.assertTrue(repository.findAllByName("joao").isEmpty());
+        String partialName = "joao";
+        
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllByName(pageable, partialName);
+        
+        Assert.assertTrue(userPage.getContent().isEmpty());
     }
 
     @Test
     public void shouldFindAllByUsername() {
-        Assert.assertFalse(repository.findAllByUsername("IsAaC").isEmpty());
+        String partialName = "IsAaC";
+        
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllByUsername(pageable, partialName);
+
+        Assert.assertTrue(userPage.getContent().contains(user));
     }
 
     @Test
     public void shouldNotFindAllByUsername() {
-        Assert.assertTrue(repository.findAllByUsername("joao").isEmpty());
+        String partialName = "joao";
+        
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<UserModel> userPage = repository.findAllByUsername(pageable, partialName);
+
+        Assert.assertTrue(userPage.getContent().isEmpty());
     }
 
     @Test

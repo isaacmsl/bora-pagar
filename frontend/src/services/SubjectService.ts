@@ -2,7 +2,7 @@ import type { PageSubject } from '@/types/PageSubject';
 import type { SubjectFilters } from '@/types/SubjectFilters';
 import axios, { Axios, type AxiosResponse } from 'axios'
 export class SubjectService {
-  private axiosInstance : Axios;
+  private axiosInstance: Axios;
 
   public constructor() {
     this.axiosInstance = axios.create({
@@ -19,6 +19,33 @@ export class SubjectService {
           department: filters.department
         }
       });
+    
+    return response.data;
+  }
+
+  public async addInterestedUserByCode(credential: string, code: string): Promise<Subject> {
+    const response = await this.axiosInstance.post<any, AxiosResponse<Subject>>('/interested', {}, {
+      params: {
+        code
+      },
+      headers: {
+        credential
+      }
+    });
+
+    return response.data;
+  }
+
+  public async removeInterestedUserByCode(credential: string, code: string): Promise<Subject> {
+    const response = await this.axiosInstance.delete<any, AxiosResponse<Subject>>('/interested', {
+      params: {
+        code
+      },
+      headers: {
+        credential
+      }
+    });
+
     return response.data;
   }
 }

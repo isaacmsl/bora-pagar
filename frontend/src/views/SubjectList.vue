@@ -99,6 +99,7 @@ onMounted(async () => {
         :code="subject.code"
         :department="subject.department"
         :name="subject.name"
+        :interested-users="subject.interestedUsers"
       />
       <div v-if="!loggedIn" class="hiddenList" />
     </v-list>
