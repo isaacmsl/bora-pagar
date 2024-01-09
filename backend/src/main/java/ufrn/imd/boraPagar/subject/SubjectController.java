@@ -28,13 +28,13 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
 
     @JsonView(Views.Public.class)
     @PostMapping("/interested")
-    public ResponseEntity<SubjectModel> addInterestedUserSubjectId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
+    public ResponseEntity<SubjectModel> addInterestedUserSubjectCode(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
         return ResponseEntity.ok().body(service.addInterestedUserByCode(credential, code));
     }
 
     @JsonView(Views.Public.class)
     @DeleteMapping("/interested")
-    public ResponseEntity<SubjectModel> removeInterestedUserSubjectId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
+    public ResponseEntity<SubjectModel> removeInterestedUserSubjectCode(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
         return ResponseEntity.ok().body(service.removeInterestedUserByCode(credential, code));
     }
     
