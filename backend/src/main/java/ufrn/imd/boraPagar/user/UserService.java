@@ -2,6 +2,8 @@ package ufrn.imd.boraPagar.user;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
@@ -66,8 +68,8 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return null;
     }
 
-    public List<UserModel> findAllByName(String partialName) {
-        List<UserModel> users = userRepository.findAllByName(partialName);
+    public Page<UserModel> findAllByName(Pageable pageable, String partialName) {
+        Page<UserModel> users = userRepository.findAllByName(pageable, partialName);
         
         for (UserModel user : users) {
             user = getUserWithoutSensitiveInfo(user);
@@ -76,8 +78,8 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return users;
     }
 
-    public List<UserModel> findAllByUsername(String partialUsername) {
-        List<UserModel> users = userRepository.findAllByUsername(partialUsername);
+    public Page<UserModel> findAllByUsername(Pageable pageable, String partialUsername) {
+        Page<UserModel> users = userRepository.findAllByUsername(pageable, partialUsername);
         
         for (UserModel user : users) {
             user = getUserWithoutSensitiveInfo(user);
