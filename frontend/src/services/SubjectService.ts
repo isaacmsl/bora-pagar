@@ -1,6 +1,7 @@
 import type { PageSubject } from '@/types/PageSubject';
 import type { SubjectFilters } from '@/types/SubjectFilters';
-import axios, { Axios, type AxiosResponse } from 'axios'
+import axios, { Axios, type AxiosResponse } from 'axios';
+import type { Subject } from '@/types/Subject';
 export class SubjectService {
   private axiosInstance: Axios;
 
