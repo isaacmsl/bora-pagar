@@ -1,6 +1,7 @@
 package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;

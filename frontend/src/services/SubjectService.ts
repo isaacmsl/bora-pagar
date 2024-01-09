@@ -1,5 +1,5 @@
 import type { PageSubject } from '@/types/PageSubject';
-import type { Subject } from '@/types/Subject';
+import type { SubjectFilters } from '@/types/SubjectFilters';
 import axios, { Axios, type AxiosResponse } from 'axios'
 export class SubjectService {
   private axiosInstance: Axios;
@@ -8,6 +8,19 @@ export class SubjectService {
     this.axiosInstance = axios.create({
       baseURL: import.meta.env.VITE_API_URL + '/subjects',
     });
+  }
+
+  public async findAll(filters : SubjectFilters, page : Number = 1) : Promise<PageSubject> {
+    // Temporariamente findAll
+    const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('/findAll', {
+        params: {
+          page,
+          name: filters.name,
+          department: filters.department
+        }
+      });
+    
+    return response.data;
   }
 
   public async addInterestedUserByCode(credential: string, code: string): Promise<Subject> {
@@ -33,15 +46,6 @@ export class SubjectService {
       }
     });
 
-    return response.data;
-  }
-
-  public async getPage(page: Number = 1): Promise<PageSubject> {
-    const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('/findAll', {
-      params: {
-        page
-      }
-    });
     return response.data;
   }
 }
