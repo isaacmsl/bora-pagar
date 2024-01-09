@@ -1,6 +1,9 @@
 package ufrn.imd.boraPagar.user;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import ufrn.imd.boraPagar.core.AbstractRepository;
 
@@ -11,10 +14,10 @@ public interface UserRepository extends AbstractRepository<UserModel> {
     UserModel findByUsername(String username);
     
     @Query("{ 'name' : { $regex: ?0, $options: 'i' } }")
-    List<UserModel> findAllByName(String partialName);
+    Page<UserModel> findAllByName(Pageable pageable, String partialName);
 
     @Query("{ 'username' : { $regex: ?0, $options: 'i' } }")
-    List<UserModel> findAllByUsername(String partialUsername);
+    Page<UserModel> findAllByUsername(Pageable pageable, String partialUsername);
 
     List<UserModel> findAllByRole(RoleEnum role);
 }
