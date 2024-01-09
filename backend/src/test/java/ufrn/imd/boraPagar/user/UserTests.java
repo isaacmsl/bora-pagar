@@ -70,7 +70,7 @@ public class UserTests {
         Pageable pageable = PageRequest.of(0, 2);
         Page<UserModel> userPage = repository.findAllByName(pageable, partialName);
         
-        Assert.assertFalse(userPage.getContent().isEmpty());
+        Assert.assertTrue(userPage.getContent().contains(user));
     }
 
     @Test
@@ -90,7 +90,7 @@ public class UserTests {
         Pageable pageable = PageRequest.of(0, 2);
         Page<UserModel> userPage = repository.findAllByUsername(pageable, partialName);
 
-        Assert.assertFalse(userPage.getContent().isEmpty());
+        Assert.assertTrue(userPage.getContent().contains(user));
     }
 
     @Test
