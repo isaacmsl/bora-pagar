@@ -1,7 +1,10 @@
 package ufrn.imd.boraPagar.user;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -35,4 +38,8 @@ public class UserModel extends AbstractModel  {
 
     @Builder.Default
     private RoleEnum role = RoleEnum.ROLE_USER;
+
+    @Builder.Default
+    @DBRef(lazy = true)
+    private List<UserModel> friends = new ArrayList<>();
 }

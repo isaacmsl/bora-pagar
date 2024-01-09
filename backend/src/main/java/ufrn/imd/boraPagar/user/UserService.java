@@ -101,4 +101,30 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
         return null;
     }
+
+    public UserModel addFriend(String credential, String googleId) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+        UserModel newFriend = userRepository.findByGoogleId(googleId);
+
+        if(user != null && newFriend != null) {
+            user.getFriends().add(newFriend);
+            
+            return userRepository.save(user);
+        }
+
+        return null;
+    }
+    
+    public UserModel removeFriend(String credential, String googleId) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+        UserModel friend = userRepository.findByGoogleId(googleId);
+
+        if(user != null && friend != null && user.getFriends().contains(friend)) {
+            user.getFriends().remove(friend);
+            
+            return userRepository.save(user);
+        }
+
+        return null;
+    }
 }

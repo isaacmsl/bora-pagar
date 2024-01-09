@@ -12,6 +12,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import ufrn.imd.boraPagar.core.AbstractController;
 import ufrn.imd.boraPagar.core.Views;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
 @RequestMapping("users")
@@ -57,4 +60,17 @@ public class UserController extends AbstractController<UserModel, UserService>{
     public ResponseEntity<List<UserModel>> findAllByRole(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestHeader("role") RoleEnum role) {
         return ResponseEntity.ok().body(service.findAllByRole(credential, role));
     }
+
+    @JsonView(Views.Public.class)
+    @PostMapping("friends")
+    public ResponseEntity<UserModel> addFriend(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
+        return ResponseEntity.ok().body(service.addFriend(credential, googleId));
+    }
+    
+    @JsonView(Views.Public.class)
+    @DeleteMapping("friends")
+    public ResponseEntity<UserModel> removeFriend(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
+        return ResponseEntity.ok().body(service.removeFriend(credential, googleId));
+    }
+    
 }
