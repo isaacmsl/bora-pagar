@@ -14,22 +14,23 @@ import { SubjectService } from '@/services/SubjectService';
 const subjectApi = new SubjectService();
 
 const page = ref(1);
-const qntSubjectsOnPage = 20;
-const qntVisiblePages = 7;
+const qntVisiblePages = 11;
 
 const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
 const subjects : Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
-//  Math.ceil(subjects.length / qntSubjectsOnPage);
 
-onMounted(async () => {
-  auth.getCredentialFromLocalStorage();
+async function fetchPage() {
   const pageSubject = await subjectApi.getPage(page.value);
   subjects.value = pageSubject.content;
   qntPages.value = pageSubject.totalPages;
-});
+}
 
+onMounted(async () => {
+  auth.getCredentialFromLocalStorage();
+  fetchPage();
+});
 </script>
 
 <template>
@@ -52,6 +53,7 @@ onMounted(async () => {
       :length="qntPages"
       v-model="page"
       color="primary"
+      @click="fetchPage"
       :total-visible="qntVisiblePages"
       :disabled="!loggedIn"
     ></v-pagination>
