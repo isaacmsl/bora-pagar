@@ -3,24 +3,31 @@ import UserListItem from '@/components/UserListItem.vue';
 import UserMenu from '@/components/UserMenu.vue';
 import type { AppUser } from '@/types/AppUser';
 import { onMounted, type Ref } from 'vue';
-import { VTextField } from 'vuetify/components';
+import { VTextField, VPagination } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
 import { ref } from 'vue';
 import { UserService } from '@/services/UserService';
 import { debounce } from '@/util/debounce';
+import { useAuthStore } from '@/stores/auth';
 
+const auth = useAuthStore();
 const api = new UserService();
 const users : Ref<AppUser[]> = ref([]);
 const inputUsername : Ref<string> = ref('');
+const qntPages = ref(0);
+const page = ref(1);
+const qntVisiblePages = 11;
 
-async function fetchUsers() {
-  users.value = await api.searchUsersByUsername(inputUsername.value);
+async function fetchPage() {
+  const pageUser = await api.searchUsersByUsername(page.value - 1, inputUsername.value);
+  users.value = pageUser.content;
+  qntPages.value = pageUser.totalPages;
 }
 
-const handleUsernameInput = debounce(fetchUsers)
+const handleUsernameInput = debounce(fetchPage);
 
 onMounted(() => {
-  fetchUsers();
+  fetchPage();
 });
 </script>
 
@@ -48,6 +55,8 @@ onMounted(() => {
     <ul class="userList">
       <UserListItem v-for="user in users" :user="user" :key="user.username"/>
     </ul>
+    <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
+      :disabled="!auth.loggedIn()"></v-pagination>
   </div>
 </template>
 
