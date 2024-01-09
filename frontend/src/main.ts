@@ -8,7 +8,7 @@ import 'vuetify/styles';
 import { createVuetify } from 'vuetify';
 import vue3GoogleLogin from 'vue3-google-login';
 
-const GOOGLE_LOGIN_CLIENT_ID = '384114633752-8jn7olobqn2e44sj7mdlahib0r70s5cv.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const app = createApp(App);
 const vuetify = createVuetify({
@@ -38,7 +38,7 @@ const vuetify = createVuetify({
 });
 
 app.use(vue3GoogleLogin, {
-  clientId: GOOGLE_LOGIN_CLIENT_ID
+  clientId: GOOGLE_CLIENT_ID
 });
 app.use(createPinia());
 app.use(router);
