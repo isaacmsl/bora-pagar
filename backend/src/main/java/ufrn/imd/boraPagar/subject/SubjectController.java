@@ -51,7 +51,7 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"department"})
-    public ResponseEntity<List<SubjectModel>> findAllByTotalHours(@RequestParam String department) {
+    public ResponseEntity<List<SubjectModel>> findAllByDepartment(@RequestParam String department) {
         return ResponseEntity.ok().body(service.findAllByDepartment(department));
     }
 }
