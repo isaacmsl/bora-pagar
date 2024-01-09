@@ -7,68 +7,30 @@ import { useAuthStore } from '@/stores/auth';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
 import UserMenu from '@/components/UserMenu.vue';
+import type { Subject } from '@/types/Subject';
+import type { Ref } from 'vue';
+import { SubjectService } from '@/services/SubjectService';
+
+const subjectApi = new SubjectService();
 
 const page = ref(1);
-const qntSubjectsOnPage = 4;
-const qntVisiblePages = 7;
+const qntVisiblePages = 11;
 
 const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
+const subjects : Ref<Subject[]> = ref([]);
+const qntPages = ref(0);
 
-onMounted(() => {
+async function fetchPage() {
+  const pageSubject = await subjectApi.getPage(page.value);
+  subjects.value = pageSubject.content;
+  qntPages.value = pageSubject.totalPages;
+}
+
+onMounted(async () => {
   auth.getCredentialFromLocalStorage();
+  fetchPage();
 });
-
-const subjects = [
-  {
-    code: 'DIM0004',
-    name: 'Programação funcional',
-    department: 'Departamento de informática e matemática aplicada'
-  },
-  {
-    code: 'IMD0010',
-    name: 'Fundamentos matemáticos da computação II',
-    department: 'Instituto metrópole digital'
-  },
-  {
-    code: 'IMD0020',
-    name: 'Fundamentos matemáticos da computação I',
-    department: 'Instituto metrópole digital'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Natação I',
-    department: 'Departamento de Educação Física'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Forró I',
-    department: 'Departamento de Dança'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Flauta I',
-    department: 'Departamento de Música'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Basquete I',
-    department: 'Departamento de Educação Física'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Axé I',
-    department: 'Departamento de Música'
-  },
-  {
-    code: 'IMD00X0',
-    name: 'Introdução a Lógica',
-    department: 'Departamento de Informática e Matemática Aplicada'
-  }
-];
-
-const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
-
 </script>
 
 <template>
@@ -79,7 +41,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
     </header>
     <v-list class="list">
       <SubjectListItem
-        v-for="subject in subjects.slice(qntSubjectsOnPage * (page - 1), qntSubjectsOnPage * page)"
+        v-for="subject in subjects"
         :key="subject.code"
         :code="subject.code"
         :department="subject.department"
@@ -91,6 +53,7 @@ const qntPages = Math.ceil(subjects.length / qntSubjectsOnPage);
       :length="qntPages"
       v-model="page"
       color="primary"
+      @click="fetchPage"
       :total-visible="qntVisiblePages"
       :disabled="!loggedIn"
     ></v-pagination>
