@@ -18,13 +18,17 @@ const qntVisiblePages = 11;
 
 const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
-const subjects : Ref<Subject[]> = ref([]);
+const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 
 async function fetchPage() {
   const pageSubject = await subjectApi.getPage(page.value);
   subjects.value = pageSubject.content;
   qntPages.value = pageSubject.totalPages;
+}
+
+function getScrollClass() {
+  return auth.loggedIn() ? '' : 'overflow-hidden';
 }
 
 onMounted(async () => {
@@ -39,29 +43,17 @@ onMounted(async () => {
       <h1>Listar disciplinas</h1>
       <UserMenu />
     </header>
-    <v-list class="list">
-      <SubjectListItem
-        v-for="subject in subjects"
-        :key="subject.code"
-        :code="subject.code"
-        :department="subject.department"
-        :name="subject.name"
-      />
-      <div v-if="!loggedIn" class="hiddenList"/>
+    <v-list :class="' list ' + getScrollClass()">
+      <SubjectListItem v-for="subject in subjects" :key="subject.code" :code="subject.code"
+        :department="subject.department" :name="subject.name" />
+      <div v-if="!loggedIn" class="hiddenList" />
     </v-list>
-    <v-pagination
-      :length="qntPages"
-      v-model="page"
-      color="primary"
-      @click="fetchPage"
-      :total-visible="qntVisiblePages"
-      :disabled="!loggedIn"
-    ></v-pagination>
+    <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
+      :disabled="!loggedIn"></v-pagination>
   </main>
 </template>
 
 <style scoped>
-
 header {
   display: flex;
   align-items: center;
