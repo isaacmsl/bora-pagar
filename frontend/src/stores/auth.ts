@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', {
       this.setUserFromCredential(response.credential);
       userService.welcomeUser(response.credential);
     },
-    getCredentialFromLocalStorage() {
+    getCredentialFromLocalStorage() : string {
       const credential = localStorage.getItem(credentialKeyName);
       if (credential) {
         try {
@@ -34,6 +34,8 @@ export const useAuthStore = defineStore('auth', {
           this.logout();
         }
       }
+
+      return String(credential);
     },
     logout() {
       localStorage.removeItem(credentialKeyName);

@@ -45,7 +45,7 @@ onMounted(async () => {
     </header>
     <v-list :class="' list ' + getScrollClass()">
       <SubjectListItem v-for="subject in subjects" :key="subject.code" :code="subject.code"
-        :department="subject.department" :name="subject.name" />
+        :department="subject.department" :name="subject.name" :interested-users="subject.interestedUsers"/>
       <div v-if="!loggedIn" class="hiddenList" />
     </v-list>
     <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
