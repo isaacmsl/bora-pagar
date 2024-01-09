@@ -8,7 +8,7 @@ import {
   VExpansionPanelText,
   VTextField,
   VRow,
-  VCol
+  VCol,
 } from 'vuetify/components';
 import SubjectListItem from '@/components/SubjectListItem.vue';
 import { ref } from 'vue';
@@ -16,6 +16,7 @@ import { useAuthStore } from '@/stores/auth';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
 import UserMenu from '@/components/UserMenu.vue';
+import CustomSelect from '@/components/CustomSelect.vue';
 import type { Subject } from '@/types/Subject';
 import type { Ref } from 'vue';
 import { SubjectService } from '@/services/SubjectService';
@@ -63,7 +64,7 @@ onMounted(async () => {
             </v-col>
 
             <v-col cols="6">
-              <v-text-field label="Departamento" variant="outlined" density="comfortable" />
+              <CustomSelect />
             </v-col>
           </v-row>
         </v-expansion-panel-text>
