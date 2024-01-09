@@ -8,6 +8,16 @@ export class UserService {
       baseURL: import.meta.env.VITE_API_URL + '/users',
     });
   }
+  
+  public async welcomeUser(credential : string) : Promise<string> {
+    const response = await this.axiosInstance.post<any, AxiosResponse<string>>('/welcome', {}, {
+      headers: {
+        credential
+      }
+    });
+    
+    return response.data;
+  }
 
   public async searchUsersByUsername(page : number, username? : string) : Promise<PageUser>{
     const response = await this.axiosInstance.get<any, AxiosResponse<PageUser>>('', {

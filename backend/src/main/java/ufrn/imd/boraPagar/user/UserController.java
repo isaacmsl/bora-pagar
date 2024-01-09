@@ -15,10 +15,16 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import ufrn.imd.boraPagar.core.AbstractController;
 import ufrn.imd.boraPagar.core.Views;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("users")
 public class UserController extends AbstractController<UserModel, UserService>{
+    @PostMapping("/welcome")
+    public String welcome(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
+        return service.welcome(credential);
+    }
+
     @JsonView(Views.Admin.class)
     @RequestMapping(method = RequestMethod.GET, params = {"name"})
     public ResponseEntity<UserModel> findByName(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String name) {
