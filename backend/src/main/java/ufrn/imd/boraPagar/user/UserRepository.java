@@ -15,4 +15,6 @@ public interface UserRepository extends AbstractRepository<UserModel> {
 
     @Query("{ 'username' : { $regex: ?0, $options: 'i' } }")
     List<UserModel> findAllByUsername(String partialUsername);
+
+    List<UserModel> findAllByRole(RoleEnum role);
 }

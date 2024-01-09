@@ -84,6 +84,11 @@ public class UserTests {
     }
 
     @Test
+    public void shouldRoleBeUser() {
+        Assert.assertEquals(RoleEnum.ROLE_USER, user.getRole());
+    }
+
+    @Test
     public void shouldPageZeroHasLengthOne() {
         Pageable pageable = PageRequest.of(0, 2);
         Page<UserModel> userPage = repository.findAllActiveByPage(pageable);

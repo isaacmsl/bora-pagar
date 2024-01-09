@@ -29,7 +29,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public UserModel findByGoogleId(String credential, String googleId) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return userRepository.findByGoogleId(googleId);
         }
 
@@ -39,7 +39,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public UserModel findByName(String credential, String name) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return userRepository.findByName(name);
         }
 
@@ -49,7 +49,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public UserModel findByUsername(String credential, String username) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return userRepository.findByUsername(username);
         }
 
@@ -59,7 +59,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public UserModel findByEmail(String credential, String email) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return userRepository.findByEmail(email);
         }
 
@@ -84,5 +84,21 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         }
         
         return users;
+    }
+
+    public List<UserModel> findAllByRole(String credential, RoleEnum role) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+
+        if(user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
+            List<UserModel> users = userRepository.findAllByRole(role);
+
+            for (UserModel obj : users) {
+                obj = getUserWithoutSensitiveInfo(obj);
+            }
+            
+            return users;
+        }
+
+        return null;
     }
 }
