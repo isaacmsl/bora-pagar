@@ -26,6 +26,15 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return user;
     }
 
+    public String welcome(String credential) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
+        if (user != null) {
+            return "Welcome, " + user.getName();
+        }
+
+        return "You're not welcome.";
+    }
+
     public UserModel findByGoogleId(String credential, String googleId) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         

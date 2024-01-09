@@ -35,7 +35,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     @Autowired
     private Environment environment;
 
-    protected UserModel getExistingOrNewUserFromCredential(String credential) {
+    public UserModel getExistingOrNewUserFromCredential(String credential) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
                 GsonFactory.getDefaultInstance())
                 .setAudience(Collections
