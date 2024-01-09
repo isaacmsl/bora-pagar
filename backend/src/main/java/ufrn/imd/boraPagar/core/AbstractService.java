@@ -1,6 +1,7 @@
 package ufrn.imd.boraPagar.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -30,13 +31,14 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     @Autowired
     private GoogleUserWrapper googleUserWrapper;
 
-    private final String GOOGLE_CLIENT_ID = "384114633752-8jn7olobqn2e44sj7mdlahib0r70s5cv.apps.googleusercontent.com";
+    @Autowired
+    private Environment environment;
 
     protected UserModel getExistingOrNewUserFromCredential(String credential) {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(),
                 GsonFactory.getDefaultInstance())
                 .setAudience(Collections
-                        .singletonList(GOOGLE_CLIENT_ID))
+                        .singletonList(environment.getProperty("GOOGLE_CLIENT_ID")))
                 .build();
 
         GoogleIdToken idToken;
