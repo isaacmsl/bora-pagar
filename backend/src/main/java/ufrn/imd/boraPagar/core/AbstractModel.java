@@ -1,7 +1,5 @@
 package ufrn.imd.boraPagar.core;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.persistence.Column;
