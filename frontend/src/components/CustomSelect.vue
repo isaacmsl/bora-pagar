@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { VAutocomplete, VListItem } from 'vuetify/components';
 
-const model = defineModel<string>();
+const props = defineProps<{modelValue: string}>();
+const emit = defineEmits(['update:modelValue']);
+
+function handleSelection(value: string) {
+  emit('update:modelValue', value);
+}
+
 const departments = ["INSTITUTO METRÓPOLE DIGITAL", "DEPARTAMENTO DE INFORMÁTICA E MATEMÁTICA APLICADA"];
 </script>
 
 <template>
   <v-autocomplete 
     :items="departments" 
-    v-model="model"
+    :model-value="props.modelValue"
+    @update:model-value="handleSelection"
     label="Departamento" 
     variant="outlined" 
     density="comfortable" 
