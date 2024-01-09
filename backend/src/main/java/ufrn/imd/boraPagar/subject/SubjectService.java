@@ -52,7 +52,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return null;
     }
 
-    @Cacheable("subjects")
     @Override
     public Page<SubjectModel> findAllByPage(String credential, Pageable pageable) {
         return subjectRepository.findAllActiveByPage(pageable);
