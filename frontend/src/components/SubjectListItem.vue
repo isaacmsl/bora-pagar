@@ -57,13 +57,13 @@ onMounted(() => {
 
       <Button
         @click="handleInterestedUser(true)"
-        v-if="!isUserInterested"
+        v-if="!isUserInterested && auth.loggedIn()"
         :disabled="isHandlingInterestedUser"
         name="Pagarei"
       />
       <Button
         @click="handleInterestedUser(false)"
-        v-if="isUserInterested"
+        v-if="isUserInterested && auth.loggedIn()" 
         :disabled="isHandlingInterestedUser"
         name="Não pagarei"
       />
