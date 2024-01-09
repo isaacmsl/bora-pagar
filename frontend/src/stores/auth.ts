@@ -2,6 +2,7 @@ import { UserService } from '@/services/UserService';
 import type { GoogleUserInfo } from '@/types/GoogleUserInfo';
 import { defineStore } from 'pinia';
 import { decodeCredential, googleLogout } from 'vue3-google-login';
+import router from '@/router';
 
 const userService = new UserService();
 
@@ -41,6 +42,7 @@ export const useAuthStore = defineStore('auth', {
       localStorage.removeItem(credentialKeyName);
       this.user = undefined;
       googleLogout();
+      router.push('/');
     },
     loggedIn() {
       return this.user != undefined;
