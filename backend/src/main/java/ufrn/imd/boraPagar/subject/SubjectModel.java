@@ -1,6 +1,7 @@
 package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -46,6 +47,7 @@ public class SubjectModel extends AbstractModel {
     @JoinColumn(name="subject_id")
     List<String> courses;
 
+    @Builder.Default
     @DBRef(lazy = true)
-    private List<UserModel> interestedUsers;
+    private List<UserModel> interestedUsers = new ArrayList<>();
 }

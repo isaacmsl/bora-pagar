@@ -71,16 +71,18 @@ onMounted(async () => {
 
     <v-expansion-panels class="filterPanel">
       <v-expansion-panel>
-        <v-expansion-panel-title class="filterPanelTitle"> Filtros </v-expansion-panel-title>
+        <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
             <v-col cols="6">
               <v-text-field 
-                label="Nome da disciplina" 
+                label="Disciplina" 
                 variant="outlined" 
                 density="comfortable" 
                 v-model="subjectName"
                 @keyup="handleNameInput"
+                placeholder="Nome da disciplina"
+                persistent-placeholder
               />
             </v-col>
 
@@ -138,7 +140,7 @@ h1 {
 
 .filterPanelTitle {
   font-weight: bold;
-  border: 1px solid #2591d7;
+  border: 1px solid #363c40;
 }
 
 .filterPanelText,
@@ -150,6 +152,7 @@ h1 {
 
 .filterPanelText {
   border: 1px solid #363c40;
+  padding-top: 2rem;
 }
 
 .list {
