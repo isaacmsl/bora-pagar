@@ -40,7 +40,7 @@ onMounted(async () => {
     </header>
     <v-list class="list">
       <SubjectListItem
-        v-for="subject in subjects.slice(qntSubjectsOnPage * (page - 1), qntSubjectsOnPage * page)"
+        v-for="subject in subjects"
         :key="subject.code"
         :code="subject.code"
         :department="subject.department"
