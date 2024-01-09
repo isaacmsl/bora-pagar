@@ -33,5 +33,6 @@ public class UserModel extends AbstractModel  {
     @Builder.Default
     private LocalDateTime lastLoginTime = LocalDateTime.now(), registrationTime = LocalDateTime.now();
 
-    private RoleEnum role;
+    @Builder.Default
+    private RoleEnum role = RoleEnum.ROLE_USER;
 }
