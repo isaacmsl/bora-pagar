@@ -17,6 +17,7 @@ const departments = ["INSTITUTO METRÓPOLE DIGITAL", "DEPARTAMENTO DE INFORMÁTI
     :model-value="props.modelValue"
     @update:model-value="handleSelection"
     label="Departamento" 
+    placeholder="Departamento"
     variant="outlined" 
     density="comfortable" 
     bg-color="#282c42"

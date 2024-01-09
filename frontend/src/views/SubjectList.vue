@@ -35,6 +35,7 @@ const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 const subjectName = ref('');
 const subjectDepartment = ref('');
+const panel = ref<number[]>([]);
 
 async function fetchPage() {
   const filters : SubjectFilters = {
@@ -59,6 +60,7 @@ watch(subjectDepartment, () => {
 onMounted(async () => {
   auth.getCredentialFromLocalStorage();
   fetchPage();
+  panel.value = [0];
 });
 </script>
 
@@ -69,7 +71,7 @@ onMounted(async () => {
       <UserMenu />
     </header>
 
-    <v-expansion-panels class="filterPanel">
+    <v-expansion-panels class="filterPanel" v-model="panel">
       <v-expansion-panel>
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
