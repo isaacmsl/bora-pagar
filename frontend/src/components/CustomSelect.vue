@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { VAutocomplete, VListItem } from 'vuetify/components';
 
-const departments = ["Instituto metrópole digital", "Departamento de Informática e Matemática Aplicada"]
+const model = defineModel<string>();
+const departments = ["INSTITUTO METRÓPOLE DIGITAL", "DEPARTAMENTO DE INFORMÁTICA E MATEMÁTICA APLICADA"];
 </script>
 
 <template>
   <v-autocomplete 
     :items="departments" 
+    v-model="model"
     label="Departamento" 
     variant="outlined" 
     density="comfortable" 
@@ -22,7 +24,6 @@ const departments = ["Instituto metrópole digital", "Departamento de Informáti
 <style scoped>
 .selectItem {
   color: white;
-  font-size: 1.5rem;
   background-color: var(--app-blue-soft)
 }
 </style>

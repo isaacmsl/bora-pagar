@@ -20,6 +20,9 @@ import CustomSelect from '@/components/CustomSelect.vue';
 import type { Subject } from '@/types/Subject';
 import type { Ref } from 'vue';
 import { SubjectService } from '@/services/SubjectService';
+import type { SubjectFilters } from '@/types/SubjectFilters';
+import { debounce } from '@/util/debounce';
+import { watch } from 'vue';
 
 const subjectApi = new SubjectService();
 
@@ -30,16 +33,28 @@ const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
 const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
+const subjectName = ref('');
+const subjectDepartment = ref('');
 
 async function fetchPage() {
-  const pageSubject = await subjectApi.getPage(page.value);
+  const filters : SubjectFilters = {
+    name: subjectName.value,
+    department: subjectDepartment.value
+  };
+  const pageSubject = await subjectApi.findAll(filters, page.value);
   subjects.value = pageSubject.content;
   qntPages.value = pageSubject.totalPages;
 }
 
+const handleNameInput = debounce(fetchPage);
+
 function getScrollClass() {
   return auth.loggedIn() ? '' : 'overflow-hidden';
 }
+
+watch(subjectDepartment, () => {
+  fetchPage();
+})
 
 onMounted(async () => {
   auth.getCredentialFromLocalStorage();
@@ -60,11 +75,17 @@ onMounted(async () => {
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
             <v-col cols="6">
-              <v-text-field label="Nome da disciplina" variant="outlined" density="comfortable" />
+              <v-text-field 
+                label="Nome da disciplina" 
+                variant="outlined" 
+                density="comfortable" 
+                v-model="subjectName"
+                @keyup="handleNameInput"
+              />
             </v-col>
 
             <v-col cols="6">
-              <CustomSelect />
+              <CustomSelect v-model="subjectDepartment"/>
             </v-col>
           </v-row>
         </v-expansion-panel-text>
