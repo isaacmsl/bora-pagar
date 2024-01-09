@@ -46,6 +46,7 @@ public class SubjectModel extends AbstractModel {
     @JoinColumn(name="subject_id")
     List<String> courses;
 
+    @Builder.Default
     @DBRef(lazy = true)
-    private List<UserModel> interestedUsers;
+    private List<UserModel> interestedUsers = new ArrayList<>();
 }
