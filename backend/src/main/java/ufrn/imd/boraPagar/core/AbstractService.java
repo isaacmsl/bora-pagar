@@ -11,6 +11,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
 import ufrn.imd.boraPagar.user.GoogleUserWrapper;
+import ufrn.imd.boraPagar.user.RoleEnum;
 import ufrn.imd.boraPagar.user.UserModel;
 
 import java.io.IOException;
@@ -57,7 +58,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     public List<M> findAll(String credential) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return repository.findAllActive();
         }
 
@@ -77,7 +78,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     public Optional<M> findById(String credential, String id) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return repository.findById(id);
         }
 
@@ -87,7 +88,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     public synchronized M save(String credential, M model) throws Exception {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             M savedModel = repository.save(model);
             // log.save(new LogModel("System", "has saved/updated a " + model.getClass().getSimpleName(), model.getId(), null, LocalDateTime.now()));
             return savedModel;
@@ -99,7 +100,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
     public void delete(String credential, M model) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
-        if (user != null) {
+        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             model.setIsActive(false);
             repository.save(model);
             // log.save(new LogModel("System", "has deleted a " + model.getClass().getSimpleName(), model.getId(), null, LocalDateTime.now()));
