@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import departments from "@/assets/departments.json"
 import { VAutocomplete, VListItem } from 'vuetify/components';
 
 const props = defineProps<{modelValue: string}>();
@@ -8,7 +9,6 @@ function handleSelection(value: string) {
   emit('update:modelValue', value);
 }
 
-const departments = ["INSTITUTO METRÓPOLE DIGITAL", "DEPARTAMENTO DE INFORMÁTICA E MATEMÁTICA APLICADA"];
 </script>
 
 <template>
