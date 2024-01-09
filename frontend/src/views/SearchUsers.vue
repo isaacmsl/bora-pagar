@@ -7,17 +7,20 @@ import { VTextField } from 'vuetify/components';
 import { VIcon } from 'vuetify/components';
 import { ref } from 'vue';
 import { UserService } from '@/services/UserService';
+import { debounce } from '@/util/debounce';
 
 const api = new UserService();
 const users : Ref<AppUser[]> = ref([]);
 const inputUsername : Ref<string> = ref('');
 
-async function handleUsernameInput() {
+async function fetchUsers() {
   users.value = await api.searchUsersByUsername(inputUsername.value);
 }
 
-onMounted(async () => {
-  users.value = await api.searchUsersByUsername();
+const handleUsernameInput = debounce(fetchUsers)
+
+onMounted(() => {
+  fetchUsers();
 });
 </script>
 
