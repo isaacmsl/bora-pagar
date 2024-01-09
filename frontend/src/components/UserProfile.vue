@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
@@ -16,11 +17,19 @@ onMounted(() => {
   <nav class="userProfile">
     <section>
       <h2>{{ user?.given_name }}</h2>
-      <button @click="auth.logout">
-        <v-icon icon="mdi-logout"/> Sair
-      </button>
+      <nav>
+        <button @click="router.push('/')">
+          <v-icon icon="mdi-home" /> Início
+        </button>
+        <button @click="router.push('/search-users')">
+          <v-icon icon="mdi-account-search" /> Amigos
+        </button>
+        <button @click="auth.logout">
+          <v-icon icon="mdi-logout" /> Sair
+        </button>
+      </nav>
     </section>
-    <img :src="user?.picture"/>
+    <img :src="user?.picture" />
   </nav>
 </template>
 
@@ -29,6 +38,11 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.userProfile nav {
+  display: flex;
+  gap: 1rem;
 }
 
 .userProfile h2 {
