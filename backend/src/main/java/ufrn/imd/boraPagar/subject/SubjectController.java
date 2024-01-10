@@ -19,7 +19,6 @@ import ufrn.imd.boraPagar.core.AbstractController;
 import ufrn.imd.boraPagar.core.Views;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -80,4 +79,10 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     public ResponseEntity<List<SubjectModel>> findAllByDepartment(@RequestParam String department) {
         return ResponseEntity.ok().body(service.findAllByDepartment(department));
     }
+
+    @RequestMapping(method=RequestMethod.GET)
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String department) {
+        return service.findAllByNameAndDepartment(pageable, partialName, department);
+    }
+    
 }

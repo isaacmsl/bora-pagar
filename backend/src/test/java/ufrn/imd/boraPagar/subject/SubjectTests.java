@@ -179,6 +179,28 @@ public class SubjectTests {
     }
 
     @Test
+    public void findAllByNameAndDepartmentReturnTwoElementsInPageZero() {
+        String partialName = "fmc";
+        String department = "DIMAp";
+
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+
+        Assert.assertEquals(2, subPage.getContent().size());
+    }
+
+    @Test
+    public void findAllByNameAndDepartmentReturnZeroElementsInPageOne() {
+        String partialName = "fmc";
+        String department = "DIMAp";
+
+        Pageable pageable = PageRequest.of(1, 5);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+
+        Assert.assertEquals(0, subPage.getContent().size());
+    }
+
+    @Test
     public void deleteById() {
         repository.deleteById(subjectA.getId());
         Assert.assertFalse(repository.findById(subjectA.getId()).isPresent());
