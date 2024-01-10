@@ -119,4 +119,14 @@ h1 {
     font-size: 3rem;
   }
 }
+
+@media only screen and (max-width: 960px) {
+    header {
+        justify-content: flex-end;
+    }
+
+    .userInfo {
+        width: 100%;
+    }
+}
 </style>
