@@ -76,7 +76,7 @@ onMounted(async () => {
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-text-field 
                 label="Disciplina" 
                 variant="outlined" 
@@ -88,7 +88,7 @@ onMounted(async () => {
               />
             </v-col>
 
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <CustomSelect v-model="subjectDepartment"/>
             </v-col>
           </v-row>
@@ -121,7 +121,7 @@ onMounted(async () => {
 <style scoped>
 header {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   gap: 4rem;
   align-items: center;
   justify-content: space-between;
@@ -181,5 +181,25 @@ h1 {
 .pagination .v-btn {
   border-radius: 0.8rem;
   border: 2px solid var(--app-strong-blue);
+}
+
+@media only screen and (max-width: 960px) {
+  .container {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .list {
+    height: 500px;
+    flex: auto;
+  }
+
+  header {
+    justify-content: flex-end;
+  }
+
+  h1 {
+    width: 100%;
+  }
 }
 </style>

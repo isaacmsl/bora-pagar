@@ -135,17 +135,34 @@ onMounted(() => {
   text-align: center;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 960px) {
   .subject-name {
     font-size: 2rem;
   }
-}
 
-@media only screen and (max-width: 800px) {
+  .subject-info {
+    width: 100%;
+  }
+
   .list-item {
     display: grid;
     height: auto;
     justify-content: start;
+  }
+
+  .subject-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .subject-actions button {
+    margin-left : 0;
+    margin-right: 1rem;
+  }
+
+  .interested-users {
+    margin-top: 0;
   }
 }
 </style>

@@ -114,4 +114,14 @@ onMounted(() => {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
+
+@media only screen and (max-width: 1280px) {
+  .pageHeader {
+    justify-content: flex-end;
+  }
+
+  .pageInfo {
+    width: 100%;
+  }
+}
 </style>
