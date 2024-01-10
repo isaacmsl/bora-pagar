@@ -100,6 +100,7 @@ onMounted(async () => {
       <SubjectListItem
         v-for="subject in subjects"
         :key="subject.code"
+        :component-i-d="subject.componentID"
         :code="subject.code"
         :department="subject.department"
         :name="subject.name"

@@ -2,7 +2,7 @@ import type { AppUser } from "./AppUser"
 
 export type Subject = {
     code: string
-    componentID: Number
+    componentID: string
     name: string
     department: string
     totalHours: string

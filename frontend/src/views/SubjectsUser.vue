@@ -51,7 +51,7 @@ onMounted(async () => {
         </header>
 
         <v-list class="list">
-            <SubjectListItem v-for="subject in subjects" :key="subject.code" :code="subject.code"
+            <SubjectListItem v-for="subject in subjects" :key="subject.code" :component-i-d="subject.componentID" :code="subject.code"
                 :department="subject.department" :name="subject.name" :interested-users="subject.interestedUsers" />
         </v-list>
 
