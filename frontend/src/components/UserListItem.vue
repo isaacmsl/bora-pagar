@@ -9,7 +9,10 @@ defineProps<{
 </script>
 
 <template>
-  <li class="userItemContainer" @click="navigateToSubjectsOfUser(user)">
+  <li
+    :title="`Ver disciplinas de ${user.name}`"
+    class="userItemContainer"
+    @click="navigateToSubjectsOfUser(user)">
     <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
     <div class="userItemInfo">
       <h2>{{ user.name }}</h2>
@@ -30,6 +33,10 @@ defineProps<{
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
+}
+
+.userItemContainer:hover {
+  background-color: #171926;
 }
 
 .userItemContainer img {
