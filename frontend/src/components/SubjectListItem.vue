@@ -7,6 +7,7 @@ import { SubjectService } from '@/services/SubjectService';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import type { Subject } from '@/types/Subject';
+import { navigateToSubjectsOfUser } from '@/util/navigation';
 
 const props = defineProps<{
   code: string;
@@ -70,7 +71,8 @@ onMounted(() => {
         />
 
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
-          <img 
+          <img
+            @click="navigateToSubjectsOfUser(user)"
             v-for="user in props.interestedUsers" 
             class="interested-user-picture"
             :key="user.username" 
@@ -133,6 +135,7 @@ onMounted(() => {
   height: 3rem;
   border-radius: 50%;
   border: 2px solid white;
+  cursor: pointer;
 }
 
 .interested-users {
