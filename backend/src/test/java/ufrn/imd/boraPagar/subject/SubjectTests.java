@@ -119,11 +119,6 @@ public class SubjectTests {
     }
 
     @Test
-    public void shouldFindAllByName() {
-        Assert.assertEquals(1, repository.findAllByName(subjectA.getName()).size());
-    }
-
-    @Test
     public void shouldFindByCode() {
         Assert.assertNotNull(repository.findByCode(subjectA.getCode()));
     }
@@ -131,11 +126,6 @@ public class SubjectTests {
     @Test
     public void shouldFindAllByHour() {
         Assert.assertEquals(1, repository.findAllByTotalHours(subjectA.getTotalHours()).size());
-    }
-    
-    @Test
-    public void shouldFindAllByDepartment() {
-        Assert.assertEquals(2, repository.findAllByDepartment(subjectA.getDepartment()).size());
     }
 
     @Test
@@ -176,6 +166,28 @@ public class SubjectTests {
 
         Assert.assertEquals(subjectA, subPage.getContent().get(0));
         Assert.assertEquals(subjectB, subPage.getContent().get(1));
+    }
+
+    @Test
+    public void findAllByNameAndDepartmentReturnTwoElementsInPageZero() {
+        String partialName = "fmc";
+        String department = "DIMAp";
+
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+
+        Assert.assertEquals(2, subPage.getContent().size());
+    }
+
+    @Test
+    public void findAllByNameAndDepartmentReturnZeroElementsInPageOne() {
+        String partialName = "fmc";
+        String department = "DIMAp";
+
+        Pageable pageable = PageRequest.of(1, 5);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+
+        Assert.assertEquals(0, subPage.getContent().size());
     }
 
     @Test

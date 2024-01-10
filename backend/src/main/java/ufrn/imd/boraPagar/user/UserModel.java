@@ -26,10 +26,10 @@ import ufrn.imd.boraPagar.core.Views;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserModel extends AbstractModel  {
-    private String name, username, pictureUri;
+    private String name, username, pictureUri, googleId;
 
     @JsonView(Views.Admin.class)
-    private String email, googleId;
+    private String email;
 
     @JsonView(Views.Admin.class)
     @EqualsAndHashCode.Exclude

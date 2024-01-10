@@ -1,6 +1,9 @@
 package ufrn.imd.boraPagar.user;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController
 @RequestMapping("users")
 public class UserController extends AbstractController<UserModel, UserService>{
+    @PostMapping("/welcome")
+    public String welcome(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
+        return service.welcome(credential);
+    }
+
     @JsonView(Views.Admin.class)
     @RequestMapping(method = RequestMethod.GET, params = {"name"})
     public ResponseEntity<UserModel> findByName(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String name) {
@@ -37,22 +45,22 @@ public class UserController extends AbstractController<UserModel, UserService>{
         return ResponseEntity.ok().body(service.findByEmail(credential, email));
     }
 
-    @JsonView(Views.Admin.class)
+    @JsonView(Views.Public.class)
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
-    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
+    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential, @RequestParam String googleId) {
         return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
     }
 
     @JsonView(Views.Public.class)
     @RequestMapping(method = RequestMethod.GET, params = {"partialName"})
-    public ResponseEntity<List<UserModel>> findAllByName(@RequestParam String partialName) {
-        return ResponseEntity.ok().body(service.findAllByName(partialName));
+    public Page<UserModel> findAllByName(@RequestParam String partialName, Pageable pageable) {
+        return service.findAllByName(pageable, partialName);
     }
 
     @JsonView(Views.Public.class)
     @RequestMapping(method = RequestMethod.GET, params = {"partialUsername"})
-    public ResponseEntity<List<UserModel>> findAllByUsername(@RequestParam String partialUsername) {
-        return ResponseEntity.ok().body(service.findAllByUsername(partialUsername));
+    public Page<UserModel> findAllByUsername(@RequestParam String partialUsername, Pageable pageable) {
+        return service.findAllByUsername(pageable, partialUsername);
     }
 
     @JsonView(Views.Admin.class)
