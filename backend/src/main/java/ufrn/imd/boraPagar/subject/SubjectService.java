@@ -1,10 +1,7 @@
 package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -50,6 +47,11 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         }
 
         return null;
+    }
+
+    public Page<SubjectModel> findAllByInterestedUserWithGoogleId(String userGoogleId, Pageable pageable) {
+        UserModel user = userService.findByGoogleId("", userGoogleId);
+        return subjectRepository.findAllByInterestedUsers(pageable, user);
     }
 
     @Override

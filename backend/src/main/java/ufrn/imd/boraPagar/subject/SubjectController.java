@@ -45,6 +45,12 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return listResult;
     }
 
+    @GetMapping
+    public Page<SubjectModel> findAllByInterestedUserWithGoogleId(@RequestParam String userGoogleId, Pageable pageable) {
+        Page<SubjectModel> listResult = service.findAllByInterestedUserWithGoogleId(userGoogleId, pageable);
+        return listResult;
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
     public ResponseEntity<SubjectModel> findByComponentID(@RequestParam int componentID) {
         return ResponseEntity.ok().body(service.findByComponentID(componentID));
