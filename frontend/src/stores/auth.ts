@@ -17,6 +17,10 @@ export const useAuthStore = defineStore('auth', {
     return { user: undefined as GoogleUserInfo | undefined }
   },
   actions: {
+    isCredentialNotExpired(credential : string) {
+      const user = decodeCredential(credential) as GoogleUserInfo;
+      return Date.now() > Number(user.exp); 
+    },
     setUserFromCredential(credential : string) {
       this.user = decodeCredential(credential) as GoogleUserInfo;
       this.user.given_name = normalizeGivenName(this.user.given_name);
@@ -30,7 +34,11 @@ export const useAuthStore = defineStore('auth', {
       const credential = localStorage.getItem(credentialKeyName);
       if (credential) {
         try {
-          this.setUserFromCredential(credential);
+          if (this.isCredentialNotExpired(credential)) {
+            this.setUserFromCredential(credential);
+          } else {
+            this.logout();
+          }
         } catch (error) {
           this.logout();
         }
