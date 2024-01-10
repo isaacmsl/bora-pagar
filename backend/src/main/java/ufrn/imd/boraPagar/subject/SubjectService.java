@@ -50,6 +50,11 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return null;
     }
 
+    public Page<SubjectModel> findAllByInterestedUserWithGoogleId(String userGoogleId, Pageable pageable) {
+        UserModel user = userService.findByGoogleId("", userGoogleId);
+        return subjectRepository.findAllByInterestedUsers(pageable, user);
+    }
+
     @Override
     public Page<SubjectModel> findAllByPage(String credential, Pageable pageable) {
         return subjectRepository.findAllActiveByPage(pageable);

@@ -43,9 +43,9 @@ public class UserController extends AbstractController<UserModel, UserService>{
         return ResponseEntity.ok().body(service.findByEmail(credential, email));
     }
 
-    @JsonView(Views.Admin.class)
+    @JsonView(Views.Public.class)
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
-    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
+    public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential, @RequestParam String googleId) {
         return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
     }
 

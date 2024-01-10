@@ -11,6 +11,17 @@ export class SubjectService {
     });
   }
 
+  public async findAllByGoogleId(userGoogleId : string, page : Number = 1) : Promise<PageSubject> {
+    const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('', {
+        params: {
+          page,
+          userGoogleId
+        }
+      });
+    
+    return response.data;
+  }
+
   public async findAll(filters : SubjectFilters, page : Number = 1) : Promise<PageSubject> {
     // Temporariamente findAll
     const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('/findAll', {
