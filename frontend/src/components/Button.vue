@@ -8,7 +8,7 @@ const props = defineProps({
     type: String,
     default: "primary",
     validator(value : String) {
-      return ['success', 'danger'].includes(value.toString());
+      return ['primary', 'danger'].includes(value.toString());
     }
   }
 });
