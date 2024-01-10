@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
+import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
 import { onMounted } from 'vue';
 import { computed } from 'vue';
 import { VIcon } from 'vuetify/components';
@@ -29,7 +30,11 @@ onMounted(() => {
         </button>
       </nav>
     </section>
-    <img :src="user?.picture" />
+    <img
+      title="Ver suas disciplinas"
+      @click="navigateToSubjectsOfUserGoogleId(String(user?.sub))"
+      :src="user?.picture"
+    />
   </nav>
 </template>
 
@@ -74,5 +79,6 @@ onMounted(() => {
   border-radius: 50%;
   width: 80px;
   height: 80px;
+  cursor: pointer;
 }
 </style>

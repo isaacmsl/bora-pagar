@@ -1,6 +1,5 @@
 import router from "@/router";
-import type { AppUser } from "@/types/AppUser";
 
-export function navigateToSubjectsOfUser(user: AppUser) {
-    router.push(`/subjects-user/${user.googleId}`);
+export function navigateToSubjectsOfUserGoogleId(googleId: string) {
+    router.push(`/subjects-user/${googleId}`);
 }
