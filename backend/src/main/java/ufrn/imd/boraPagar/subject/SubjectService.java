@@ -62,10 +62,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     public SubjectModel findByCode(String code) {
         return subjectRepository.findByCode(code);
     }
- 
-    public List<SubjectModel> findAllByName(String name) {
-        return subjectRepository.findAllByName(name);
-    }
     
     public List<SubjectModel> findAllByModality(SubjectModalityType modality) {
         return subjectRepository.findAllByModality(modality);
@@ -73,10 +69,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
 
     public List<SubjectModel> findAllByTotalHours(int totalHours) {
         return subjectRepository.findAllByTotalHours(totalHours);
-    }
-
-    public List<SubjectModel> findAllByDepartment(String department) {
-        return subjectRepository.findAllByDepartment(department);
     }
 
     public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, String name, String department) {

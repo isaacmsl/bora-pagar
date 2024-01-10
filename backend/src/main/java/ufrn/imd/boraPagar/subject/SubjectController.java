@@ -49,11 +49,6 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return ResponseEntity.ok().body(service.findByComponentID(componentID));
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"name"})
-    public ResponseEntity<List<SubjectModel>> findAllByName(@RequestParam String name) {
-        return ResponseEntity.ok().body(service.findAllByName(name));
-    }
-
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
     public ResponseEntity<SubjectModel> findByCode(@RequestParam String code) {
         return ResponseEntity.ok().body(service.findByCode(code));
@@ -67,11 +62,6 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     @RequestMapping(method = RequestMethod.GET, params = {"totalHours"})
     public ResponseEntity<List<SubjectModel>> findAllByTotalHours(@RequestParam int totalHours) {
         return ResponseEntity.ok().body(service.findAllByTotalHours(totalHours));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, params = {"department"})
-    public ResponseEntity<List<SubjectModel>> findAllByDepartment(@RequestParam String department) {
-        return ResponseEntity.ok().body(service.findAllByDepartment(department));
     }
 
     @RequestMapping(method=RequestMethod.GET)
