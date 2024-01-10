@@ -9,9 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <li
-    :title="`Ver disciplinas de ${user.name}`"
-    class="userItemContainer"
+  <li :title="`Ver disciplinas de ${user.name}`" class="userItemContainer"
     @click="navigateToSubjectsOfUserGoogleId(user.googleId)">
     <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
     <div class="userItemInfo">
@@ -59,4 +57,9 @@ defineProps<{
   font-weight: bold;
 }
 
+@media only screen and (max-width: 600px) {
+  .userItemInfo h2 {
+    font-size: 2rem;
+  }
+}
 </style>
