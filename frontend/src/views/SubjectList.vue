@@ -34,7 +34,7 @@ const loggedIn = computed(() => auth.loggedIn());
 const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 const subjectName = ref('');
-const subjectDepartment = ref('INSTITUTO METROPOLE DIGITAL');
+const subjectDepartment = ref('');
 const panel = ref<number[]>([]);
 
 async function fetchPage() {
