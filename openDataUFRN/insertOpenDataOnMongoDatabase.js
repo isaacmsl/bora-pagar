@@ -2,8 +2,8 @@ const fs = require("fs");
 const { parse } = require("csv-parse");
 const { MongoClient } = require("mongodb");
 
-const uri = "mongodb+srv://bravo:9TZchMenuoTphDkm@cluster0.r3uzzvx.mongodb.net/";
-const dbName = "production";
+const uri = "";
+const dbName = "";
 const filesToInsert = [
     "./inPersonSubjects.csv",
     "./hibridSubjects.csv",
@@ -55,7 +55,7 @@ function insertFile(file) {
         .pipe(parse({ delimiter: ";", from_line: 2 }))
         .on("data", (row) => {
             const subject = {
-                componentID: row[getSubjectFieldFrom["componentID"]],
+                componentID: String(row[getSubjectFieldFrom["componentID"]]),
                 componentType: row[getSubjectFieldFrom["componentType"]],
                 code: row[getSubjectFieldFrom["code"]],
                 level: row[getSubjectFieldFrom["level"]],
