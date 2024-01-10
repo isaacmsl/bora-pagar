@@ -22,7 +22,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         }
 
         user.setId(null);
-        user.setGoogleId(null);
         user.setLastLoginTime(null);
         user.setRegistrationTime(null);
         return user;
