@@ -35,10 +35,10 @@ export class SubjectService {
     return response.data;
   }
 
-  public async addInterestedUserByCode(credential: string, code: string): Promise<Subject> {
+  public async addInterestedUserByComponentID(credential: string, componentID: string): Promise<Subject> {
     const response = await this.axiosInstance.post<any, AxiosResponse<Subject>>('/interested', {}, {
       params: {
-        code
+        componentID
       },
       headers: {
         credential
@@ -48,10 +48,10 @@ export class SubjectService {
     return response.data;
   }
 
-  public async removeInterestedUserByCode(credential: string, code: string): Promise<Subject> {
+  public async removeInterestedUserByComponentID(credential: string, componentID: string): Promise<Subject> {
     const response = await this.axiosInstance.delete<any, AxiosResponse<Subject>>('/interested', {
       params: {
-        code
+        componentID
       },
       headers: {
         credential

@@ -28,7 +28,7 @@ const classes : {[key : string] : string}= {
 button {
   margin-left: auto;
   border-radius: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: bold;
   padding: 0.5rem 1rem;
   transition: all 200ms;

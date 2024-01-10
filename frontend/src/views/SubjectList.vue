@@ -76,7 +76,7 @@ onMounted(async () => {
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-text-field 
                 label="Disciplina" 
                 variant="outlined" 
@@ -88,7 +88,7 @@ onMounted(async () => {
               />
             </v-col>
 
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <CustomSelect v-model="subjectDepartment"/>
             </v-col>
           </v-row>
@@ -100,6 +100,7 @@ onMounted(async () => {
       <SubjectListItem
         v-for="subject in subjects"
         :key="subject.code"
+        :component-i-d="subject.componentID"
         :code="subject.code"
         :department="subject.department"
         :name="subject.name"
@@ -121,25 +122,25 @@ onMounted(async () => {
 <style scoped>
 header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4rem;
+  flex-wrap: wrap-reverse;
+  gap: 2.5rem;
   align-items: center;
   justify-content: space-between;
 }
 
 .container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 2.4rem 10%;
-  gap: 2.4rem;
+  padding: 1.5rem 10%;
+  gap: 1.5rem;
 }
 
 h1 {
   font-weight: bold;
-  font-size: 4.8rem;
+  font-size: 3rem;
 }
 
 .filterPanelTitle {
@@ -149,23 +150,23 @@ h1 {
 
 .filterPanelText,
 .filterPanelTitle {
-  font-size: 1.5rem;
+  font-size: 1rem;
   background: var(--app-blue-soft);
   color: white;
 }
 
 .filterPanelText {
   border: 1px solid #363c40;
-  padding-top: 2rem;
+  padding-top: 1.25rem;
 }
 
 .list {
   background: var(--app-blue-soft);
-  flex: 1;
-  border-radius: 0.8rem;
+  height: 400px;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 0.75rem;
   overflow-y: auto;
   position: relative;
   border: 1px solid #363c40;
@@ -179,7 +180,7 @@ h1 {
 }
 
 .pagination .v-btn {
-  border-radius: 0.8rem;
+  border-radius: 0.5rem;
   border: 2px solid var(--app-strong-blue);
 }
 </style>

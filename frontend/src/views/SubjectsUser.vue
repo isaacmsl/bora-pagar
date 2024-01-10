@@ -51,7 +51,7 @@ onMounted(async () => {
         </header>
 
         <v-list class="list">
-            <SubjectListItem v-for="subject in subjects" :key="subject.code" :code="subject.code"
+            <SubjectListItem v-for="subject in subjects" :key="subject.code" :component-i-d="subject.componentID" :code="subject.code"
                 :department="subject.department" :name="subject.name" :interested-users="subject.interestedUsers" />
         </v-list>
 
@@ -64,7 +64,7 @@ onMounted(async () => {
 header {
     display: flex;
     flex-wrap: wrap-reverse;
-    gap: 4rem;
+    gap: 2.5rem;
     align-items: center;
     justify-content: space-between;
 }
@@ -75,22 +75,22 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 2.4rem 10%;
-    gap: 2.4rem;
+    padding: 1.5rem 10%;
+    gap: 1.5rem;
 }
 
 h1 {
     font-weight: bold;
-    font-size: 4.8rem;
+    font-size: 3rem;
 }
 
 .list {
     background: var(--app-blue-soft);
     flex: 1;
-    border-radius: 0.8rem;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.75rem;
     overflow-y: auto;
     position: relative;
     border: 1px solid #363c40;
@@ -111,12 +111,22 @@ h1 {
 .userInfo {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.25rem;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 960px) {
   h1 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
+}
+
+@media only screen and (max-width: 1280px) {
+    header {
+        justify-content: flex-end;
+    }
+
+    .userInfo {
+        width: 100%;
+    }
 }
 </style>
