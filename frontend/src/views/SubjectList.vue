@@ -67,7 +67,7 @@ onMounted(async () => {
 <template>
   <main class="container">
     <header>
-      <h1>Listar disciplinas</h1>
+      <h1>Bora Pagar</h1>
       <UserMenu />
     </header>
 
