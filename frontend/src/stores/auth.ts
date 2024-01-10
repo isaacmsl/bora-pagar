@@ -21,7 +21,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     isCredentialNotExpired(credential : string) {
       const user = decodeCredential(credential) as GoogleUserInfo;
-      return (user.exp * DEFAULT_TIMESTAMP_TO_MS) > Date.now();
+      if (user) {
+        return (user.exp * DEFAULT_TIMESTAMP_TO_MS) > Date.now();
+      } else {
+        return false;
+      }
     },
     setUserFromCredential(credential : string) {
       this.user = decodeCredential(credential) as GoogleUserInfo;
