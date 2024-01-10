@@ -55,18 +55,45 @@ onMounted(() => {
         </div>
       </div>
 
-      <Button
-        @click="handleInterestedUser(true)"
-        v-if="!isUserInterested && auth.loggedIn()"
-        :disabled="isHandlingInterestedUser"
-        name="Pagarei"
-      />
-      <Button
-        @click="handleInterestedUser(false)"
-        v-if="isUserInterested && auth.loggedIn()" 
-        :disabled="isHandlingInterestedUser"
-        name="Não pagarei"
-      />
+      <div class="subject-actions">
+        <Button
+          @click="handleInterestedUser(true)"
+          v-if="!isUserInterested && auth.loggedIn()"
+          :disabled="isHandlingInterestedUser"
+          name="Pagarei"
+        />
+        <Button
+          @click="handleInterestedUser(false)"
+          v-if="isUserInterested && auth.loggedIn()" 
+          :disabled="isHandlingInterestedUser"
+          name="Não pagarei"
+        />
+
+        <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
+          <img 
+            v-for="user in props.interestedUsers" 
+            class="interested-user-picture"
+            :key="user.username" 
+            :src="user.pictureUri" 
+            :alt="`Foto de perfil de ${user.name}`"
+            :title="user.name"
+          >
+          <span>{{ interestedUsers.length == 1 ? "Vai" : "Vão" }} pagar</span>
+        </div>
+        <div v-else-if="interestedUsers.length > 3" class="interested-users">
+          <img 
+            v-for="n in 3" 
+            class="interested-user-picture"
+            :key="props.interestedUsers[n-1].username" 
+            :src="props.interestedUsers[n-1].pictureUri" 
+            :alt="`Foto de perfil de ${props.interestedUsers[n-1].name}`"
+            :title="props.interestedUsers[n-1].name"
+          >
+          <span>+ {{ interestedUsers.length - 3 }} pessoas</span>
+        </div>
+      </div>
+
+      
     </div>
   </v-list-item>
 </template>
@@ -99,5 +126,28 @@ onMounted(() => {
 
 .subject-departament {
   font-size: 1.4rem;
+}
+
+.interested-user-picture {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.interested-users {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.interested-users span {
+  color: var(--app-strong-blue);
+}
+
+.subject-actions {
+  text-align: center;
 }
 </style>
