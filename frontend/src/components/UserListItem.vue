@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { AppUser } from '@/types/AppUser';
-import { navigateToSubjectsOfUser } from '@/util/navigation';
+import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
 // import Button from '@/components/Button.vue';
 
 defineProps<{
@@ -12,7 +12,7 @@ defineProps<{
   <li
     :title="`Ver disciplinas de ${user.name}`"
     class="userItemContainer"
-    @click="navigateToSubjectsOfUser(user)">
+    @click="navigateToSubjectsOfUserGoogleId(user.googleId)">
     <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
     <div class="userItemInfo">
       <h2>{{ user.name }}</h2>
