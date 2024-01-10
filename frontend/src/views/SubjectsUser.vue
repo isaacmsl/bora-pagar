@@ -22,7 +22,7 @@ const googleId = String(route.params.googleId);
 const user: Ref<AppUser | undefined> = ref();
 const page = ref(1);
 const qntPages = ref(0);
-const qntVisiblePages = 11;
+const qntVisiblePages = 6;
 
 async function fetchPage() {
     const pageSubject = await subjectService.findAllByGoogleId(googleId, page.value - 1);
@@ -63,6 +63,8 @@ onMounted(async () => {
 <style scoped>
 header {
     display: flex;
+    flex-wrap: wrap-reverse;
+    gap: 4rem;
     align-items: center;
     justify-content: space-between;
 }
@@ -110,5 +112,11 @@ h1 {
     display: flex;
     align-items: center;
     gap: 2rem;
+}
+
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 3rem;
+  }
 }
 </style>

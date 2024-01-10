@@ -12,11 +12,11 @@ import { useAuthStore } from '@/stores/auth';
 
 const auth = useAuthStore();
 const api = new UserService();
-const users : Ref<AppUser[]> = ref([]);
-const inputUsername : Ref<string> = ref('');
+const users: Ref<AppUser[]> = ref([]);
+const inputUsername: Ref<string> = ref('');
 const qntPages = ref(0);
 const page = ref(1);
-const qntVisiblePages = 11;
+const qntVisiblePages = 6;
 
 async function fetchPage() {
   const pageUser = await api.searchUsersByUsername(page.value - 1, inputUsername.value);
@@ -36,15 +36,10 @@ onMounted(() => {
     <header class="pageHeader">
       <div class="pageInfo">
         <h1>Buscar amigo</h1>
-        <v-text-field
-          bg-color="#202333"
-          density="comfortable"
-          variant="solo-filled"
-          v-model="inputUsername"
-          @keyup="handleUsernameInput"
-        >
+        <v-text-field bg-color="#202333" density="comfortable" variant="solo-filled" v-model="inputUsername"
+          @keyup="handleUsernameInput" placeholder="Buscar por username">
           <template v-slot:append-inner>
-            <v-icon icon="mdi-magnify" size="30"/>
+            <v-icon icon="mdi-magnify" size="30" />
           </template>
         </v-text-field>
       </div>
@@ -53,7 +48,7 @@ onMounted(() => {
     </header>
 
     <ul class="userList">
-      <UserListItem v-for="user in users" :user="user" :key="user.username"/>
+      <UserListItem v-for="user in users" :user="user" :key="user.username" />
     </ul>
     <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
       :disabled="!auth.loggedIn()"></v-pagination>
@@ -68,17 +63,22 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
 }
+
 .pageInfo {
   width: 40rem;
+  display: grid;
+  gap: 2rem;
 }
 
 .pageInfo h1 {
   font-weight: bold;
-  font-size: 6rem;
+  font-size: 4rem;
 }
 
 .pageHeader {
   display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 2rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -107,5 +107,11 @@ onMounted(() => {
 
 .searchButton:hover {
   background-color: #1f75af;
+}
+
+@media only screen and (max-width: 600px) {
+  .userList {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 </style>

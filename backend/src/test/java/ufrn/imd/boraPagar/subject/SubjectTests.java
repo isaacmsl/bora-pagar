@@ -171,10 +171,10 @@ public class SubjectTests {
     @Test
     public void findAllByNameAndDepartmentReturnTwoElementsInPageZero() {
         String partialName = "fmc";
-        String department = "DIMAp";
+        String partialDepartment = "DIM";
 
         Pageable pageable = PageRequest.of(0, 5);
-        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCase(pageable, partialName, partialDepartment);
 
         Assert.assertEquals(2, subPage.getContent().size());
     }
@@ -182,10 +182,10 @@ public class SubjectTests {
     @Test
     public void findAllByNameAndDepartmentReturnZeroElementsInPageOne() {
         String partialName = "fmc";
-        String department = "DIMAp";
+        String partialDepartment = "DIMA";
 
         Pageable pageable = PageRequest.of(1, 5);
-        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCase(pageable, partialName, partialDepartment);
 
         Assert.assertEquals(0, subPage.getContent().size());
     }
