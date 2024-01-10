@@ -135,7 +135,13 @@ onMounted(() => {
   text-align: center;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1000px) {
+  .subject-name {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 800px) {
   .list-item {
     display: grid;
     height: auto;
