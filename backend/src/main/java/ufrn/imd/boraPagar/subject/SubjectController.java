@@ -75,7 +75,7 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     }
 
     @RequestMapping(method=RequestMethod.GET)
-    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestHeader(value = "partialName") String partialName, @RequestHeader(value = "department") String department) {
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String department) {
         return service.findAllByNameAndDepartment(pageable, partialName, department);
     }
     
