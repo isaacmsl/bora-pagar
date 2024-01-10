@@ -51,11 +51,19 @@ function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
       </div>
 
       <div class="subject-actions">
-        <Button @click="handleInterestedUser(true)" v-if="!isUserInterested && auth.loggedIn()"
-          :disabled="isHandlingInterestedUser" name="Pagarei" />
-        <Button @click="handleInterestedUser(false)" v-if="isUserInterested && auth.loggedIn()"
-          :disabled="isHandlingInterestedUser" name="Não pagarei" />
-
+        <Button
+          @click="handleInterestedUser(true)"
+          v-if="!isUserInterested && auth.loggedIn()"
+          :disabled="isHandlingInterestedUser"
+          name="Pagarei"
+        />
+        <Button
+          @click="handleInterestedUser(false)"
+          v-if="isUserInterested && auth.loggedIn()" 
+          :disabled="isHandlingInterestedUser"
+          name="Não pagarei"
+          color="danger"
+        />
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
           <img @click="navigateToSubjectsOfUserGoogleId(user.googleId)" v-for="user in props.interestedUsers"
             class="interested-user-picture" :key="user.username" :src="user.pictureUri"
