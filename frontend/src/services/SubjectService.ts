@@ -27,8 +27,8 @@ export class SubjectService {
     const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('', {
         params: {
           page,
-          partialName: filters.name,
-          department: filters.department
+          partialName: filters.name || '', 
+          partialDepartment: filters.department || ''
         }
       });
     
