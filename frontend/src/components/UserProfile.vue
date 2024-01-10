@@ -22,6 +22,9 @@ onMounted(() => {
         <button @click="router.push('/')">
           <v-icon icon="mdi-home" /> Início
         </button>
+        <button @click="router.push(`/subjects-user/${user?.sub}`)">
+          <v-icon icon="mdi-check-circle" /> Pagarei
+        </button>
         <button @click="router.push('/search-users')">
           <v-icon icon="mdi-account-search" /> Amigos
         </button>
