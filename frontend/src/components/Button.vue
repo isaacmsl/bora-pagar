@@ -14,9 +14,9 @@ button {
   margin-left: auto;
   border: 2px solid #2591D7;
   border-radius: 0.5rem;
-  font-size: 1.8rem;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.75rem;
   color: #2591D7;
   transition: all 200ms;
 }
