@@ -5,7 +5,6 @@ import type { AppUser } from '@/types/AppUser';
 import { useAuthStore } from '@/stores/auth';
 import { SubjectService } from '@/services/SubjectService';
 import { ref } from 'vue';
-import { onMounted } from 'vue';
 import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
 
 const props = defineProps<{
@@ -38,10 +37,6 @@ async function handleInterestedUser(isAdd: boolean) {
 function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
   return interestedUsers.find(user => user.googleId == auth.user?.sub) != undefined;
 }
-
-onMounted(() => {
-  isUserInterested.value = subjectContainsInterestedUser(props.interestedUsers);
-});
 </script>
 
 <template>
