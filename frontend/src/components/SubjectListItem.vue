@@ -6,7 +6,6 @@ import { useAuthStore } from '@/stores/auth';
 import { SubjectService } from '@/services/SubjectService';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
-import type { Subject } from '@/types/Subject';
 import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
 
 const props = defineProps<{
@@ -19,21 +18,20 @@ const props = defineProps<{
 
 const subjectService = new SubjectService();
 const auth = useAuthStore();
-const isUserInterested = ref(false);
+const isUserInterested = ref(subjectContainsInterestedUser(props.interestedUsers));
 const isHandlingInterestedUser = ref(false);
 
 async function handleInterestedUser(isAdd: boolean) {
   isHandlingInterestedUser.value = true;
   const credential = auth.getCredentialFromLocalStorage();
-  let subject: Subject;
 
   if (isAdd) {
-    subject = await subjectService.addInterestedUserByComponentID(credential, props.componentID);
+    await subjectService.addInterestedUserByComponentID(credential, props.componentID);
   } else {
-    subject = await subjectService.removeInterestedUserByComponentID(credential, props.componentID);
+    await subjectService.removeInterestedUserByComponentID(credential, props.componentID);
   }
 
-  isUserInterested.value = subjectContainsInterestedUser(subject.interestedUsers);
+  isUserInterested.value = !isUserInterested.value;
   isHandlingInterestedUser.value = false;
 }
 
