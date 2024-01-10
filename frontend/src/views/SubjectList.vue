@@ -129,7 +129,7 @@ header {
 
 .container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -161,7 +161,7 @@ h1 {
 
 .list {
   background: var(--app-blue-soft);
-  flex: 1;
+  height: 400px;
   border-radius: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -184,16 +184,6 @@ h1 {
 }
 
 @media only screen and (max-width: 960px) {
-  .container {
-    min-height: 100vh;
-    height: auto;
-  }
-
-  .list {
-    height: 500px;
-    flex: auto;
-  }
-
   header {
     justify-content: flex-end;
   }

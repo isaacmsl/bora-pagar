@@ -120,7 +120,7 @@ h1 {
   }
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 1280px) {
     header {
         justify-content: flex-end;
     }
