@@ -106,6 +106,16 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return null;
     }
 
+    public List<UserModel> findFriendsByGoogleId(String googleId) {
+        UserModel user = userRepository.findByGoogleId(googleId);
+
+        if(user != null){
+            return user.getFriends();
+        }
+
+        return null;
+    }
+
     public UserModel addFriend(String credential, String googleId) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         UserModel newFriend = userRepository.findByGoogleId(googleId);
