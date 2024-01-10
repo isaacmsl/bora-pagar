@@ -27,7 +27,7 @@ import { watch } from 'vue';
 const subjectApi = new SubjectService();
 
 const page = ref(1);
-const qntVisiblePages = 11;
+const qntVisiblePages = 6;
 
 const auth = useAuthStore();
 const loggedIn = computed(() => auth.loggedIn());
@@ -121,6 +121,8 @@ onMounted(async () => {
 <style scoped>
 header {
   display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
   align-items: center;
   justify-content: space-between;
 }
