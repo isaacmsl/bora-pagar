@@ -110,7 +110,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         UserModel newFriend = userRepository.findByGoogleId(googleId);
 
-        if(user != null && newFriend != null && !user.getFriends().contains(newFriend)) {
+        if(user != null && newFriend != null && !user.getFriends().contains(newFriend) && !user.equals(newFriend)) {
             user.getFriends().add(newFriend);
             
             return userRepository.save(user);
