@@ -13,7 +13,8 @@ const props = defineProps<{
   code: string;
   name: string;
   department: string;
-  interestedUsers: AppUser[]
+  interestedUsers: AppUser[];
+  componentID: string
 }>();
 
 const subjectService = new SubjectService();
@@ -27,9 +28,9 @@ async function handleInterestedUser(isAdd: boolean) {
   let subject: Subject;
 
   if (isAdd) {
-    subject = await subjectService.addInterestedUserByCode(credential, props.code);
+    subject = await subjectService.addInterestedUserByComponentID(credential, props.componentID);
   } else {
-    subject = await subjectService.removeInterestedUserByCode(credential, props.code);
+    subject = await subjectService.removeInterestedUserByComponentID(credential, props.componentID);
   }
 
   isUserInterested.value = subjectContainsInterestedUser(subject.interestedUsers);

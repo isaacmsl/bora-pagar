@@ -22,8 +22,9 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     @Autowired
     UserService userService;
     
-    public SubjectModel addInterestedUserByCode(String credential, String code) {
-        SubjectModel subject = subjectRepository.findByCode(code);
+    public SubjectModel addInterestedUserByComponentID(String credential, String componentID) {
+        SubjectModel subject = subjectRepository.findByComponentID(componentID);
+        System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
             List<UserModel> interestedUsers = subject.getInterestedUsers();
@@ -36,8 +37,9 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return null;
     }
 
-    public SubjectModel removeInterestedUserByCode(String credential, String code) {
-        SubjectModel subject = subjectRepository.findByCode(code);
+    public SubjectModel removeInterestedUserByComponentID(String credential, String componentID) {
+        SubjectModel subject = subjectRepository.findByComponentID(componentID);
+        System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
             List<UserModel> interestedUsers = subject.getInterestedUsers();
@@ -60,7 +62,7 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return subjectRepository.findAllActiveByPage(pageable);
     }
 
-    public SubjectModel findByComponentID(int id) {
+    public SubjectModel findByComponentID(String id) {
         return subjectRepository.findByComponentID(id);
     }
 

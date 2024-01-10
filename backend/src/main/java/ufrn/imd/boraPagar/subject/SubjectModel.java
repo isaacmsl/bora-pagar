@@ -28,7 +28,7 @@ import ufrn.imd.boraPagar.user.UserModel;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SubjectModel extends AbstractModel {
-    private int componentID;
+    private String componentID;
     private String componentType, code, level, name, department;
     private int totalHours;
 
