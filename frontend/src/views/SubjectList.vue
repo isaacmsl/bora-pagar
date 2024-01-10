@@ -34,7 +34,7 @@ const loggedIn = computed(() => auth.loggedIn());
 const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 const subjectName = ref('');
-const subjectDepartment = ref('');
+const subjectDepartment = ref('INSTITUTO METROPOLE DIGITAL');
 const panel = ref<number[]>([]);
 
 async function fetchPage() {
@@ -42,7 +42,7 @@ async function fetchPage() {
     name: subjectName.value,
     department: subjectDepartment.value
   };
-  const pageSubject = await subjectApi.findAll(filters, page.value);
+  const pageSubject = await subjectApi.findAll(filters, page.value - 1);
   subjects.value = pageSubject.content;
   qntPages.value = pageSubject.totalPages;
 }

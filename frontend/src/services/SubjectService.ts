@@ -24,10 +24,10 @@ export class SubjectService {
 
   public async findAll(filters : SubjectFilters, page : Number = 1) : Promise<PageSubject> {
     // Temporariamente findAll
-    const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('/findAll', {
+    const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('', {
         params: {
           page,
-          name: filters.name,
+          partialName: filters.name,
           department: filters.department
         }
       });
