@@ -68,6 +68,7 @@ onMounted(() => {
           v-if="isUserInterested && auth.loggedIn()" 
           :disabled="isHandlingInterestedUser"
           name="Não pagarei"
+          style="color: rgba(232, 35, 35, 0.896);"
         />
 
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
