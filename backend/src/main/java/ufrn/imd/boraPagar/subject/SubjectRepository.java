@@ -11,7 +11,7 @@ import ufrn.imd.boraPagar.user.UserModel;
 
 @Repository
 public interface SubjectRepository extends AbstractRepository<SubjectModel> {
-    SubjectModel findByComponentID(int componentID);
+    SubjectModel findByComponentID(String componentID);
     SubjectModel findByCode(String code);
     List<SubjectModel> findAllByModality(SubjectModalityType modality);
     List<SubjectModel> findAllByTotalHours(int totalHours);

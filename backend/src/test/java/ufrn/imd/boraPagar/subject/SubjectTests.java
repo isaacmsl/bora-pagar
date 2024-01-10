@@ -33,7 +33,7 @@ public class SubjectTests {
     public void setUp() throws Exception {
         subjectA = repository.save(
             new SubjectModel(
-                1,
+                "1",
                 "Disciplina",
                 "DIM1234",
                 "Gradução",
@@ -55,7 +55,7 @@ public class SubjectTests {
 
         subjectB = repository.save(
             new SubjectModel(
-                2,
+                "2",
                 "Disciplina",
                 "DIM1235",
                 "Gradução",
