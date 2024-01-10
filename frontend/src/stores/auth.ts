@@ -4,6 +4,8 @@ import { defineStore } from 'pinia';
 import { decodeCredential, googleLogout } from 'vue3-google-login';
 import router from '@/router';
 
+const DEFAULT_TIMESTAMP_TO_MS = 1000;
+
 const userService = new UserService();
 
 const credentialKeyName = 'credential';
@@ -18,7 +20,12 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     isCredentialNotExpired(credential : string) {
-      return true;
+      const user = decodeCredential(credential) as GoogleUserInfo;
+      if (user) {
+        return (user.exp * DEFAULT_TIMESTAMP_TO_MS) > Date.now();
+      } else {
+        return false;
+      }
     },
     setUserFromCredential(credential : string) {
       this.user = decodeCredential(credential) as GoogleUserInfo;
