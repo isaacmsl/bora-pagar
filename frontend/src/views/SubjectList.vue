@@ -182,14 +182,4 @@ h1 {
   border-radius: 0.5rem;
   border: 2px solid var(--app-strong-blue);
 }
-
-@media only screen and (max-width: 960px) {
-  header {
-    justify-content: flex-end;
-  }
-
-  h1 {
-    width: 100%;
-  }
-}
 </style>

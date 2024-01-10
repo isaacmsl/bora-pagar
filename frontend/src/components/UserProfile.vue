@@ -9,7 +9,7 @@ import { useDisplay } from 'vuetify';
 
 const auth = useAuthStore();
 const user = computed(() => auth.user);
-const drawer = ref(true);
+const drawer = ref(false);
 const { xs } = useDisplay();
 
 onMounted(() => {
@@ -18,10 +18,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <nav class="userProfile">
+  <div v-if="xs">
+    <button @click="drawer = !drawer">
+      <v-icon icon="mdi-menu" />
+    </button>
+    <v-navigation-drawer 
+      v-model="drawer"
+      location="right"
+      temporary
+    >
+
+    <v-list>
+      <v-list-item :append-avatar="user?.picture" :title="user?.name" :subtitle="user?.email" />
+    </v-list>
+
+    <v-divider />
+
+    <v-list nav>
+      <v-list-item to="/" color="primary" append-icon="mdi-home" title="Início"/>
+      <v-list-item :to="`/subjects-user/${user?.sub}`"  color="primary" append-icon="mdi-check-circle" title="Pagarei" />
+      <v-list-item to="/search-users" color="primary" append-icon="mdi-account-search" title="Amigos"/>
+      <v-list-item append-icon="mdi-logout" color="primary" title="Sair" @click="auth.logout"/>
+    </v-list>
+
+    </v-navigation-drawer>
+  </div>
+  <nav v-else class="userProfile">
     <section>
       <h2>{{ user?.given_name }}</h2>
-      <nav v-if="!xs">
+      <nav>
         <button @click="router.push('/')">
           <v-icon icon="mdi-home" /> Início
         </button>
@@ -34,31 +59,6 @@ onMounted(() => {
         <button @click="auth.logout">
           <v-icon icon="mdi-logout" /> Sair
         </button>
-      </nav>
-      <nav v-else>
-        <button @click="drawer = !drawer">
-          <v-icon icon="mdi-menu" />
-        </button>
-        <v-navigation-drawer 
-          v-model="drawer"
-          location="right"
-          temporary
-        >
-
-        <v-list>
-          <v-list-item :append-avatar="user?.picture" :title="user?.name" :subtitle="user?.email" />
-        </v-list>
-
-        <v-divider />
-
-        <v-list>
-          <v-list-item nav append-icon="mdi-home" title="Início" @click="router.push('/')"/>
-          <v-list-item nav append-icon="mdi-check-circle" title="Pagarei" @click="router.push(`/subjects-user/${user?.sub}`)"/>
-          <v-list-item nav append-icon="mdi-account-search" title="Amigos" @click="router.push('/search-users')"/>
-          <v-list-item nav append-icon="mdi-logout" title="Sair" @click="auth.logout"/>
-        </v-list>
-
-        </v-navigation-drawer>
       </nav>
     </section>
     <img
