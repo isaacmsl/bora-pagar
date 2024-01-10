@@ -27,7 +27,7 @@ defineProps<{
   height: 100%;
   background-color: #1D2030;
   border: 1px solid #363C40;
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -38,28 +38,28 @@ defineProps<{
 }
 
 .userItemContainer img {
-  width: 6rem;
-  height: 6rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
 }
 
 .userItemInfo {
-  margin-left: 2rem;
+  margin-left: 1.25rem;
 }
 
 .userItemInfo p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #938888;
 }
 
 .userItemInfo h2 {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {
   .userItemInfo h2 {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 }
 </style>

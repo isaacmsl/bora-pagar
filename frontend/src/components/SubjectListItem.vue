@@ -82,10 +82,10 @@ function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
   justify-content: space-between;
   align-items: center;
   background: var(--app-dark-blue);
-  border-radius: 1.6rem;
-  padding: 2rem 3.4rem;
+  border-radius: 1rem;
+  padding: 1.25rem 2rem;
   color: var(--default-color);
-  gap: 2.4rem;
+  gap: 1.5rem;
 }
 
 .subject-info {
@@ -94,20 +94,20 @@ function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
 
 .subject-name {
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 1.5rem;
 }
 
 .subject-extra {
-  margin-top: 0.8rem;
+  margin-top: 0.5rem;
 }
 
 .subject-departament {
-  font-size: 1.4rem;
+  font-size: 1rem;
 }
 
 .interested-user-picture {
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   border: 2px solid white;
   cursor: pointer;
@@ -116,7 +116,7 @@ function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
 .interested-users {
   display: flex;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
   align-items: center;
   gap: 0.5rem;
 }
@@ -129,17 +129,34 @@ function subjectContainsInterestedUser(interestedUsers: AppUser[]) {
   text-align: center;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 960px) {
   .subject-name {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
-}
 
-@media only screen and (max-width: 800px) {
+  .subject-info {
+    width: 100%;
+  }
+
   .list-item {
     display: grid;
     height: auto;
     justify-content: start;
+  }
+
+  .subject-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .subject-actions button {
+    margin-left : 0;
+    margin-right: 0.75rem;
+  }
+
+  .interested-users {
+    margin-top: 0;
   }
 }
 </style>
