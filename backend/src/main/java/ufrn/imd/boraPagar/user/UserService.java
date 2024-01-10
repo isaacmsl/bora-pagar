@@ -22,7 +22,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         }
 
         user.setId(null);
-        user.setGoogleId(null);
         user.setLastLoginTime(null);
         user.setRegistrationTime(null);
         return user;
@@ -38,13 +37,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     }
 
     public UserModel findByGoogleId(String credential, String googleId) {
-        UserModel user = getExistingOrNewUserFromCredential(credential);
-        
-        if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
-            return userRepository.findByGoogleId(googleId);
-        }
-
-        return null;
+        return userRepository.findByGoogleId(googleId);
     }
 
     public UserModel findByName(String credential, String name) {

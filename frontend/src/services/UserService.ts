@@ -1,3 +1,4 @@
+import type { AppUser } from '@/types/AppUser';
 import type { PageUser } from '@/types/PageUser';
 import axios, { Axios, type AxiosResponse } from 'axios'
 export class UserService {
@@ -13,6 +14,16 @@ export class UserService {
     const response = await this.axiosInstance.post<any, AxiosResponse<string>>('/welcome', {}, {
       headers: {
         credential
+      }
+    });
+    
+    return response.data;
+  }
+
+  public async searchUserByGoogleId(googleId : string) : Promise<AppUser>{
+    const response = await this.axiosInstance.get<any, AxiosResponse<AppUser>>('', {
+      params: {
+        googleId
       }
     });
     

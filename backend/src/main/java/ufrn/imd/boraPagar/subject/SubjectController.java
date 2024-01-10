@@ -44,6 +44,12 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return listResult;
     }
 
+    @RequestMapping(method = RequestMethod.GET, params = {"userGoogleId"})
+    public Page<SubjectModel> findAllByInterestedUserWithGoogleId(@RequestParam String userGoogleId, Pageable pageable) {
+        Page<SubjectModel> listResult = service.findAllByInterestedUserWithGoogleId(userGoogleId, pageable);
+        return listResult;
+    }
+
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
     public ResponseEntity<SubjectModel> findByComponentID(@RequestParam int componentID) {
         return ResponseEntity.ok().body(service.findByComponentID(componentID));
@@ -65,6 +71,11 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     }
 
     @RequestMapping(method=RequestMethod.GET)
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String department) {
+        return service.findAllByNameAndDepartment(pageable, partialName, department);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "department"})
     public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String department) {
         return service.findAllByNameAndDepartment(pageable, partialName, department);
     }
