@@ -20,6 +20,7 @@ public class UserTests {
     @Autowired
     UserRepository repository;
     UserModel user;
+    UserModel user2;
 
     @Before
     public void setUp() throws Exception {
@@ -31,6 +32,15 @@ public class UserTests {
         user.setUsername("V1d4isaacL0uk4");
 
         user = repository.save(user);
+
+        user2 = new UserModel();
+        user2.setName("Ramon jales");
+        user2.setEmail("ramon.jales@ufrn.edu.br");
+        user2.setGoogleId("123");
+        user2.setPictureUri("https://bonitao.com");
+        user2.setUsername("Ramonzin");
+
+        user2 = repository.save(user2);
     }
 
     @After
@@ -109,11 +119,11 @@ public class UserTests {
     }
 
     @Test
-    public void shouldPageZeroHasLengthOne() {
-        Pageable pageable = PageRequest.of(0, 2);
+    public void shouldPageZeroHasLengthTwo() {
+        Pageable pageable = PageRequest.of(0, 5);
         Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
 
-        Assert.assertEquals(1, userPage.getContent().size());
+        Assert.assertEquals(2, userPage.getContent().size());
     }
 
     @Test
@@ -122,5 +132,14 @@ public class UserTests {
         Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
 
         Assert.assertEquals(0, userPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageHasFirstTheObjectUserUsingOrderByName() {
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<UserModel> userPage = repository.findAllByNameOrderByNomeAsc(pageable);
+
+        Assert.assertEquals(user, userPage.getContent().get(0));
+        Assert.assertEquals(user2, userPage.getContent().get(1));
     }
 }
