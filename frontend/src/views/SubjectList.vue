@@ -35,12 +35,14 @@ const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 const subjectName = ref('');
 const subjectDepartment = ref('');
+const subjectCode = ref('');
 const panel = ref<number[]>([]);
 
 async function fetchPage() {
   const filters : SubjectFilters = {
     name: subjectName.value,
-    department: subjectDepartment.value
+    department: subjectDepartment.value,
+    partialCode: subjectCode.value
   };
   const pageSubject = await subjectApi.findAll(filters, page.value - 1);
   subjects.value = pageSubject.content;
@@ -48,6 +50,7 @@ async function fetchPage() {
 }
 
 const handleNameInput = debounce(fetchPage);
+const handleCodeInput = debounce(fetchPage);
 
 function getScrollClass() {
   return auth.loggedIn() ? '' : 'overflow-hidden';
@@ -76,6 +79,18 @@ onMounted(async () => {
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field 
+                label="Código" 
+                variant="outlined" 
+                density="comfortable" 
+                v-model="subjectCode"
+                @keyup="handleCodeInput"
+                placeholder="Código"
+                persistent-placeholder
+              />
+            </v-col>
+
             <v-col cols="12" md="6">
               <v-text-field 
                 label="Disciplina" 
