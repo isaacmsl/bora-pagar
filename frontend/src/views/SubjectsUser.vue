@@ -22,24 +22,24 @@ const page = ref(1);
 const qntPages = ref(0);
 const qntVisiblePages = 6;
 
-async function loadView(googleId : string) {
+async function updateViewData(googleId : string) {
+    auth.getCredentialFromLocalStorage();
     user.value = await userService.searchUserByGoogleId(googleId);
-    fetchPage(googleId);
+    fetchUserSubjects(googleId);
 }
 
-async function fetchPage(googleId : string) {
+async function fetchUserSubjects(googleId : string) {
     const pageSubject = await subjectService.findAllByGoogleId(googleId, page.value - 1);
     subjects.value = pageSubject.content;
     qntPages.value = pageSubject.totalPages;
 }
 
 onMounted(() => {
-    auth.getCredentialFromLocalStorage();
-    loadView(String(route.params.googleId));
+    updateViewData(String(route.params.googleId));
 });
 
 onBeforeRouteUpdate((to) => {
-    loadView(String(to.params.googleId));
+    updateViewData(String(to.params.googleId));
 });
 </script>
 
