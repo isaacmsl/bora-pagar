@@ -7,33 +7,39 @@ import { onMounted } from 'vue';
 import UserMenu from '@/components/UserMenu.vue';
 import type { Subject } from '@/types/Subject';
 import type { Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { UserService } from '@/services/UserService';
 import type { AppUser } from '@/types/AppUser';
 import { SubjectService } from '@/services/SubjectService';
-
-const route = useRoute();
 const userService = new UserService();
 const subjectService = new SubjectService();
 
+const route = useRoute();
 const auth = useAuthStore();
 const subjects: Ref<Subject[]> = ref([]);
-const googleId = String(route.params.googleId);
 const user: Ref<AppUser | undefined> = ref();
 const page = ref(1);
 const qntPages = ref(0);
 const qntVisiblePages = 6;
 
-async function fetchPage() {
+async function loadView(googleId : string) {
+    user.value = await userService.searchUserByGoogleId(googleId);
+    fetchPage(googleId);
+}
+
+async function fetchPage(googleId : string) {
     const pageSubject = await subjectService.findAllByGoogleId(googleId, page.value - 1);
     subjects.value = pageSubject.content;
     qntPages.value = pageSubject.totalPages;
 }
 
-onMounted(async () => {
+onMounted(() => {
     auth.getCredentialFromLocalStorage();
-    user.value = await userService.searchUserByGoogleId(googleId);
-    fetchPage();
+    loadView(String(route.params.googleId));
+});
+
+onBeforeRouteUpdate((to) => {
+    loadView(String(to.params.googleId));
 });
 </script>
 
