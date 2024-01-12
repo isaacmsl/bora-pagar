@@ -61,7 +61,7 @@ onBeforeRouteUpdate((to) => {
                 :department="subject.department" :name="subject.name" :interested-users="subject.interestedUsers" />
         </v-list>
 
-        <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
+        <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchUserSubjects" :total-visible="qntVisiblePages"
             :disabled="!auth.loggedIn()"></v-pagination>
     </main>
 </template>
