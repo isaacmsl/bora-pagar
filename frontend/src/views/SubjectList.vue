@@ -145,7 +145,7 @@ header {
 
 .container {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -177,7 +177,8 @@ h1 {
 
 .list {
   background: var(--app-blue-soft);
-  height: 400px;
+  flex-grow: 1;
+  min-height: 50vh;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
