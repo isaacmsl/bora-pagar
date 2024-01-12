@@ -33,7 +33,7 @@ export class UserService {
   public async searchUsersByUsername(page : number, username? : string) : Promise<PageUser>{
     const response = await this.axiosInstance.get<any, AxiosResponse<PageUser>>('', {
       params: {
-        partialUsername: username || '',
+        partialUsername: username.trim() || '',
         page
       }
     });
