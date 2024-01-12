@@ -28,7 +28,8 @@ export class SubjectService {
         params: {
           page,
           partialName: filters.name || '', 
-          partialDepartment: filters.department || ''
+          partialDepartment: filters.department || '',
+          partialCode: filters.partialCode || ''
         }
       });
     

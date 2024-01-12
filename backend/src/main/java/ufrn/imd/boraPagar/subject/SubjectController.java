@@ -70,9 +70,9 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return ResponseEntity.ok().body(service.findAllByTotalHours(totalHours));
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "partialDepartment"})
-    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String partialDepartment) {
-        return service.findAllByNameAndDepartment(pageable, partialName, partialDepartment);
+    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "partialDepartment", "partialCode"})
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String partialDepartment, @RequestParam String partialCode) {
+        return service.findAllByNameAndDepartmentAndCode(pageable, partialName, partialDepartment, partialCode);
     }
     
 }

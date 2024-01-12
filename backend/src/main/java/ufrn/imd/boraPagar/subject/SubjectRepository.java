@@ -18,6 +18,6 @@ public interface SubjectRepository extends AbstractRepository<SubjectModel> {
     List<SubjectModel> findAllByEquivalences(SubjectModel equivalence);
     List<SubjectModel> findAllByRequirements(SubjectModel requirement);
     List<SubjectModel> findAllByCoRequirements(SubjectModel coRequirement);
-    Page<SubjectModel> findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCase(Pageable pageable, String name, String department);
+    Page<SubjectModel> findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(Pageable pageable, String name, String department, String code);
     Page<SubjectModel> findAllByInterestedUsers(Pageable pageable, UserModel user);
 }
