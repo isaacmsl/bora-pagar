@@ -1,7 +1,6 @@
 # Bora Pagar
 
-https://github.com/isaacmsl/bora-pagar/assets/31693006/8135e11e-8ce4-4572-b6f6-25181502f61b
-
+![Bora-Pagar](https://github.com/isaacmsl/bora-pagar/assets/31693006/7fd84d8d-d03d-4e69-adb7-6723ae3b2dd0)
 
 Na Universidade Federal do Rio Grande do Norte (UFRN), diante várias possibilidades de escolha de disciplinas, é importante que o estudante escolha aquelas que colegas conhecidos também pretendam escolher. Dessa forma, o aluno se sente mais seguro e com a certeza de que existirão pessoas que irão apoiá-lo durante o desenvolvimento da disciplina. Dito isso, esse sistema permite que os alunos visualize de maneira prática as disciplinas que seus amigos estão escolhendo e o auxilia a planejar as disciplinas no período de matrículas.
 
