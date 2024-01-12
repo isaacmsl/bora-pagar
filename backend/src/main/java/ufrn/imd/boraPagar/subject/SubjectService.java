@@ -78,8 +78,8 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
         return subjectRepository.findAllByTotalHours(totalHours);
     }
 
-    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, String name, String department) {
-        return subjectRepository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCase(pageable, name, department);
+    public Page<SubjectModel> findAllByNameAndDepartmentAndCode(Pageable pageable, String name, String department, String code) {
+        return subjectRepository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(pageable, name, department, code);
     }
 
 }
