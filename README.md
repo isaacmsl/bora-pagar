@@ -24,6 +24,18 @@ Muito mais! Veja o nosso progresso [neste quadro digital](https://github.com/use
 - Vue.js 3 para o frontend: Typescript, vuetify, Pinia
 - Persistência de dados na nuvem com Mongo DB
 
+## Como rodar
+
+1. Instale o Node.js (v20.6.1 é suficiente)
+1. Instale o Java na sua versão 21
+1. Crie um arquivo chamado `secrets.yml` no caminho `backend/src/main/resources/` (O conteúdo deve ser solicitado no [grupo do Telegram](https://t.me/+BRUhNMr3v8c0YzFh))
+1. Entre no diretório do backend com o comando `cd backend`
+1. Rode o backend com `./mvnw spring-boot:run`
+1. Atualize as credenciais encontradas em `frontend/.env` (Pedir ajuda no [grupo do Telegram](https://t.me/+BRUhNMr3v8c0YzFh))
+1. Entre no diretório do frontend com o comando `cd frontend`
+1. Instale as dependência com o comando `npm install`
+1. Rode o backend com `npm run dev`
+
 ## Como contribuir
 
 Agredecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [encontrar uma issue](https://github.com/isaacmsl/bora-pagar/issues). Estamos disponíveis para contato através do nosso grupo do Telegram https://t.me/+BRUhNMr3v8c0YzFh.
