@@ -22,5 +22,5 @@ public interface UserRepository extends AbstractRepository<UserModel> {
     List<UserModel> findAllByRole(RoleEnum role);
 
     @Query("{ 'name' : { $exists: true }}")
-    Page<UserModel> findAllByNameOrderByNomeAsc(Pageable pageable);
+    Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable);
 }

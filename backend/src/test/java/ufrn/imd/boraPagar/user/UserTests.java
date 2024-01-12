@@ -137,7 +137,7 @@ public class UserTests {
     @Test
     public void shouldPageHasFirstTheObjectUserUsingOrderByName() {
         Pageable pageable = PageRequest.of(0, 5);
-        Page<UserModel> userPage = repository.findAllByNameOrderByNomeAsc(pageable);
+        Page<UserModel> userPage = repository.findAllByNameOrderByNameAsc(pageable);
 
         Assert.assertEquals(user, userPage.getContent().get(0));
         Assert.assertEquals(user2, userPage.getContent().get(1));

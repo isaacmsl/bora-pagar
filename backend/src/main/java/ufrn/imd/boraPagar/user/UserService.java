@@ -90,8 +90,8 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return users;
     }
     
-    public Page<UserModel> findAllByNameOrderByNomeAsc(Pageable pageable) {
-        Page<UserModel> users = userRepository.findAllByNameOrderByNomeAsc(pageable);
+    public Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable) {
+        Page<UserModel> users = userRepository.findAllByNameOrderByNameAsc(pageable);
         
         for (UserModel user : users) {
             user = getUserWithoutSensitiveInfo(user);
