@@ -27,9 +27,9 @@ export class SubjectService {
     const response = await this.axiosInstance.get<any, AxiosResponse<PageSubject>>('', {
         params: {
           page,
-          partialName: filters.name || '', 
-          partialDepartment: filters.department || '',
-          partialCode: filters.partialCode || ''
+          partialName: filters.name.trim() || '', 
+          partialDepartment: filters.department.trim() || '',
+          partialCode: filters.partialCode.trim() || ''
         }
       });
     
