@@ -100,6 +100,16 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return users;
     }
 
+    public Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable) {
+        Page<UserModel> users = userRepository.findAllByUsernameOrderByUsernameAsc(pageable);
+        
+        for (UserModel user : users) {
+            user = getUserWithoutSensitiveInfo(user);
+        }
+        
+        return users;
+    }
+
     public List<UserModel> findAllByRole(String credential, RoleEnum role) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
 

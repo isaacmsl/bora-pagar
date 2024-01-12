@@ -23,4 +23,7 @@ public interface UserRepository extends AbstractRepository<UserModel> {
 
     @Query("{ 'name' : { $exists: true }}")
     Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable);
+
+    @Query("{ 'username' : { $exists: true }}")
+    Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable);
 }

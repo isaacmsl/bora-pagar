@@ -75,4 +75,9 @@ public class UserController extends AbstractController<UserModel, UserService>{
         return service.findAllByNameOrderByNameAsc(pageable);
     }
     
+    @JsonView(Views.Public.class)
+    @GetMapping("/findAllUsernameOrdAsc")
+    public Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable) {
+        return service.findAllByUsernameOrderByUsernameAsc(pageable);
+    }
 }
