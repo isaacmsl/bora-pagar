@@ -2,6 +2,7 @@ package ufrn.imd.boraPagar.exceptions.handler;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.QueryException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ValidationException.class)
     public  ResponseEntity<ExceptionResponse> handleValidationException(ValidationException ex) {
         ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Validation error in mongodb!");
+        response.getErrors().add(ex.getMessage());
+
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    @ExceptionHandler(QueryException.class)
+    public  ResponseEntity<ExceptionResponse> handleQueryException(QueryException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, "Query execution error!");
         response.getErrors().add(ex.getMessage());
 
         return new ResponseEntity<>(response, response.getStatus());
