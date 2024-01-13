@@ -43,5 +43,6 @@ Agredecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [en
 
 Aos primeiro contribuidores ❤️
 
-| [<img src="https://avatars3.githubusercontent.com/u/31693006?s=460&v=4" width=115><br><sub>@isaacmsl</sub>](https://github.com/isaacmsl) | [<img src="https://avatars3.githubusercontent.com/u/50637958?s=400&v=4" width=115><br><sub>@IanGabriel12</sub>](https://github.com/IanGabriel12) | [<img src="https://avatars3.githubusercontent.com/u/69535401?s=400&v=4" width=115><br><sub>@Kywal</sub>](https://github.com/Kywal) | [<img src="https://avatars3.githubusercontent.com/u/85131757?s=400&v=4" width=115><br><sub>@RamonJales</sub>](https://github.com/RamonJales) | [<img src="https://avatars3.githubusercontent.com/u/127620804?s=400&v=4" width=115><br><sub>@DanilloFonseca</sub>](https://github.com/DanilloFonseca) |
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://github.com/isaacmsl.png" width=60><br><sub>@isaacmsl</sub>](https://github.com/isaacmsl) | [<img src="https://github.com/IanGabriel12.png" width=60><br><sub>@IanGabriel12</sub>](https://github.com/IanGabriel12) | [<img src="https://github.com/Kywal.png" width=60><br><sub>@Kyyyyywal</sub>](https://github.com/Kywal) |
+| :---: | :---: | :---: |
+| [<img src="https://github.com/RamonJales.png" width=60><br><sub>@RamonJales</sub>](https://github.com/RamonJales) | [<img src="https://github.com/DanilloFonseca.png" width=60><br><sub>@DanilloFonseca</sub>](https://github.com/DanilloFonseca) | |
