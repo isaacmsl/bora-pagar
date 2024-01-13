@@ -25,15 +25,10 @@ Muito mais! Veja o nosso progresso [neste quadro digital](https://github.com/use
 
 ## Como rodar
 
-1. Instale o Node.js (v20.6.1 é suficiente)
-1. Instale o Java na sua versão 21
-1. Crie um arquivo chamado `secrets.yml` no caminho `backend/src/main/resources/` (O conteúdo deve ser solicitado no [grupo do Telegram](https://t.me/+BRUhNMr3v8c0YzFh))
-1. Entre no diretório do backend com o comando `cd backend`
-1. Rode o backend com `./mvnw spring-boot:run`
-1. Atualize as credenciais encontradas em `frontend/.env` (Pedir ajuda no [grupo do Telegram](https://t.me/+BRUhNMr3v8c0YzFh))
-1. Entre no diretório do frontend com o comando `cd frontend`
-1. Instale as dependência com o comando `npm install`
-1. Rode o backend com `npm run dev`
+1. [Assista "Como rodar backend"](https://www.youtube.com/watch?v=V4Rj6h-UF0E)|
+1. [Assista "Como criar banco mongo"](https://www.youtube.com/watch?v=LvEB7efljfQ&t=0s)
+1. [Assista "Como rodar frontend"](https://youtu.be/v1oBgArb9qU)
+1. Para integrar o backend com o frontend basta rodar âmbas as aplicações ;)
 
 ## Como contribuir
 
