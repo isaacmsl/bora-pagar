@@ -26,16 +26,16 @@ Muito mais! Veja o nosso progresso [neste quadro digital](https://github.com/use
 ## Como rodar
 
 Todos os vídeos de ajuda podem ser encontrados [nessa playlist no Youtube](https://www.youtube.com/playlist?list=PL-q8-ZjJcNWHQdPHPTF-4bYOOKS2_T5fg).
-Os vídeo se completam e recomendamos seguir a ordem na playlist.
+Os vídeos se completam e recomendamos seguir a ordem na playlist.
 
 ## Como contribuir
 
-Agredecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [encontrar uma issue](https://github.com/isaacmsl/bora-pagar/issues).
+Agradecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [encontrar uma issue](https://github.com/isaacmsl/bora-pagar/issues).
 Estamos disponíveis para contato através do nosso grupo do Telegram https://t.me/+BRUhNMr3v8c0YzFh.
 
 ## Agredecimentos
 
-Aos primeiro contribuidores ❤️
+Aos primeiros contribuidores ❤️
 
 | [<img src="https://github.com/isaacmsl.png" width=60><br><sub>@isaacmsl</sub>](https://github.com/isaacmsl) | [<img src="https://github.com/IanGabriel12.png" width=60><br><sub>@IanGabriel12</sub>](https://github.com/IanGabriel12) | [<img src="https://github.com/Kywal.png" width=60><br><sub>@Kyyyyywal</sub>](https://github.com/Kywal) |
 | :---: | :---: | :---: |
