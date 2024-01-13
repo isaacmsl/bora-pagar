@@ -25,14 +25,13 @@ Muito mais! Veja o nosso progresso [neste quadro digital](https://github.com/use
 
 ## Como rodar
 
-1. [Assista "Como rodar backend"](https://www.youtube.com/watch?v=V4Rj6h-UF0E)|
-1. [Assista "Como criar banco mongo"](https://www.youtube.com/watch?v=LvEB7efljfQ&t=0s)
-1. [Assista "Como rodar frontend"](https://youtu.be/v1oBgArb9qU)
-1. Para integrar o backend com o frontend basta rodar âmbas as aplicações ;)
+Todos os vídeos de ajuda podem ser encontrados [nessa playlist no Youtube](https://www.youtube.com/playlist?list=PL-q8-ZjJcNWHQdPHPTF-4bYOOKS2_T5fg).
+Os vídeo se completam e recomendamos seguir a ordem na playlist.
 
 ## Como contribuir
 
-Agredecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [encontrar uma issue](https://github.com/isaacmsl/bora-pagar/issues). Estamos disponíveis para contato através do nosso grupo do Telegram https://t.me/+BRUhNMr3v8c0YzFh.
+Agredecemos muito qualquer feedback de bug ou melhoria. Fique a vontade para [encontrar uma issue](https://github.com/isaacmsl/bora-pagar/issues).
+Estamos disponíveis para contato através do nosso grupo do Telegram https://t.me/+BRUhNMr3v8c0YzFh.
 
 ## Agredecimentos
 
