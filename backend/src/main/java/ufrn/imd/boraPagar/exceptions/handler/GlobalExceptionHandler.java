@@ -2,6 +2,7 @@ package ufrn.imd.boraPagar.exceptions.handler;
 
 import java.time.LocalDateTime;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -32,6 +33,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatus.NOT_FOUND,
             ex.getMessage());
 
+        response.getErrors().add(ex.getMessage());
+
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    @ExceptionHandler(DataAccessException.class)
+    public  ResponseEntity<ExceptionResponse> handleDataAccessException(DataAccessException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, "Internal error accessing the database!");
         response.getErrors().add(ex.getMessage());
 
         return new ResponseEntity<>(response, response.getStatus());
