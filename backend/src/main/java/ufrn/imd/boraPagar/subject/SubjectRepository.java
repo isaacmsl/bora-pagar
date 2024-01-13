@@ -1,6 +1,7 @@
 package ufrn.imd.boraPagar.subject;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +12,8 @@ import ufrn.imd.boraPagar.user.UserModel;
 
 @Repository
 public interface SubjectRepository extends AbstractRepository<SubjectModel> {
-    SubjectModel findByComponentID(String componentID);
-    SubjectModel findByCode(String code);
+    Optional<SubjectModel> findByComponentID(String componentID);
+    Optional<SubjectModel> findByCode(String code);
     List<SubjectModel> findAllByModality(SubjectModalityType modality);
     List<SubjectModel> findAllByTotalHours(int totalHours);
     List<SubjectModel> findAllByEquivalences(SubjectModel equivalence);

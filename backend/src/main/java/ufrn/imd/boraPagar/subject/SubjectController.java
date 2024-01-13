@@ -52,12 +52,12 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
 
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
     public ResponseEntity<SubjectModel> findByComponentID(@RequestParam String componentID) {
-        return ResponseEntity.ok().body(service.findByComponentID(componentID));
+        return ResponseEntity.ok().body(service.findByComponentID(componentID).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
     public ResponseEntity<SubjectModel> findByCode(@RequestParam String code) {
-        return ResponseEntity.ok().body(service.findByCode(code));
+        return ResponseEntity.ok().body(service.findByCode(code).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"modality"})
