@@ -11,6 +11,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 
+import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 import ufrn.imd.boraPagar.user.GoogleUserWrapper;
 import ufrn.imd.boraPagar.user.RoleEnum;
 import ufrn.imd.boraPagar.user.UserModel;
@@ -81,7 +82,8 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
-            return repository.findById(id);
+            return Optional.ofNullable(repository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Object not found!")));
         }
 
         return Optional.empty();
