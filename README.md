@@ -35,7 +35,7 @@ Estamos disponíveis para contato através do nosso grupo do Telegram https://t.
 
 ## Agredecimentos
 
-Aos primeiro contribuidores ❤️
+Aos primeiros contribuidores ❤️
 
 | [<img src="https://github.com/isaacmsl.png" width=60><br><sub>@isaacmsl</sub>](https://github.com/isaacmsl) | [<img src="https://github.com/IanGabriel12.png" width=60><br><sub>@IanGabriel12</sub>](https://github.com/IanGabriel12) | [<img src="https://github.com/Kywal.png" width=60><br><sub>@Kyyyyywal</sub>](https://github.com/Kywal) |
 | :---: | :---: | :---: |
