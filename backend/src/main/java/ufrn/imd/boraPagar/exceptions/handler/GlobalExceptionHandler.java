@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.mongodb.MongoException;
 
+import jakarta.validation.ValidationException;
 import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -51,6 +52,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(MongoException.class)
     public  ResponseEntity<ExceptionResponse> handleMongoException(MongoException ex) {
         ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, "Internal error in mongodb!");
+        response.getErrors().add(ex.getMessage());
+
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public  ResponseEntity<ExceptionResponse> handleValidationException(ValidationException ex) {
+        ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Validation error in mongodb!");
         response.getErrors().add(ex.getMessage());
 
         return new ResponseEntity<>(response, response.getStatus());
