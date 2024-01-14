@@ -83,7 +83,7 @@ public abstract class AbstractService <M extends AbstractModel, R extends Abstra
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return Optional.ofNullable(repository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException("Object not found!")));
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
         return Optional.empty();

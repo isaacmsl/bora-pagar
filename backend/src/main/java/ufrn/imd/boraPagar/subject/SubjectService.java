@@ -10,6 +10,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
 import ufrn.imd.boraPagar.core.AbstractService;
+import ufrn.imd.boraPagar.core.ApplicationConstants;
 import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 import ufrn.imd.boraPagar.user.UserModel;
 import ufrn.imd.boraPagar.user.UserService;
@@ -25,7 +26,7 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     UserService userService;
     
     public SubjectModel addInterestedUserByComponentID(String credential, String componentID) {
-        SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException("Object not found!"));
+        SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE));
         System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
@@ -40,7 +41,7 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     }
 
     public SubjectModel removeInterestedUserByComponentID(String credential, String componentID) {
-        SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException("Object not found!"));
+        SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE));
         System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
@@ -66,12 +67,12 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
 
     public Optional<SubjectModel> findByComponentID(String id) {
         return Optional.ofNullable(subjectRepository.findByComponentID(id).orElseThrow(
-            () -> new ResourceNotFoundException("Object not found!")));
+            () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
     }
 
     public Optional<SubjectModel> findByCode(String code) {
         return Optional.ofNullable(subjectRepository.findByCode(code).orElseThrow(
-            () -> new ResourceNotFoundException("Object not found!")));
+            () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
     }
     
     public List<SubjectModel> findAllByModality(SubjectModalityType modality) {

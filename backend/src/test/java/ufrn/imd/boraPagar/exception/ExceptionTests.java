@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import com.mongodb.MongoException;
 
 import jakarta.validation.ValidationException;
+import ufrn.imd.boraPagar.core.ApplicationConstants;
 import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 import ufrn.imd.boraPagar.exceptions.handler.ExceptionResponse;
 import ufrn.imd.boraPagar.exceptions.handler.GlobalExceptionHandler;
@@ -47,7 +48,7 @@ public class ExceptionTests {
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
         Assert.assertEquals(HttpStatus.NOT_FOUND.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
-        Assert.assertEquals("Not found error", responseEntity.getBody().getMessage());
+        Assert.assertEquals(errorMsg, responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
 
@@ -63,7 +64,7 @@ public class ExceptionTests {
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-        Assert.assertEquals("Internal error accessing the database!", responseEntity.getBody().getMessage());
+        Assert.assertEquals(ApplicationConstants.INTERNAL_ERROR_MESSAGE, responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
 
@@ -79,7 +80,7 @@ public class ExceptionTests {
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-        Assert.assertEquals("Internal error in mongodb!", responseEntity.getBody().getMessage());
+        Assert.assertEquals(ApplicationConstants.INTERNAL_ERROR_MONGO_MESSAGE, responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
 
@@ -95,14 +96,15 @@ public class ExceptionTests {
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
         Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
-        Assert.assertEquals("Validation error in mongodb!", responseEntity.getBody().getMessage());
+        Assert.assertEquals(ApplicationConstants.VALIDATION_ERROR_MONGO_MESSAGE, responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
 
     @Test
     public void handleQueryExceptionTest() {
         String errorMsg = "Query error";
-        QueryException dataAccessException = new QueryException(errorMsg, errorMsg) {};
+        String queryStr = "findAll";
+        QueryException dataAccessException = new QueryException(errorMsg, queryStr) {};
 
         ResponseEntity<ExceptionResponse> responseEntity = exceptionHandler.handleQueryException(dataAccessException);
 
@@ -111,7 +113,8 @@ public class ExceptionTests {
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
-        Assert.assertEquals( "Query execution error!", responseEntity.getBody().getMessage());
+        Assert.assertEquals(ApplicationConstants.QUERY_EXCEPTION_MESSAGE, responseEntity.getBody().getMessage());
+        Assert.assertEquals(errorMsg + " [" + queryStr + "]", responseEntity.getBody().getErrors().get(0));
     }
 
 }

@@ -10,6 +10,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
 import ufrn.imd.boraPagar.core.AbstractService;
+import ufrn.imd.boraPagar.core.ApplicationConstants;
 import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 
 @Service
@@ -41,7 +42,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
     public Optional<UserModel> findByGoogleId(String credential, String googleId) {
         return Optional.ofNullable(userRepository.findByGoogleId(googleId).orElseThrow(
-            () -> new ResourceNotFoundException("Object not found!")));
+            () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
     }
 
     public Optional<UserModel> findByName(String credential, String name) {
@@ -49,7 +50,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return Optional.ofNullable(userRepository.findByName(name).orElseThrow(
-                () -> new ResourceNotFoundException("Object not found!")));
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
         return Optional.empty();
@@ -60,7 +61,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return Optional.ofNullable(userRepository.findByUsername(username).orElseThrow(
-                () -> new ResourceNotFoundException("Object not found!")));
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
         return Optional.empty();
@@ -71,7 +72,7 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             return Optional.ofNullable(userRepository.findByEmail(email).orElseThrow(
-                () -> new ResourceNotFoundException("Object not found!")));
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
         return Optional.empty();
