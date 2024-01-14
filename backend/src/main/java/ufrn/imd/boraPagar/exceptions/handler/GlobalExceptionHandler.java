@@ -19,7 +19,7 @@ import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse> hanleAll(Exception ex) {
+    public ResponseEntity<ExceptionResponse> handleAll(Exception ex) {
         ExceptionResponse response = new ExceptionResponse(
             LocalDateTime.now(),
             HttpStatus.BAD_REQUEST,
