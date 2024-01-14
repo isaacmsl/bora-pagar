@@ -135,7 +135,7 @@ public class UserTests {
     }
 
     @Test
-    public void shouldPageZeroHasFirstTheObjectUserUsingOrderByName() {
+    public void shouldPageZeroHasUserAsFirstObjectUsingOrderByName() {
         Pageable pageable = PageRequest.of(0, 5);
         Page<UserModel> userPage = repository.findAllByNameOrderByNameAsc(pageable);
 
@@ -144,7 +144,7 @@ public class UserTests {
     }
 
     @Test
-    public void shouldPageZeroHasFirstTheObjectUserUsingOrderByUsername() {
+    public void shouldPageZeroHasUserAsFirstObjectUsingOrderByUsername() {
         Pageable pageable = PageRequest.of(0, 5);
         Page<UserModel> userPage = repository.findAllByUsernameOrderByUsernameAsc(pageable);
 
