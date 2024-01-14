@@ -30,7 +30,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(400, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
@@ -45,7 +45,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(404, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.NOT_FOUND.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
         Assert.assertEquals("Not found error", responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
@@ -61,7 +61,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(500, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         Assert.assertEquals("Internal error accessing the database!", responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
@@ -77,7 +77,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(500, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         Assert.assertEquals("Internal error in mongodb!", responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
@@ -93,7 +93,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(400, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
         Assert.assertEquals("Validation error in mongodb!", responseEntity.getBody().getMessage());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
@@ -109,7 +109,7 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(500, responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
         Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         Assert.assertEquals( "Query execution error!", responseEntity.getBody().getMessage());
     }
