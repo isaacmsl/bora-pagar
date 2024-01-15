@@ -38,7 +38,7 @@ public class UserTests {
         user2 = new UserModel();
         user2.setName("Ramon jales");
         user2.setEmail("ramon.jales@ufrn.edu.br");
-        user2.setGoogleId("123");
+        user2.setGoogleId("1234");
         user2.setPictureUri("https://bonitao.com");
         user2.setUsername("Ramonzin");
 
