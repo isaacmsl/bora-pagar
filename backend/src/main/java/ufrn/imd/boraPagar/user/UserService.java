@@ -106,10 +106,21 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return null;
     }
 
-    public List<UserModel> findFriendsByGoogleId(String googleId) {
-        UserModel user = userRepository.findByGoogleId(googleId);
+    public List<UserModel> findFriends(String credential) {
+        UserModel user = getExistingOrNewUserFromCredential(credential);
 
         if(user != null){
+            return user.getFriends();
+        }
+
+        return null;
+    }
+
+    public List<UserModel> findFriendsByGoogleId(String credential, String googleId) {
+        UserModel userAuth = getExistingOrNewUserFromCredential(credential);
+
+        if(userAuth != null && userAuth.getRole() == RoleEnum.ROLE_ADMIN){
+            UserModel user = userRepository.findByGoogleId(googleId);
             return user.getFriends();
         }
 

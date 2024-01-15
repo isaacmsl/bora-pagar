@@ -72,8 +72,14 @@ public class UserController extends AbstractController<UserModel, UserService>{
 
     @JsonView(Views.Public.class)
     @GetMapping("friends")
-    public ResponseEntity<List<UserModel>> findFriends(@RequestParam String googleId) {
-        return ResponseEntity.ok().body(service.findFriendsByGoogleId(googleId));
+    public ResponseEntity<List<UserModel>> findFriends(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential) {
+        return ResponseEntity.ok().body(service.findFriends(credential));
+    }
+
+    @JsonView(Views.Admin.class)
+    @GetMapping("forceFriends")
+    public ResponseEntity<List<UserModel>> findFriendsByGoogleId(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String googleId) {
+        return ResponseEntity.ok().body(service.findFriendsByGoogleId(credential, googleId));
     }
 
     @JsonView(Views.Public.class)
