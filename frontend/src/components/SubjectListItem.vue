@@ -50,7 +50,7 @@ onMounted(() => {
   <v-list-item>
     <div class="list-item">
       <div class="subject-info">
-        <h2 class="subject-name">{{ code }} - {{ name }}</h2>
+        <h2 class="subject-name text-truncate">{{ code }} - {{ name }}</h2>
 
         <div class="subject-extra">
           <p class="subject-departament">{{ department }}</p>
@@ -104,7 +104,8 @@ onMounted(() => {
 }
 
 .subject-info {
-  flex: 1;
+  max-width: 70%;
+  display: block;
 }
 
 .subject-name {
@@ -149,14 +150,18 @@ onMounted(() => {
     font-size: 1.25rem;
   }
 
-  .subject-info {
-    width: 100%;
-  }
-
   .list-item {
     display: grid;
+    grid-template-columns: 1fr;
     height: auto;
     justify-content: start;
+    box-sizing: content-box;
+  }
+
+  .subject-info {
+    width: 100%;
+    max-width: unset;
+    overflow: hidden;
   }
 
   .subject-actions {
