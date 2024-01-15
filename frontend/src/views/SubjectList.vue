@@ -23,6 +23,7 @@ import { SubjectService } from '@/services/SubjectService';
 import type { SubjectFilters } from '@/types/SubjectFilters';
 import { debounce } from '@/util/debounce';
 import { watch } from 'vue';
+import { VIcon } from 'vuetify/components';
 
 const subjectApi = new SubjectService();
 
@@ -70,7 +71,15 @@ onMounted(async () => {
 <template>
   <main class="container">
     <header>
-      <h1>Bora Pagar</h1>
+      <div>
+        <h1>Bora Pagar</h1>
+      
+        <a class="button-github" href="https://github.com/isaacmsl/bora-pagar" target="_blank">
+          <v-icon icon="mdi-github" />
+          Contribua
+        </a>
+      </div>
+    
       <UserMenu />
     </header>
 
@@ -199,4 +208,18 @@ h1 {
   border-radius: 0.5rem;
   border: 2px solid var(--app-strong-blue);
 }
+
+.button-github{
+  color: #2591D7;
+  text-decoration: none;
+  padding: 1rem;
+  padding-left: 0%;
+  
+}
+
+.button-github:hover{
+  font-weight: bold;
+  color: white;
+}
+
 </style>
