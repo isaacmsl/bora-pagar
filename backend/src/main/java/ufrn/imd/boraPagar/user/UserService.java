@@ -20,17 +20,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     @Autowired
     UserRepository userRepository;
 
-    private UserModel getUserWithoutSensitiveInfo(UserModel user) {
-        if (user == null) {
-            return null;
-        }
-
-        user.setId(null);
-        user.setLastLoginTime(null);
-        user.setRegistrationTime(null);
-        return user;
-    }
-
     public String welcome(String credential) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         if (user != null) {
@@ -81,19 +70,11 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public Page<UserModel> findAllByName(Pageable pageable, String partialName) {
         Page<UserModel> users = userRepository.findAllByName(pageable, partialName);
         
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
-        
         return users;
     }
 
     public Page<UserModel> findAllByUsername(Pageable pageable, String partialUsername) {
         Page<UserModel> users = userRepository.findAllByUsername(pageable, partialUsername);
-        
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
         
         return users;
     }
@@ -123,10 +104,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
         if(user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             List<UserModel> users = userRepository.findAllByRole(role);
-
-            for (UserModel obj : users) {
-                obj = getUserWithoutSensitiveInfo(obj);
-            }
             
             return users;
         }
