@@ -33,7 +33,7 @@ public class SubjectTests {
     public void setUp() throws Exception {
         subjectA = repository.save(
             new SubjectModel(
-                1,
+                "1",
                 "Disciplina",
                 "DIM1234",
                 "Gradução",
@@ -55,9 +55,9 @@ public class SubjectTests {
 
         subjectB = repository.save(
             new SubjectModel(
-                2,
+                "2",
                 "Disciplina",
-                "DIM1235",
+                "DIM2135",
                 "Gradução",
                 "FMC 2",
                 "DIMAp",
@@ -169,23 +169,37 @@ public class SubjectTests {
     }
 
     @Test
-    public void findAllByNameAndDepartmentReturnTwoElementsInPageZero() {
+    public void findAllByNameAndDepartmentAndCodeReturnTwoElementsInPageZero() {
         String partialName = "fmc";
-        String department = "DIMAp";
+        String partialDepartment = "DIM";
+        String partialCode = "Di";
 
         Pageable pageable = PageRequest.of(0, 5);
-        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(pageable, partialName, partialDepartment, partialCode);
 
         Assert.assertEquals(2, subPage.getContent().size());
     }
 
     @Test
-    public void findAllByNameAndDepartmentReturnZeroElementsInPageOne() {
+    public void findAllByNameAndDepartmentAndCodeReturnCorrectOneElementInPageOne() {
         String partialName = "fmc";
-        String department = "DIMAp";
+        String partialDepartment = "DIMA";
+        String partialCode = "21";
+        
+        Pageable pageable = PageRequest.of(0, 5);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(pageable, partialName, partialDepartment, partialCode);
+
+        Assert.assertTrue(subPage.getContent().contains(subjectB));
+    }
+
+    @Test
+    public void findAllByNameAndDepartmentAndCodeReturnZeroElementsInPageOne() {
+        String partialName = "fmc";
+        String partialDepartment = "DIMA";
+        String partialCode = "";
 
         Pageable pageable = PageRequest.of(1, 5);
-        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartment(pageable, partialName, department);
+        Page<SubjectModel> subPage = repository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(pageable, partialName, partialDepartment, partialCode);
 
         Assert.assertEquals(0, subPage.getContent().size());
     }

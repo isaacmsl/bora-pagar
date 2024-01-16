@@ -24,7 +24,7 @@ const vuetify = createVuetify({
           'primary-darken-1': '#0E6BA8',
           secondary: '#0A2472',
           'secondary-darken-1': '#001C55',
-          error: '#B00020',
+          error: '#e82323',
           info: '#2196F3',
           success: '#4CAF50',
           warning: '#FB8C00'

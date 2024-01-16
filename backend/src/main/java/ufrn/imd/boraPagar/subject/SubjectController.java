@@ -27,14 +27,14 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
 
     @JsonView(Views.Public.class)
     @PostMapping("/interested")
-    public ResponseEntity<SubjectModel> addInterestedUserSubjectCode(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
-        return ResponseEntity.ok().body(service.addInterestedUserByCode(credential, code));
+    public ResponseEntity<SubjectModel> addInterestedUserByComponentID(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String componentID) {
+        return ResponseEntity.ok().body(service.addInterestedUserByComponentID(credential, componentID));
     }
 
     @JsonView(Views.Public.class)
     @DeleteMapping("/interested")
-    public ResponseEntity<SubjectModel> removeInterestedUserSubjectCode(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String code) {
-        return ResponseEntity.ok().body(service.removeInterestedUserByCode(credential, code));
+    public ResponseEntity<SubjectModel> removeInterestedUserByComponentID(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String componentID) {
+        return ResponseEntity.ok().body(service.removeInterestedUserByComponentID(credential, componentID));
     }
     
     @Override
@@ -51,13 +51,13 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
-    public ResponseEntity<SubjectModel> findByComponentID(@RequestParam int componentID) {
-        return ResponseEntity.ok().body(service.findByComponentID(componentID));
+    public ResponseEntity<SubjectModel> findByComponentID(@RequestParam String componentID) {
+        return ResponseEntity.ok().body(service.findByComponentID(componentID).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
     public ResponseEntity<SubjectModel> findByCode(@RequestParam String code) {
-        return ResponseEntity.ok().body(service.findByCode(code));
+        return ResponseEntity.ok().body(service.findByCode(code).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"modality"})
@@ -70,9 +70,9 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return ResponseEntity.ok().body(service.findAllByTotalHours(totalHours));
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "department"})
-    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String department) {
-        return service.findAllByNameAndDepartment(pageable, partialName, department);
+    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "partialDepartment", "partialCode"})
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String partialDepartment, @RequestParam String partialCode) {
+        return service.findAllByNameAndDepartmentAndCode(pageable, partialName, partialDepartment, partialCode);
     }
     
 }

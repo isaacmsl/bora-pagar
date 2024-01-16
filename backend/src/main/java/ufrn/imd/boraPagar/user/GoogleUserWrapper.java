@@ -19,7 +19,7 @@ public class GoogleUserWrapper {
         String username = payload.get("given_name").toString().toLowerCase() + "_" + payload.get("family_name").toString().toLowerCase();
         String email = payload.getEmail();
         String pictureUri = payload.get("picture").toString();
-        UserModel existingModel = userRepository.findByGoogleId(userId);
+        UserModel existingModel = userRepository.findByGoogleId(userId).get();
 
         if (existingModel == null) {
             UserModel newUser = new UserModel();

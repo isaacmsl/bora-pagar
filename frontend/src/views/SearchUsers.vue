@@ -12,11 +12,11 @@ import { useAuthStore } from '@/stores/auth';
 
 const auth = useAuthStore();
 const api = new UserService();
-const users : Ref<AppUser[]> = ref([]);
-const inputUsername : Ref<string> = ref('');
+const users: Ref<AppUser[]> = ref([]);
+const inputUsername: Ref<string> = ref('');
 const qntPages = ref(0);
 const page = ref(1);
-const qntVisiblePages = 11;
+const qntVisiblePages = 6;
 
 async function fetchPage() {
   const pageUser = await api.searchUsersByUsername(page.value - 1, inputUsername.value);
@@ -36,15 +36,10 @@ onMounted(() => {
     <header class="pageHeader">
       <div class="pageInfo">
         <h1>Buscar amigo</h1>
-        <v-text-field
-          bg-color="#202333"
-          density="comfortable"
-          variant="solo-filled"
-          v-model="inputUsername"
-          @keyup="handleUsernameInput"
-        >
+        <v-text-field bg-color="#202333" density="comfortable" variant="solo-filled" v-model="inputUsername"
+          @keyup="handleUsernameInput" placeholder="Buscar por username">
           <template v-slot:append-inner>
-            <v-icon icon="mdi-magnify" size="30"/>
+            <v-icon icon="mdi-magnify" size="30" />
           </template>
         </v-text-field>
       </div>
@@ -53,7 +48,7 @@ onMounted(() => {
     </header>
 
     <ul class="userList">
-      <UserListItem v-for="user in users" :user="user" :key="user.username"/>
+      <UserListItem v-for="user in users" :user="user" :key="user.username" />
     </ul>
     <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
       :disabled="!auth.loggedIn()"></v-pagination>
@@ -62,23 +57,28 @@ onMounted(() => {
 
 <style scoped>
 .container {
-  padding: 1rem 0;
+  padding: 0.75rem 0;
   width: 80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
+
 .pageInfo {
-  width: 40rem;
+  width: 400px;
+  display: grid;
+  gap: 1.25rem;
 }
 
 .pageInfo h1 {
   font-weight: bold;
-  font-size: 6rem;
+  font-size: 2.5rem;
 }
 
 .pageHeader {
   display: flex;
+  flex-wrap: wrap-reverse;
+  gap: 1.25rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -93,9 +93,9 @@ onMounted(() => {
   border-radius: 0.5rem;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  grid-auto-rows: 10rem;
-  padding: 3rem;
-  gap: 2rem;
+  grid-auto-rows: 6rem;
+  padding: 2rem;
+  gap: 1.25rem;
 }
 
 .searchButton {
@@ -107,5 +107,21 @@ onMounted(() => {
 
 .searchButton:hover {
   background-color: #1f75af;
+}
+
+@media only screen and (max-width: 600px) {
+  .userList {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .pageHeader {
+    justify-content: flex-end;
+  }
+
+  .pageInfo {
+    width: 100%;
+  }
 }
 </style>

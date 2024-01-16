@@ -7,33 +7,39 @@ import { onMounted } from 'vue';
 import UserMenu from '@/components/UserMenu.vue';
 import type { Subject } from '@/types/Subject';
 import type { Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { UserService } from '@/services/UserService';
 import type { AppUser } from '@/types/AppUser';
 import { SubjectService } from '@/services/SubjectService';
-
-const route = useRoute();
 const userService = new UserService();
 const subjectService = new SubjectService();
 
+const route = useRoute();
 const auth = useAuthStore();
 const subjects: Ref<Subject[]> = ref([]);
-const googleId = String(route.params.googleId);
 const user: Ref<AppUser | undefined> = ref();
 const page = ref(1);
 const qntPages = ref(0);
-const qntVisiblePages = 11;
+const qntVisiblePages = 6;
 
-async function fetchPage() {
+async function updateViewData(googleId : string) {
+    auth.getCredentialFromLocalStorage();
+    user.value = await userService.searchUserByGoogleId(googleId);
+    fetchUserSubjects(googleId);
+}
+
+async function fetchUserSubjects(googleId : string) {
     const pageSubject = await subjectService.findAllByGoogleId(googleId, page.value - 1);
     subjects.value = pageSubject.content;
     qntPages.value = pageSubject.totalPages;
 }
 
-onMounted(async () => {
-    auth.getCredentialFromLocalStorage();
-    user.value = await userService.searchUserByGoogleId(googleId);
-    fetchPage();
+onMounted(() => {
+    updateViewData(String(route.params.googleId));
+});
+
+onBeforeRouteUpdate((to) => {
+    updateViewData(String(to.params.googleId));
 });
 </script>
 
@@ -51,11 +57,11 @@ onMounted(async () => {
         </header>
 
         <v-list class="list">
-            <SubjectListItem v-for="subject in subjects" :key="subject.code" :code="subject.code"
+            <SubjectListItem v-for="subject in subjects" :key="subject.code" :component-i-d="subject.componentID" :code="subject.code"
                 :department="subject.department" :name="subject.name" :interested-users="subject.interestedUsers" />
         </v-list>
 
-        <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchPage" :total-visible="qntVisiblePages"
+        <v-pagination :length="qntPages" v-model="page" color="primary" @click="fetchUserSubjects" :total-visible="qntVisiblePages"
             :disabled="!auth.loggedIn()"></v-pagination>
     </main>
 </template>
@@ -63,6 +69,8 @@ onMounted(async () => {
 <style scoped>
 header {
     display: flex;
+    flex-wrap: wrap-reverse;
+    gap: 2.5rem;
     align-items: center;
     justify-content: space-between;
 }
@@ -73,22 +81,22 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 2.4rem 10%;
-    gap: 2.4rem;
+    padding: 1.5rem 10%;
+    gap: 1.5rem;
 }
 
 h1 {
     font-weight: bold;
-    font-size: 4.8rem;
+    font-size: 3rem;
 }
 
 .list {
     background: var(--app-blue-soft);
     flex: 1;
-    border-radius: 0.8rem;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.75rem;
     overflow-y: auto;
     position: relative;
     border: 1px solid #363c40;
@@ -109,6 +117,22 @@ h1 {
 .userInfo {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.25rem;
+}
+
+@media only screen and (max-width: 960px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+    header {
+        justify-content: flex-end;
+    }
+
+    .userInfo {
+        width: 100%;
+    }
 }
 </style>
