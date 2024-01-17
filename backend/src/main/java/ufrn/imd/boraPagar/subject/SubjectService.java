@@ -84,7 +84,7 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     }
 
     public Page<SubjectModel> findAllByNameAndDepartmentAndCode(Pageable pageable, String name, String department, String code) {
-        return subjectRepository.findAllByNameContainingIgnoreCaseAndDepartmentContainingIgnoreCaseAndCodeContainingIgnoreCase(pageable, name, department, code);
+        return subjectRepository.findAllByNameAndDepartmentAndCode(pageable, name, department, code);
     }
 
 }
