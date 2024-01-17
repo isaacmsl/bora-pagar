@@ -81,21 +81,11 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     
     public Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable) {
         Page<UserModel> users = userRepository.findAllByNameOrderByNameAsc(pageable);
-        
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
-        
         return users;
     }
 
     public Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable) {
         Page<UserModel> users = userRepository.findAllByUsernameOrderByUsernameAsc(pageable);
-        
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
-        
         return users;
     }
 
