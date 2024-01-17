@@ -18,9 +18,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      DATABASE_URI: ${{ secrets.DATABASE_URI }}
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+      
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 21
