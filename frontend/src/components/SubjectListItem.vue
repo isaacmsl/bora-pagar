@@ -7,7 +7,7 @@ import { SubjectService } from '@/services/SubjectService';
 import { ref } from 'vue';
 import { onMounted } from 'vue';
 import type { Subject } from '@/types/Subject';
-import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
+import UserSmallAvatar from './UserSmallAvatar.vue';
 
 const props = defineProps<{
   code: string;
@@ -72,15 +72,19 @@ onMounted(() => {
           color="danger"
         />
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
-          <img @click="navigateToSubjectsOfUserGoogleId(user.googleId)" v-for="user in props.interestedUsers"
-            class="interested-user-picture" :key="user.username" :src="user.pictureUri"
-            :alt="`Foto de perfil de ${user.name}`" :title="user.name">
+          <UserSmallAvatar 
+            v-for="user in interestedUsers"
+            :key="user.username"
+            :user="user"
+          />
           <span>{{ interestedUsers.length == 1 ? "Vai" : "Vão" }} pagar</span>
         </div>
         <div v-else-if="interestedUsers.length > 3" class="interested-users">
-          <img v-for="n in 3" class="interested-user-picture" :key="props.interestedUsers[n - 1].username"
-            :src="props.interestedUsers[n - 1].pictureUri" :alt="`Foto de perfil de ${props.interestedUsers[n - 1].name}`"
-            :title="props.interestedUsers[n - 1].name">
+          <UserSmallAvatar 
+            v-for="index in 3"
+            :key="interestedUsers[index - 1].username"
+            :user="interestedUsers[index - 1]"
+          />
           <span>+ {{ interestedUsers.length - 3 }} pessoas</span>
         </div>
       </div>
@@ -121,13 +125,7 @@ onMounted(() => {
   font-size: 1rem;
 }
 
-.interested-user-picture {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  border: 2px solid white;
-  cursor: pointer;
-}
+
 
 .interested-users {
   display: flex;
