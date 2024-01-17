@@ -27,7 +27,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
     
     public SubjectModel addInterestedUserByComponentID(String credential, String componentID) {
         SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE));
-        System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
             List<UserModel> interestedUsers = subject.getInterestedUsers();
@@ -42,7 +41,6 @@ public class SubjectService extends AbstractService<SubjectModel, SubjectReposit
 
     public SubjectModel removeInterestedUserByComponentID(String credential, String componentID) {
         SubjectModel subject = subjectRepository.findByComponentID(componentID).orElseThrow(() -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE));
-        System.out.println(subject);
         UserModel user = userService.getExistingOrNewUserFromCredential(credential);
         if (subject != null &&  user != null) {
             List<UserModel> interestedUsers = subject.getInterestedUsers();
