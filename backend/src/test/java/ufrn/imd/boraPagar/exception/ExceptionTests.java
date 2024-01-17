@@ -2,7 +2,7 @@ package ufrn.imd.boraPagar.exception;
 
 import org.hibernate.QueryException;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
