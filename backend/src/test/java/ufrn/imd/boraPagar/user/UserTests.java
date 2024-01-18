@@ -1,10 +1,10 @@
 package ufrn.imd.boraPagar.user;
 
-import org.junit.After;
 import org.junit.Assert;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -24,7 +24,7 @@ public class UserTests {
 
     private int pageSize = 5;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         user = new UserModel();
         user.setName("Isaac Lourenço");
@@ -45,7 +45,7 @@ public class UserTests {
         user2 = repository.save(user2);
     }
 
-    @After
+    @AfterEach
     public void deleteAll() throws Exception {
         repository.deleteAll();
     }

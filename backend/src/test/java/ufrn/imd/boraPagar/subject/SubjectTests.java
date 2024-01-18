@@ -2,11 +2,11 @@ package ufrn.imd.boraPagar.subject;
 
 import java.util.ArrayList;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.Assert;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -29,7 +29,7 @@ public class SubjectTests {
     @Autowired
     UserRepository userRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         subjectA = repository.save(
             new SubjectModel(
@@ -82,7 +82,7 @@ public class SubjectTests {
         repository.save(subjectA);
     }
 
-    @After
+    @AfterEach
     public void deleteAll() throws Exception {
         repository.deleteAll();
     }
