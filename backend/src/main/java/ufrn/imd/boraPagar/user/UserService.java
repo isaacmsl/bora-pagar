@@ -1,6 +1,8 @@
 package ufrn.imd.boraPagar.user;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +10,8 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Service;
 
 import ufrn.imd.boraPagar.core.AbstractService;
+import ufrn.imd.boraPagar.core.ApplicationConstants;
+import ufrn.imd.boraPagar.exceptions.ResourceNotFoundException;
 
 @Service
 @NoRepositoryBean
@@ -15,17 +19,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
     @Autowired
     UserRepository userRepository;
-
-    private UserModel getUserWithoutSensitiveInfo(UserModel user) {
-        if (user == null) {
-            return null;
-        }
-
-        user.setId(null);
-        user.setLastLoginTime(null);
-        user.setRegistrationTime(null);
-        return user;
-    }
 
     public String welcome(String credential) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
@@ -36,46 +29,46 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         return "You're not welcome.";
     }
 
-    public UserModel findByGoogleId(String credential, String googleId) {
-        return userRepository.findByGoogleId(googleId);
+    public Optional<UserModel> findByGoogleId(String credential, String googleId) {
+        return Optional.ofNullable(userRepository.findByGoogleId(googleId).orElseThrow(
+            () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
     }
 
-    public UserModel findByName(String credential, String name) {
+    public Optional<UserModel> findByName(String credential, String name) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
-            return userRepository.findByName(name);
+            return Optional.ofNullable(userRepository.findByName(name).orElseThrow(
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
-        return null;
+        return Optional.empty();
     }
 
-    public UserModel findByUsername(String credential, String username) {
+    public Optional<UserModel> findByUsername(String credential, String username) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
-            return userRepository.findByUsername(username);
+            return Optional.ofNullable(userRepository.findByUsername(username).orElseThrow(
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
-        return null;
+        return Optional.empty();
     }
 
-    public UserModel findByEmail(String credential, String email) {
+    public Optional<UserModel> findByEmail(String credential, String email) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
         
         if (user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
-            return userRepository.findByEmail(email);
+            return Optional.ofNullable(userRepository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException(ApplicationConstants.NOT_FOUND_MESSAGE)));
         }
 
-        return null;
+        return Optional.empty();
     }
 
     public Page<UserModel> findAllByName(Pageable pageable, String partialName) {
         Page<UserModel> users = userRepository.findAllByName(pageable, partialName);
-        
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
         
         return users;
     }
@@ -83,10 +76,16 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     public Page<UserModel> findAllByUsername(Pageable pageable, String partialUsername) {
         Page<UserModel> users = userRepository.findAllByUsername(pageable, partialUsername);
         
-        for (UserModel user : users) {
-            user = getUserWithoutSensitiveInfo(user);
-        }
-        
+        return users;
+    }
+    
+    public Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable) {
+        Page<UserModel> users = userRepository.findAllByNameOrderByNameAsc(pageable);
+        return users;
+    }
+
+    public Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable) {
+        Page<UserModel> users = userRepository.findAllByUsernameOrderByUsernameAsc(pageable);
         return users;
     }
 
@@ -95,10 +94,6 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
         if(user != null && user.getRole() == RoleEnum.ROLE_ADMIN) {
             List<UserModel> users = userRepository.findAllByRole(role);
-
-            for (UserModel obj : users) {
-                obj = getUserWithoutSensitiveInfo(obj);
-            }
             
             return users;
         }

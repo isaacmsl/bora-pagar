@@ -52,12 +52,12 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
 
     @RequestMapping(method = RequestMethod.GET, params = {"componentID"})
     public ResponseEntity<SubjectModel> findByComponentID(@RequestParam String componentID) {
-        return ResponseEntity.ok().body(service.findByComponentID(componentID));
+        return ResponseEntity.ok().body(service.findByComponentID(componentID).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"code"})
     public ResponseEntity<SubjectModel> findByCode(@RequestParam String code) {
-        return ResponseEntity.ok().body(service.findByCode(code));
+        return ResponseEntity.ok().body(service.findByCode(code).get());
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"modality"})
@@ -70,9 +70,9 @@ public class SubjectController extends AbstractController<SubjectModel, SubjectS
         return ResponseEntity.ok().body(service.findAllByTotalHours(totalHours));
     }
 
-    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "partialDepartment"})
-    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String partialDepartment) {
-        return service.findAllByNameAndDepartment(pageable, partialName, partialDepartment);
+    @RequestMapping(method = RequestMethod.GET, params = {"partialName", "partialDepartment", "partialCode"})
+    public Page<SubjectModel> findAllByNameAndDepartment(Pageable pageable, @RequestParam String partialName, @RequestParam String partialDepartment, @RequestParam String partialCode) {
+        return service.findAllByNameAndDepartmentAndCode(pageable, partialName, partialDepartment, partialCode);
     }
     
 }

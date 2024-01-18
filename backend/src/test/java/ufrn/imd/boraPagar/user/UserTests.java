@@ -1,10 +1,10 @@
 package ufrn.imd.boraPagar.user;
 
-import org.junit.After;
 import org.junit.Assert;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -20,8 +20,11 @@ public class UserTests {
     @Autowired
     UserRepository repository;
     UserModel user;
+    UserModel user2;
 
-    @Before
+    private int pageSize = 5;
+
+    @BeforeEach
     public void setUp() throws Exception {
         user = new UserModel();
         user.setName("Isaac Lourenço");
@@ -31,9 +34,18 @@ public class UserTests {
         user.setUsername("V1d4isaacL0uk4");
 
         user = repository.save(user);
+
+        user2 = new UserModel();
+        user2.setName("Ramon jales");
+        user2.setEmail("ramon.jales@ufrn.edu.br");
+        user2.setGoogleId("1234");
+        user2.setPictureUri("https://bonitao.com");
+        user2.setUsername("Ramonzin");
+
+        user2 = repository.save(user2);
     }
 
-    @After
+    @AfterEach
     public void deleteAll() throws Exception {
         repository.deleteAll();
     }
@@ -67,7 +79,7 @@ public class UserTests {
     public void shouldFindAllByName() {
         String partialName = "IsAaC";
         
-        Pageable pageable = PageRequest.of(0, 2);
+        Pageable pageable = PageRequest.of(0, pageSize);
         Page<UserModel> userPage = repository.findAllByName(pageable, partialName);
         
         Assert.assertTrue(userPage.getContent().contains(user));
@@ -77,7 +89,7 @@ public class UserTests {
     public void shouldNotFindAllByName() {
         String partialName = "joao";
         
-        Pageable pageable = PageRequest.of(0, 2);
+        Pageable pageable = PageRequest.of(0, pageSize);
         Page<UserModel> userPage = repository.findAllByName(pageable, partialName);
         
         Assert.assertTrue(userPage.getContent().isEmpty());
@@ -87,7 +99,7 @@ public class UserTests {
     public void shouldFindAllByUsername() {
         String partialName = "IsAaC";
         
-        Pageable pageable = PageRequest.of(0, 2);
+        Pageable pageable = PageRequest.of(0, pageSize);
         Page<UserModel> userPage = repository.findAllByUsername(pageable, partialName);
 
         Assert.assertTrue(userPage.getContent().contains(user));
@@ -97,7 +109,7 @@ public class UserTests {
     public void shouldNotFindAllByUsername() {
         String partialName = "joao";
         
-        Pageable pageable = PageRequest.of(0, 2);
+        Pageable pageable = PageRequest.of(0, pageSize);
         Page<UserModel> userPage = repository.findAllByUsername(pageable, partialName);
 
         Assert.assertTrue(userPage.getContent().isEmpty());
@@ -109,18 +121,38 @@ public class UserTests {
     }
 
     @Test
-    public void shouldPageZeroHasLengthOne() {
-        Pageable pageable = PageRequest.of(0, 2);
+    public void shouldPageZeroHasLengthTwo() {
+        Pageable pageable = PageRequest.of(0, pageSize);
         Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
 
-        Assert.assertEquals(1, userPage.getContent().size());
+        Assert.assertEquals(2, userPage.getContent().size());
+        Assert.assertTrue(userPage.getContent().contains(user));
+        Assert.assertTrue(userPage.getContent().contains(user2));
     }
 
     @Test
     public void shouldPageOneHasLengthZero() {
-        Pageable pageable = PageRequest.of(1, 2);
+        Pageable pageable = PageRequest.of(1, pageSize);
         Page<UserModel> userPage = repository.findAllActiveByPage(pageable);
 
         Assert.assertEquals(0, userPage.getContent().size());
+    }
+
+    @Test
+    public void shouldPageZeroHasUserAsFirstObjectUsingOrderByName() {
+        Pageable pageable = PageRequest.of(0, pageSize);
+        Page<UserModel> userPage = repository.findAllByNameOrderByNameAsc(pageable);
+
+        Assert.assertEquals(user, userPage.getContent().get(0));
+        Assert.assertEquals(user2, userPage.getContent().get(1));
+    }
+
+    @Test
+    public void shouldPageZeroHasUserAsFirstObjectUsingOrderByUsername() {
+        Pageable pageable = PageRequest.of(0, pageSize);
+        Page<UserModel> userPage = repository.findAllByUsernameOrderByUsernameAsc(pageable);
+
+        Assert.assertEquals(user, userPage.getContent().get(0));
+        Assert.assertEquals(user2, userPage.getContent().get(1));
     }
 }

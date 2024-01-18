@@ -15,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import ufrn.imd.boraPagar.core.AbstractController;
 import ufrn.imd.boraPagar.core.Views;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
@@ -28,25 +30,25 @@ public class UserController extends AbstractController<UserModel, UserService>{
     @JsonView(Views.Admin.class)
     @RequestMapping(method = RequestMethod.GET, params = {"name"})
     public ResponseEntity<UserModel> findByName(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String name) {
-        return ResponseEntity.ok().body(service.findByName(credential, name));
+        return ResponseEntity.ok().body(service.findByName(credential, name).get());
     }
 
     @JsonView(Views.Admin.class)
     @RequestMapping(method = RequestMethod.GET, params = {"username"})
     public ResponseEntity<UserModel> findByUsername(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String username) {
-        return ResponseEntity.ok().body(service.findByUsername(credential, username));
+        return ResponseEntity.ok().body(service.findByUsername(credential, username).get());
     }
 
     @JsonView(Views.Admin.class)
     @RequestMapping(method = RequestMethod.GET, params = {"email"})
     public ResponseEntity<UserModel> findByEmail(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestParam String email) {
-        return ResponseEntity.ok().body(service.findByEmail(credential, email));
+        return ResponseEntity.ok().body(service.findByEmail(credential, email).get());
     }
 
     @JsonView(Views.Public.class)
     @RequestMapping(method = RequestMethod.GET, params = {"googleId"})
     public ResponseEntity<UserModel> findByGoogleId(@RequestHeader(value = USER_HEADER_TOKEN_NAME, required = false) String credential, @RequestParam String googleId) {
-        return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId));
+        return ResponseEntity.ok().body(service.findByGoogleId(credential, googleId).get());
     }
 
     @JsonView(Views.Public.class)
@@ -65,5 +67,17 @@ public class UserController extends AbstractController<UserModel, UserService>{
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<UserModel>> findAllByRole(@RequestHeader(USER_HEADER_TOKEN_NAME) String credential, @RequestHeader("role") RoleEnum role) {
         return ResponseEntity.ok().body(service.findAllByRole(credential, role));
+    }
+
+    @JsonView(Views.Public.class)
+    @GetMapping("/findAllNameOrdAsc")
+    public Page<UserModel> findAllByNameOrderByNameAsc(Pageable pageable) {
+        return service.findAllByNameOrderByNameAsc(pageable);
+    }
+    
+    @JsonView(Views.Public.class)
+    @GetMapping("/findAllUsernameOrdAsc")
+    public Page<UserModel> findAllByUsernameOrderByUsernameAsc(Pageable pageable) {
+        return service.findAllByUsernameOrderByUsernameAsc(pageable);
     }
 }

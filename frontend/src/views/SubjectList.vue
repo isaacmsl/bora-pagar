@@ -23,6 +23,7 @@ import { SubjectService } from '@/services/SubjectService';
 import type { SubjectFilters } from '@/types/SubjectFilters';
 import { debounce } from '@/util/debounce';
 import { watch } from 'vue';
+import { VIcon } from 'vuetify/components';
 
 const subjectApi = new SubjectService();
 
@@ -35,12 +36,14 @@ const subjects: Ref<Subject[]> = ref([]);
 const qntPages = ref(0);
 const subjectName = ref('');
 const subjectDepartment = ref('');
+const subjectCode = ref('');
 const panel = ref<number[]>([]);
 
 async function fetchPage() {
   const filters : SubjectFilters = {
     name: subjectName.value,
-    department: subjectDepartment.value
+    department: subjectDepartment.value,
+    partialCode: subjectCode.value
   };
   const pageSubject = await subjectApi.findAll(filters, page.value - 1);
   subjects.value = pageSubject.content;
@@ -48,6 +51,7 @@ async function fetchPage() {
 }
 
 const handleNameInput = debounce(fetchPage);
+const handleCodeInput = debounce(fetchPage);
 
 function getScrollClass() {
   return auth.loggedIn() ? '' : 'overflow-hidden';
@@ -67,7 +71,15 @@ onMounted(async () => {
 <template>
   <main class="container">
     <header>
-      <h1>Bora Pagar</h1>
+      <div>
+        <h1>Bora Pagar</h1>
+      
+        <a class="button-github" href="https://github.com/isaacmsl/bora-pagar" target="_blank">
+          <v-icon icon="mdi-github" />
+          Contribua
+        </a>
+      </div>
+    
       <UserMenu />
     </header>
 
@@ -76,6 +88,18 @@ onMounted(async () => {
         <v-expansion-panel-title class="filterPanelTitle"> Campos de busca </v-expansion-panel-title>
         <v-expansion-panel-text class="filterPanelText">
           <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field 
+                label="Código" 
+                variant="outlined" 
+                density="comfortable" 
+                v-model="subjectCode"
+                @keyup="handleCodeInput"
+                placeholder="Código"
+                persistent-placeholder
+              />
+            </v-col>
+
             <v-col cols="12" md="6">
               <v-text-field 
                 label="Disciplina" 
@@ -130,7 +154,7 @@ header {
 
 .container {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -162,7 +186,8 @@ h1 {
 
 .list {
   background: var(--app-blue-soft);
-  height: 400px;
+  flex-grow: 1;
+  min-height: 50vh;
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -183,4 +208,18 @@ h1 {
   border-radius: 0.5rem;
   border: 2px solid var(--app-strong-blue);
 }
+
+.button-github{
+  color: #2591D7;
+  text-decoration: none;
+  padding: 1rem;
+  padding-left: 0%;
+  
+}
+
+.button-github:hover{
+  font-weight: bold;
+  color: white;
+}
+
 </style>
