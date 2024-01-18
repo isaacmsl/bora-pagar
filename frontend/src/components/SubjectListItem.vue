@@ -58,7 +58,6 @@ onMounted(() => {
       </div>
 
       <div class="subject-actions">
-        <!-- <div class="isUserInterested-buttons"> -->
           <Button
             @click="handleInterestedUser(true)"
             v-if="!isUserInterested && auth.loggedIn()"
@@ -72,7 +71,6 @@ onMounted(() => {
             name="Não pagarei"
             color="danger"
           />
-        <!-- </div> -->
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
           <UserSmallAvatar 
             v-for="user in interestedUsers"
