@@ -20,7 +20,7 @@ const classes : {[key : string] : string}= {
 </script>
 
 <template>
-  <button :class="classes[props.color]">{{ name }}</button>
+    <button :class="classes[props.color]">{{ name }}</button>
 </template>
 
 <style scoped>

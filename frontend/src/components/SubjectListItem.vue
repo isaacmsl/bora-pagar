@@ -140,7 +140,9 @@ onMounted(() => {
 }
 
 .subject-actions {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 @media only screen and (max-width: 960px) {
