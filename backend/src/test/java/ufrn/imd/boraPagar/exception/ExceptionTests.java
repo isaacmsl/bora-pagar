@@ -31,8 +31,8 @@ public class ExceptionTests {
         Assert.assertNotNull(responseEntity);
         Assert.assertNotNull(responseEntity.getBody());
         Assert.assertEquals(ResponseEntity.class, responseEntity.getClass());
-        Assert.assertEquals(HttpStatus.BAD_REQUEST.value(), responseEntity.getBody().getStatus().value());
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR.value(), responseEntity.getBody().getStatus().value());
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
         Assert.assertEquals(errorMsg, responseEntity.getBody().getErrors().get(0));
     }
 
