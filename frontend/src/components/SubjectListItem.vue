@@ -58,19 +58,19 @@ onMounted(() => {
       </div>
 
       <div class="subject-actions">
-          <Button
-            @click="handleInterestedUser(true)"
-            v-if="!isUserInterested && auth.loggedIn()"
-            :disabled="isHandlingInterestedUser"
-            name="Pagarei"
-          />
-          <Button
-            @click="handleInterestedUser(false)"
-            v-if="isUserInterested && auth.loggedIn()" 
-            :disabled="isHandlingInterestedUser"
-            name="Não pagarei"
-            color="danger"
-          />
+        <Button
+          @click="handleInterestedUser(true)"
+          v-if="!isUserInterested && auth.loggedIn()"
+          :disabled="isHandlingInterestedUser"
+          name="Pagarei"
+        />
+        <Button
+          @click="handleInterestedUser(false)"
+          v-if="isUserInterested && auth.loggedIn()" 
+          :disabled="isHandlingInterestedUser"
+          name="Não pagarei"
+          color="danger"
+        />
         <div v-if="0 < interestedUsers.length && interestedUsers.length <= 3" class="interested-users">
           <UserSmallAvatar 
             v-for="user in interestedUsers"
