@@ -20,16 +20,10 @@ const classes : {[key : string] : string}= {
 </script>
 
 <template>
-  <div>
     <button :class="classes[props.color]">{{ name }}</button>
-  </div>
 </template>
 
 <style scoped>
-div {
-  display: flex;
-  justify-content: end;
-}
 
 button {
   margin-left: auto;
