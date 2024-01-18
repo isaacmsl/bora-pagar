@@ -23,7 +23,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleAll(Exception ex) {
         ExceptionResponse response = new ExceptionResponse(
             LocalDateTime.now(),
-            HttpStatus.BAD_REQUEST,
+            HttpStatus.INTERNAL_SERVER_ERROR,
             ex.getMessage());
         
         response.getErrors().add(ex.getLocalizedMessage());
