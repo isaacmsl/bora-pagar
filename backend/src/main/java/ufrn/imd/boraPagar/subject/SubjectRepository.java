@@ -20,7 +20,7 @@ public interface SubjectRepository extends AbstractRepository<SubjectModel> {
     List<SubjectModel> findAllByEquivalences(SubjectModel equivalence);
     List<SubjectModel> findAllByRequirements(SubjectModel requirement);
     List<SubjectModel> findAllByCoRequirements(SubjectModel coRequirement);
-    @Query("{ $or: [ { 'name': { $regex: ?0, $options: 'i' } }, { 'department': { $regex: ?0, $options: 'i' } }, { 'code': { $regex: ?0, $options: 'i' } } ] }")
+    @Query("{ $or: [ { 'name': { $regex: ?0, $options: 'i'} }, { 'department': { $regex: ?0, $options: 'i' } }, { 'code': { $regex: ?0, $options: 'i' } } ] }")
     Page<SubjectModel> findAllByNameAndDepartmentAndCode(Pageable pageable, String name, String department, String code);
     Page<SubjectModel> findAllByInterestedUsers(Pageable pageable, UserModel user);
 }
