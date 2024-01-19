@@ -115,8 +115,11 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
         UserModel userAuth = getExistingOrNewUserFromCredential(credential);
 
         if(userAuth != null && userAuth.getRole() == RoleEnum.ROLE_ADMIN){
-            UserModel user = userRepository.findByGoogleId(googleId);
-            return user.getFriends();
+            Optional<UserModel> user = userRepository.findByGoogleId(googleId);
+            
+            if (user.isPresent()) {
+                return user.get().getFriends();
+            }
         }
 
         return null;
@@ -124,10 +127,10 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
 
     public UserModel addFriend(String credential, String googleId) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
-        UserModel newFriend = userRepository.findByGoogleId(googleId);
+        Optional<UserModel> newFriend = userRepository.findByGoogleId(googleId);
 
-        if(user != null && newFriend != null && !user.getFriends().contains(newFriend) && !user.equals(newFriend)) {
-            user.getFriends().add(newFriend);
+        if(user != null && newFriend.isPresent() && !user.getFriends().contains(newFriend.get()) && !user.equals(newFriend.get())) {
+            user.getFriends().add(newFriend.get());
             
             return userRepository.save(user);
         }
@@ -137,10 +140,10 @@ public class UserService extends AbstractService<UserModel, UserRepository> {
     
     public UserModel removeFriend(String credential, String googleId) {
         UserModel user = getExistingOrNewUserFromCredential(credential);
-        UserModel friend = userRepository.findByGoogleId(googleId);
+        Optional<UserModel> friend = userRepository.findByGoogleId(googleId);
 
-        if(user != null && friend != null && user.getFriends().contains(friend)) {
-            user.getFriends().remove(friend);
+        if(user != null && friend.isPresent() && user.getFriends().contains(friend.get())) {
+            user.getFriends().remove(friend.get());
             
             return userRepository.save(user);
         }
