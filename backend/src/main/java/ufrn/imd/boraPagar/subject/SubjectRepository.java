@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import ufrn.imd.boraPagar.core.AbstractRepository;
@@ -20,7 +21,7 @@ public interface SubjectRepository extends AbstractRepository<SubjectModel> {
     List<SubjectModel> findAllByEquivalences(SubjectModel equivalence);
     List<SubjectModel> findAllByRequirements(SubjectModel requirement);
     List<SubjectModel> findAllByCoRequirements(SubjectModel coRequirement);
-    @Query("{ $or: [ { 'name': { $regex: ?0, $options: 'i', $collation: { 'locale': 'pt', 'strength': 2 } } }, { 'department': { $regex: ?0, $options: 'i', $collation: { 'locale': 'pt', 'strength': 2 } } }, { 'code': { $regex: ?0, $options: 'i', $collation: { 'locale': 'pt', 'strength': 2 } } } ] }")
-    Page<SubjectModel> findAllByNameAndDepartmentAndCode(Pageable pageable, String name, String department, String code);
+    @Query("{ $or: [ { 'name': { $regex: ?0, $options: 'i' } }, { 'department': { $regex: ?1, $options: 'i' } }, { 'code': { $regex: ?2, $options: 'i' } } ] }")
+    Page<SubjectModel> findAllByNameAndDepartmentAndCode(Pageable pageable, @Param("name") String name, @Param("department") String department, @Param("code") String code);
     Page<SubjectModel> findAllByInterestedUsers(Pageable pageable, UserModel user);
 }
