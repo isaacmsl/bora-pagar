@@ -11,6 +11,7 @@ import { debounce } from '@/util/debounce';
 import { useAuthStore } from '@/stores/auth';
 
 const auth = useAuthStore();
+const credential = auth.getCredentialFromLocalStorage();
 const api = new UserService();
 const users: Ref<AppUser[]> = ref([]);
 const inputUsername: Ref<string> = ref('');
@@ -19,16 +20,27 @@ const page = ref(1);
 const qntVisiblePages = 6;
 
 async function fetchPage() {
-  const pageUser = await api.searchUsersByUsername(page.value - 1, inputUsername.value);
-  users.value = pageUser.content;
-  qntPages.value = pageUser.totalPages;
+  if(inputUsername.value.length == 0) {
+    fetchPageOnlyWithFriends();
+  } else {
+    const pageUser = await api.searchUsersByUsername(page.value - 1, inputUsername.value);
+    users.value = pageUser.content;
+    qntPages.value = pageUser.totalPages;
+  }
 }
 
 const handleUsernameInput = debounce(fetchPage);
 
+async function fetchPageOnlyWithFriends() {
+  const friends = await api.findFriends(credential);
+
+  users.value = friends;
+}
+
 onMounted(() => {
-  fetchPage();
+  fetchPageOnlyWithFriends();
 });
+
 </script>
 
 <template>
