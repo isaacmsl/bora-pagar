@@ -39,5 +39,17 @@ public class SubjectControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    @Test
+    public void shouldfindAllByModality() throws Exception {
+        SubjectModalityType desire = SubjectModalityType.IN_PERSON;
+        List<SubjectModel> expected = new ArrayList<>();
+        expected.add(new SubjectModel());
+        
+        Mockito.when(subjectService.findAllByModality(desire))
+            .thenReturn(expected);
 
+        mockMvc.perform(MockMvcRequestBuilders.get("/subjects?modality={modality}", String.valueOf(desire)))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+    
 }
