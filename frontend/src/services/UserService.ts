@@ -40,4 +40,41 @@ export class UserService {
     
     return response.data;
   }
+
+  public async findFriends(credential : string) : Promise<AppUser[]>{
+    const response = await this.axiosInstance.get<any, AxiosResponse<AppUser[]>>('/friends', {
+      headers: {
+        credential
+      }
+    })
+
+    return response.data;
+  }
+
+  public async addFriend(credential : string, googleId? : string) : Promise<AppUser>{
+    const response = await this.axiosInstance.post<any, AxiosResponse<AppUser>>('/friends', {}, {
+      params: {
+        googleId
+      },
+      headers: {
+        credential
+      }
+    })
+
+    return response.data;
+  }
+  
+  public async removeFriend(credential : string, googleId? : string) : Promise<AppUser>{
+    const response = await this.axiosInstance.delete<any, AxiosResponse<AppUser>>('/friends', {
+      params: {
+        googleId
+      },
+      headers: {
+        credential
+      }
+    })
+
+    return response.data;
+  }
+
 }

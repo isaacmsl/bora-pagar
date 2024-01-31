@@ -1,22 +1,84 @@
 <script setup lang="ts">
 import type { AppUser } from '@/types/AppUser';
+import { UserService } from '@/services/UserService';
 import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
-// import Button from '@/components/Button.vue';
+import { ref } from 'vue';
+import Button from '@/components/Button.vue';
+import { useAuthStore } from '@/stores/auth';
+import { onMounted } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   user: AppUser
 }>()
+
+const auth = useAuthStore();
+let credential = auth.getCredentialFromLocalStorage();
+const userService = new UserService();
+const hasCheckedFriendship = ref(false);
+const isFriend = ref(false);
+const isHandlingInterestedFriend = ref(false);
+
+async function handleInterestedFriend(googleId : string, wantsToBeFriend : boolean) {
+  isFriend.value = wantsToBeFriend;
+  credential = auth.getCredentialFromLocalStorage();
+  let user: AppUser;
+
+  if(wantsToBeFriend) {
+    user = await userService.addFriend(credential, googleId);
+  } else {
+    user = await userService.removeFriend(credential, googleId);
+  }
+
+  const userFriends = await userService.findFriends(credential);
+  isHandlingInterestedFriend.value = containsFriend(userFriends);
+}
+
+function containsFriend(friends : AppUser[]) : boolean {
+  return friends.find(friend => friend.googleId == props.user.googleId) != undefined
+}
+
+async function checkFriendship() {
+  const userFriends = await userService.findFriends(credential);
+
+  if(userFriends != undefined) {
+    hasCheckedFriendship.value = true;
+  }
+
+  isFriend.value = containsFriend(userFriends);
+}
+
+onMounted(() => {
+  checkFriendship();
+});
+
 </script>
 
 <template>
-  <li :title="`Ver disciplinas de ${user.name}`" class="userItemContainer"
-    @click="navigateToSubjectsOfUserGoogleId(user.googleId)">
-    <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
-    <div class="userItemInfo">
-      <h2>{{ user.name }}</h2>
-      <p>@{{ user.username }}</p>
+  <li  class="userItemContainer">
+    <div class="clickableContainer" 
+    @click="navigateToSubjectsOfUserGoogleId(user.googleId)"
+    :title="`Ver disciplinas de ${user.name}`">
+      <img :src="user.pictureUri" :alt="`Foto de perfil do usuário ${user.name}`">
+      <div class="userItemInfo">
+        <h2>{{ user.name }}</h2>
+        <p>@{{ user.username }}</p>
+      </div>
     </div>
-    <!-- <Button name="Conectar"/> -->
+    <div class="followButton" v-if="hasCheckedFriendship">
+      <Button 
+        @click="handleInterestedFriend(user.googleId, true)"
+        v-if="!isFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
+        :disabled="isHandlingInterestedFriend"
+        name="Seguir"
+      />
+      <Button 
+        @click="handleInterestedFriend(user.googleId, false)"
+        v-if="isFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
+        :disabled="isHandlingInterestedFriend"
+        name="Não seguir"
+        color="danger"
+      />
+    </div>
   </li>
 </template>
 
@@ -35,6 +97,19 @@ defineProps<{
 
 .userItemContainer:hover {
   background-color: #171926;
+}
+
+.clickableContainer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.followButton {
+  display: flex;
+  align-items: end;
+  text-wrap: nowrap;
 }
 
 .userItemContainer img {
