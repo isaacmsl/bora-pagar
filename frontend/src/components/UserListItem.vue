@@ -5,6 +5,7 @@ import { navigateToSubjectsOfUserGoogleId } from '@/util/navigation';
 import { ref } from 'vue';
 import Button from '@/components/Button.vue';
 import { useAuthStore } from '@/stores/auth';
+import { onMounted } from 'vue';
 
 const props = defineProps<{
   user: AppUser
@@ -13,18 +14,18 @@ const props = defineProps<{
 const auth = useAuthStore();
 let credential = auth.getCredentialFromLocalStorage();
 const userService = new UserService();
-const isInterestedFriend = ref(false);
+const hasCheckedFriendship = ref(false);
+const isFriend = ref(false);
 const isHandlingInterestedFriend = ref(false);
 
-async function handleInterestedFriend(googleId : string, isFriend : boolean) {
-  isInterestedFriend.value = true;
+async function handleInterestedFriend(googleId : string, wantsToBeFriend : boolean) {
+  isFriend.value = wantsToBeFriend;
   credential = auth.getCredentialFromLocalStorage();
   let user: AppUser;
 
-  if(isFriend) {
+  if(wantsToBeFriend) {
     user = await userService.addFriend(credential, googleId);
   } else {
-    isInterestedFriend.value = false;
     user = await userService.removeFriend(credential, googleId);
   }
 
@@ -38,11 +39,18 @@ function containsFriend(friends : AppUser[]) : boolean {
 
 async function checkFriendship() {
   const userFriends = await userService.findFriends(credential);
-  
-  isInterestedFriend.value = containsFriend(userFriends);
+
+  if(userFriends != undefined) {
+    hasCheckedFriendship.value = true;
+  }
+
+  isFriend.value = containsFriend(userFriends);
 }
 
-checkFriendship();
+onMounted(() => {
+  checkFriendship();
+});
+
 </script>
 
 <template>
@@ -56,18 +64,18 @@ checkFriendship();
         <p>@{{ user.username }}</p>
       </div>
     </div>
-    <div class="followButton">
+    <div class="followButton" v-if="hasCheckedFriendship">
       <Button 
         @click="handleInterestedFriend(user.googleId, true)"
-        v-if="!isInterestedFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
+        v-if="!isFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
         :disabled="isHandlingInterestedFriend"
         name="Seguir"
       />
       <Button 
         @click="handleInterestedFriend(user.googleId, false)"
-        v-if="isInterestedFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
+        v-if="isFriend && auth.loggedIn() && user.googleId != auth.user?.sub"
         :disabled="isHandlingInterestedFriend"
-        name="Deixar de seguir"
+        name="Não seguir"
         color="danger"
       />
     </div>
@@ -96,6 +104,12 @@ checkFriendship();
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.followButton {
+  display: flex;
+  align-items: end;
+  text-wrap: nowrap;
 }
 
 .userItemContainer img {
